@@ -7,6 +7,6 @@ exports.signJwt = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../config/config");
 const signJwt = (user) => {
-    return jsonwebtoken_1.default.sign(user.toJSON(), config_1.SERVER_TOKEN_SECRET, { expiresIn: config_1.SERVER_TOKEN_EXPIRETIME, algorithm: 'HS256' });
+    return jsonwebtoken_1.default.sign(user.toJSON(), config_1.SERVER_TOKEN_SECRET, { expiresIn: config_1.SERVER_TOKEN_EXPIRETIME });
 };
 exports.signJwt = signJwt;

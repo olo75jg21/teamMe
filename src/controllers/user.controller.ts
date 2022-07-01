@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
+
 import { UserModel } from '../models/user.model';
+import { signJwt } from '../utils/jwt.utils';
 
 export const handleUserRegister = async (req: Request, res: Response) => {
   try {
@@ -23,8 +25,8 @@ export const handleUserLogin = async (req: Request, res: Response) => {
       const comparePassword = await bcrypt.compare(password, user.password);
 
       if (comparePassword) {
-        return res.status(200).send(user);
-        // perform jwt operations
+        const jwt = signJwt(user);
+        return res.status(200).send({ user, token: jwt });
       }
 
       return res.json({
@@ -40,4 +42,9 @@ export const handleUserLogin = async (req: Request, res: Response) => {
     console.log(e)
     return res.status(401).send(e);
   }
+};
+
+export const handleGetAllUsers = async (req: Request, res: Response) => {
+  const users = await UserModel.find({});
+  res.send(users);
 };

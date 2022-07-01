@@ -1,18 +1,9 @@
 import mongoose from 'mongoose';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
+import { MONGO_URL } from '../config/config';
 
 export const connect = async () => {
-  let uri: string;
-  if (process.env.DB_CONN_STRING) {
-    uri = process.env.DB_CONN_STRING
-  } else {
-    throw new Error("DB_CONN_STRING environment variable is not set")
-  }
-
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(MONGO_URL);
     console.log('Connected to DB');
   } catch (e) {
     console.error('Coult not connect to DB');
