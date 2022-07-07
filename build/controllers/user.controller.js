@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleGetAllUsers = exports.handleUserLogin = exports.handleUserRegister = void 0;
+exports.handleGetOneUser = exports.handleGetAllUsers = exports.handleUserLogin = exports.handleUserRegister = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_model_1 = require("../models/user.model");
 const jwt_utils_1 = require("../utils/jwt.utils");
@@ -57,3 +57,9 @@ const handleGetAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, functi
     res.send(users);
 });
 exports.handleGetAllUsers = handleGetAllUsers;
+const handleGetOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield user_model_1.UserModel.findOne({ _id: req.params.id });
+    console.log(req.params);
+    res.send(user);
+});
+exports.handleGetOneUser = handleGetOneUser;

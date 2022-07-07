@@ -48,3 +48,8 @@ export const handleGetAllUsers = async (req: Request, res: Response) => {
   const users = await UserModel.find({});
   res.send(users);
 };
+
+export const handleGetOneUser = async (req: Request, res: Response) => {
+  const user = await UserModel.findOne({ _id: req.params.id });
+  res.send(user);
+};

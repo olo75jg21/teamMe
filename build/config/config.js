@@ -10,4 +10,4 @@ exports.MONGO_URL = process.env.DB_CONN_STRING || '';
 exports.SERVER_PORT = process.env.SERVER_PROT || 5000;
 exports.SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || 'jdsalkhfjhekljhdwajdhsjkh';
 exports.SERVER_TOKEN_REFRESH = process.env.SERVER_TOKEN_REFRESH || 'dsaijufhaheifhah';
-exports.SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || '15m'; // Need to setup
+exports.SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || '15m';
