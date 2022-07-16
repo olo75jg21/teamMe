@@ -6,7 +6,7 @@
   "scripts": {
     "start:build": "tsc --watch -p src",
     "start:run": "nodemon build/index.js",
-    "start": "concurrently npm:start:*",
+    "start": "concurrently \"npm:start:*\" \"cd client && npm run start\" ",
     "script": "cd src/scripts && ts-node"
   },
   "author": "",
