@@ -59,7 +59,6 @@ const handleGetAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.handleGetAllUsers = handleGetAllUsers;
 const handleGetOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_model_1.UserModel.findOne({ _id: req.params.id });
-    console.log(req.params);
     res.send(user);
 });
 exports.handleGetOneUser = handleGetOneUser;
