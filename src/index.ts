@@ -1,10 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import { connect } from './utils/connectDb';
 import { userRoutes } from './routes/user.routes';
 
 import { SERVER_PORT } from './config/config';
 
 const app = express();
+app.use(cors());
 
 connect();
 

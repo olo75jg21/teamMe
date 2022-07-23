@@ -1,4 +1,4 @@
-import { Express, Request, Response } from 'express';
+import { Express } from 'express';
 
 import { handleUserRegister, handleUserLogin, handleGetAllUsers, handleGetOneUser } from '../controllers/user.controller';
 import { authenticateJwt } from '../middlewares/authenticateJwt';

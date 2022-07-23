@@ -11,6 +11,7 @@ type FormValues = {
 export default function Register() {
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = data => {
+    console.log(data)
     axios.post('/users/register', data)
       .then(res => {
         console.log(res);
