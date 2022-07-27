@@ -1,13 +1,20 @@
-import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import '../index.css';
 
-import Register from './Register';
+import RegisterPage from './RegisterPage';
+import ErrorPage from "./ErrorPage";
 
 export const App = (): JSX.Element => {
   return (
     <div>
-      <h1 className='text-3xl font-bold underline text-blue-600'>helolololo</h1>
-      <Register />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<div> <p>eoeo</p> </div>} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
