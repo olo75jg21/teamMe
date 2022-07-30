@@ -5,7 +5,6 @@ const RegisterPage = (): JSX.Element => {
     <div className='bg-slate-200 flex h-screen'>
       <div className='m-auto'>
         <RegisterForm />
-        <p>eoeoeo</p>
       </div>
     </div>
   );

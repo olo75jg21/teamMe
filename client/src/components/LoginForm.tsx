@@ -4,16 +4,16 @@ import axios from 'axios';
 type FormValues = {
   email: string;
   password: string;
-  repeatPassword: string;
 };
 
-const RegisterForm = (): JSX.Element => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>();
+const LoginForm = (): JSX.Element => {
+  const { register, handleSubmit } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    axios.post('/users/register', data)
+    axios.post('/users/login', data)
       .then(res => {
-        console.log(res.data);
+        console.log(res.data.token);
+        console.log(res.data.user);
       })
       .catch(err => {
         console.log(err);
@@ -44,28 +44,10 @@ const RegisterForm = (): JSX.Element => {
           />
         </div>
 
-        <div className='mb-8'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>Repeat password</label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            type='password'
-            {...register("repeatPassword", {
-              required: true,
-              validate: (value: string) => {
-                if (watch('password') !== value) {
-                  console.log('Your passwords do no match');
-                  return 'Your passwords do no match';
-                }
-              }
-            })}
-          />
-          {errors.repeatPassword && <span>Passwords do not match</span>}
-        </div>
-
-        <input type="submit" value='Sign In' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+        <input type="submit" value='Login' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
       </form>
     </div>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

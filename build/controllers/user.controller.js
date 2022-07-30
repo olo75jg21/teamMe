@@ -18,9 +18,9 @@ const user_model_1 = require("../models/user.model");
 const jwt_utils_1 = require("../utils/jwt.utils");
 const handleUserRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, username, password } = req.body;
+        const { email, password } = req.body;
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
-        const user = yield user_model_1.UserModel.create({ email, username, password: hashedPassword });
+        const user = yield user_model_1.UserModel.create({ email, password: hashedPassword });
         res.status(201).send(user);
     }
     catch (e) {

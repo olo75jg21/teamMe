@@ -6,11 +6,11 @@ import { signJwt } from '../utils/jwt.utils';
 
 export const handleUserRegister = async (req: Request, res: Response) => {
   try {
-    const { email, username, password } = req.body;
+    const { email, password } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await UserModel.create({ email, username, password: hashedPassword });
+    const user = await UserModel.create({ email, password: hashedPassword });
     res.status(201).send(user);
   } catch (e: any) {
     res.status(409).send(e.message);
