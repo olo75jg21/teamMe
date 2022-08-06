@@ -1,6 +1,6 @@
 const Header = (): JSX.Element => {
   return (
-    <div className='fixed'>
+    <div>
       <h1>Header</h1>
     </div>
   );

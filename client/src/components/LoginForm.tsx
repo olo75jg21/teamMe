@@ -1,5 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { setCredentials } from '../redux/features/authSlice';
 
 type FormValues = {
   email: string;
@@ -8,12 +11,15 @@ type FormValues = {
 
 const LoginForm = (): JSX.Element => {
   const { register, handleSubmit } = useForm<FormValues>();
+  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     axios.post('/users/login', data)
       .then(res => {
-        console.log(res.data.token);
-        console.log(res.data.user);
+        dispatch(setCredentials({
+          user: res.data.user,
+          token: res.data.token
+        }));
       })
       .catch(err => {
         console.log(err);
@@ -46,6 +52,7 @@ const LoginForm = (): JSX.Element => {
 
         <input type="submit" value='Login' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
       </form>
+      <NavLink to="/">to</NavLink>
     </div>
   );
 };

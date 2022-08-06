@@ -4,6 +4,8 @@ import bcrypt from 'bcrypt';
 import { UserModel } from '../models/user.model';
 import { signJwt } from '../utils/jwt.utils';
 
+import { SERVER_TOKEN_EXPIRETIME } from '../config/config';
+
 export const handleUserRegister = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
