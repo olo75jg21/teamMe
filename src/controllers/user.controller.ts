@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
+import { omit } from 'lodash';
 
 import { UserModel } from '../models/user.model';
 import { signJwt } from '../utils/jwt.utils';

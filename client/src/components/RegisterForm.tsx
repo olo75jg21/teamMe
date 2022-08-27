@@ -54,7 +54,7 @@ const RegisterForm = (): JSX.Element => {
               validate: (value: string) => {
                 if (watch('password') !== value) {
                   console.log('Your passwords do no match');
-                  return 'Your passwords do no match';
+                  return 'Your passwords do not match';
                 }
               }
             })}

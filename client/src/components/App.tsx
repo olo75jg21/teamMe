@@ -11,7 +11,7 @@ import RegisterPage from './RegisterPage';
 
 export const App = (): JSX.Element => {
   return (
-    <div>
+    <div className='box-border'>
       <BrowserRouter>
         <Header />
         <Routes>

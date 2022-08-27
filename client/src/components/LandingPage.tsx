@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { useAppSelector } from '../redux/hooks';
 
 const LandingPage = (): JSX.Element => {
   const user = useAppSelector((state) => state.auth.user);
@@ -9,8 +9,10 @@ const LandingPage = (): JSX.Element => {
   }, [user]);
 
   return (
-    <div>
-      Landing Page
+    <div className="bg-slate-200 flex h-screen">
+      <div className='m-auto'>
+        <h2>Landing Page</h2>
+      </div>
     </div>
   );
 };

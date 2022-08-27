@@ -51,8 +51,18 @@ const LoginForm = (): JSX.Element => {
         </div>
 
         <input type="submit" value='Login' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+
+        <div className='mt-6'>
+          <span className=''>
+            Dont have account?&nbsp;
+          </span>
+
+          <NavLink className="font-bold" to='/register'>
+            Create
+          </NavLink>
+
+        </div>
       </form>
-      <NavLink to="/">to</NavLink>
     </div>
   );
 };
