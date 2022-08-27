@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
 import { setCredentials } from '../redux/features/authSlice';
 
 type FormValues = {
