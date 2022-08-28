@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import { omit } from 'lodash';
+import * as _ from 'lodash';
 
 import { UserModel } from '../models/user.model';
 import { signJwt } from '../utils/jwt.utils';
@@ -29,7 +29,9 @@ export const handleUserLogin = async (req: Request, res: Response) => {
 
       if (comparePassword) {
         const jwt = signJwt(user);
-        return res.status(200).send({ user, token: jwt });
+        const omitUser = _.omit(user, ['password']);
+        return res.status(200).send(_.omit(user, ['password']));
+        // { user, token: jwt }
       }
 
       return res.json({
