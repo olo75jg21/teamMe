@@ -17,7 +17,11 @@ const LoginPage = (): JSX.Element => {
     <div>
       <div className='bg-slate-200 flex h-screen'>
         <div className='m-auto'>
-          <BackgroundBlob topOffset={40} leftOffset={80} width={16} height={16} bgColorHex='#abcef7' />
+          <BackgroundBlob topOffset={15} leftOffset={0} size={12} bgColorHex='#b2f7eb' />
+          <BackgroundBlob topOffset={20} leftOffset={20} size={16} bgColorHex='#abcef7' />
+          <BackgroundBlob topOffset={15} leftOffset={80} size={12} bgColorHex='#edc2ff' />
+          <BackgroundBlob topOffset={40} leftOffset={85} size={16} bgColorHex='#eeffbf' />
+          <BackgroundBlob topOffset={40} leftOffset={10} size={16} bgColorHex='#ebd9c0' />
           <LoginForm />
         </div>
       </div>

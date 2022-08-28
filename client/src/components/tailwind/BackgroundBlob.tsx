@@ -1,19 +1,16 @@
 interface BackgroundBlobProps {
   topOffset: number;
   leftOffset: number;
-  width: number;
-  height: number;
+  size: number;
   bgColorHex: string;
 }
 
-// This component is used to render blured blobs in the backround, we can't specify dynamic 
-// backround color in tailwind, so I used default style property.
+// This component is used to render blured blobs in the backround
 // Use rem to specify size and offstes
 export const BackgroundBlob = ({
   topOffset,
   leftOffset,
-  width,
-  height,
+  size,
   bgColorHex }: BackgroundBlobProps): JSX.Element => {
   return (
     <div>
@@ -23,8 +20,8 @@ export const BackgroundBlob = ({
           backgroundColor: bgColorHex,
           top: `${topOffset}rem`,
           left: `${leftOffset}rem`,
-          width: `${width}rem`,
-          height: `${height}rem`
+          width: `${size}rem`,
+          height: `${size}rem`
         }}
       />
     </div>
