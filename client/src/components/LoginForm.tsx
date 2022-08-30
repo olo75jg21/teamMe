@@ -4,7 +4,6 @@ import * as yup from "yup";
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import { useAppDispatch } from '../redux/hooks';
 
 interface FormValues {
   email: string;
@@ -22,8 +21,6 @@ const LoginForm = (): JSX.Element => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: yupResolver(loginSchema)
   });
-
-  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<FormValues> = data => {
     axios.post('/users/login', data)

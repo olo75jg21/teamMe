@@ -63,7 +63,7 @@ const handleUserLogin = (req, res) => __awaiter(void 0, void 0, void 0, function
                 const omitUser = _.omit(user.toObject(), ['password']);
                 return res.status(200).send({ user: omitUser, token: jwt });
             }
-            return res.json({
+            return res.status(401).json({
                 message: 'Wrong username or password.'
             });
         }

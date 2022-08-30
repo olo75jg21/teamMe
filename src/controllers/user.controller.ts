@@ -33,7 +33,7 @@ export const handleUserLogin = async (req: Request, res: Response) => {
         return res.status(200).send({ user: omitUser, token: jwt });
       }
 
-      return res.json({
+      return res.status(401).json({
         message: 'Wrong username or password.'
       });
     }

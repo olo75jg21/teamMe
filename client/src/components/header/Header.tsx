@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import { LogoutButton } from './LogoutButton';
+import { useEffect } from 'react';
 
 const Header = (): JSX.Element => {
   const [cookies, setCookies] = useCookies(['credentials']);
@@ -19,8 +20,8 @@ const Header = (): JSX.Element => {
               md:border-0 hover:text-slate-50'
             >
               <li>
-                <NavLink to="/login" className="block py-2 pr-4 pl-3 text-slate-300 text-xl text-gray-400
-                  hover:underline hover:underline-offset-8 duration-200 md:p-2 
+                <NavLink to={!user ? "/login" : "/account"} className="block py-2 pr-4 pl-3 text-slate-300 text-xl 
+                  text-gray-400 hover:underline hover:underline-offset-8 duration-200 md:p-2 
                   hover:text-white md:hover:bg-transparent"
                 >
                   Account
@@ -35,7 +36,7 @@ const Header = (): JSX.Element => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/" className="block py-2 pr-4 pl-3 text-slate-300 text-xl text-gray-400
+                <NavLink to={!user ? "/login" : "/account"} className="block py-2 pr-4 pl-3 text-slate-300 text-xl text-gray-400
                   hover:underline hover:underline-offset-8 duration-200 md:p-2 
                   hover:text-white md:hover:bg-transparent"
                 >
