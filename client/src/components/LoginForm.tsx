@@ -5,7 +5,6 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../redux/hooks';
-import { setCredentials } from '../redux/features/authSlice';
 
 interface FormValues {
   email: string;
@@ -29,15 +28,10 @@ const LoginForm = (): JSX.Element => {
   const onSubmit: SubmitHandler<FormValues> = data => {
     axios.post('/users/login', data)
       .then(res => {
-        dispatch(setCredentials({
-          user: res.data.user,
-          token: res.data.token
-        }));
-
         setCookies('credentials', res.data, {
-          sameSite: true,
-          maxAge: 30,
-          secure: true
+          secure: true,
+          sameSite: 'lax',
+          maxAge: 30
         });
       })
       .catch(err => {

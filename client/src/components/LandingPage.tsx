@@ -1,17 +1,14 @@
 import { useEffect } from 'react';
 import { useAppSelector } from '../redux/hooks';
 import { useCookies } from 'react-cookie';
-import axios from 'axios';
 
 const LandingPage = (): JSX.Element => {
-  const user = useAppSelector((state) => state.auth.user);
   const [cookies, setCookies] = useCookies(['credentials']);
 
   useEffect(() => {
-    console.log(user);
-    console.log(cookies.credentials.token);
+    // cookies.credentials?.token && console.log(cookies.credentials.token);
 
-  }, [user]);
+  }, []);
 
   return (
     <div className="bg-slate-200 flex h-fit">

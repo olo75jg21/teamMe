@@ -1,6 +1,14 @@
 import { NavLink } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
+import { LogoutButton } from './LogoutButton';
 
 const Header = (): JSX.Element => {
+  const [cookies, setCookies] = useCookies(['credentials']);
+
+  let user;
+  cookies.credentials !== undefined ? user = cookies.credentials.user : user = '';
+
   return (
     <div className='top-0 sticky'>
       <nav className='bg-gradient-to-r from-sky-600 to-indigo-600 rounded-b-md'>
@@ -34,6 +42,11 @@ const Header = (): JSX.Element => {
                   New Offert
                 </NavLink>
               </li>
+              {
+                user !== ''
+                  ? <LogoutButton />
+                  : <></>
+              }
             </ul>
           </div>
         </div>
