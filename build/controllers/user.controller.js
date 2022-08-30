@@ -60,9 +60,8 @@ const handleUserLogin = (req, res) => __awaiter(void 0, void 0, void 0, function
             const comparePassword = yield bcrypt_1.default.compare(password, user.password);
             if (comparePassword) {
                 const jwt = (0, jwt_utils_1.signJwt)(user);
-                const omitUser = _.omit(user, ['password']);
-                return res.status(200).send(_.omit(user, ['password']));
-                // { user, token: jwt }
+                const omitUser = _.omit(user.toObject(), ['_id', 'password']);
+                return res.status(200).send({ user: omitUser, token: jwt });
             }
             return res.json({
                 message: 'Wrong username or password.'

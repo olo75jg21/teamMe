@@ -29,16 +29,16 @@ const LoginForm = (): JSX.Element => {
   const onSubmit: SubmitHandler<FormValues> = data => {
     axios.post('/users/login', data)
       .then(res => {
-        console.log(res.data)
-        // dispatch(setCredentials({
-        //   user: res.data.user,
-        //   token: res.data.token
-        // }));
-        // setCookies('credentials', res.data, {
-        //   sameSite: true,
-        //   maxAge: 15,
-        //   secure: true
-        // });
+        dispatch(setCredentials({
+          user: res.data.user,
+          token: res.data.token
+        }));
+
+        setCookies('credentials', res.data, {
+          sameSite: true,
+          maxAge: 30,
+          secure: true
+        });
       })
       .catch(err => {
         console.log(err);

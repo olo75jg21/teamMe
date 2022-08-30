@@ -29,9 +29,8 @@ export const handleUserLogin = async (req: Request, res: Response) => {
 
       if (comparePassword) {
         const jwt = signJwt(user);
-        const omitUser = _.omit(user, ['password']);
-        return res.status(200).send(_.omit(user, ['password']));
-        // { user, token: jwt }
+        const omitUser = _.omit(user.toObject(), ['_id', 'password']);
+        return res.status(200).send({ user: omitUser, token: jwt });
       }
 
       return res.json({
