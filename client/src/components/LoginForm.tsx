@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface FormValues {
   email: string;
@@ -17,6 +18,7 @@ const loginSchema = yup.object({
 
 const LoginForm = (): JSX.Element => {
   const [cookies, setCookies] = useCookies(['credentials']);
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: yupResolver(loginSchema)
@@ -30,6 +32,9 @@ const LoginForm = (): JSX.Element => {
           sameSite: 'lax',
           maxAge: 30
         });
+      })
+      .then(() => {
+        navigate('/');
       })
       .catch(err => {
         console.log(err);
