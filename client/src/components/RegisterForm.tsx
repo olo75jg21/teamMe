@@ -17,7 +17,7 @@ const registrationSchema = yup.object({
 });
 
 const RegisterForm = (): JSX.Element => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: yupResolver(registrationSchema)
   });
 

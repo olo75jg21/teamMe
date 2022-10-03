@@ -5,7 +5,7 @@ import { LogoutButton } from './LogoutButton';
 import { useEffect } from 'react';
 
 const Header = (): JSX.Element => {
-  const [cookies, setCookies] = useCookies(['credentials']);
+  const [cookies, ] = useCookies(['credentials']);
 
   let user;
   cookies.credentials !== undefined ? user = cookies.credentials.user : user = '';

@@ -2,7 +2,7 @@ import { useCookies } from 'react-cookie';
 import { NavLink } from 'react-router-dom';
 
 export const LogoutButton = (): JSX.Element => {
-  const [cookies, setCookies, removeCookies] = useCookies(['credentials']);
+  const [, , removeCookies] = useCookies(['credentials']);
 
   return (
     <NavLink

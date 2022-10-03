@@ -21,7 +21,7 @@ const connect = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log('Connected to DB');
     }
     catch (e) {
-        console.error('Coult not connect to DB');
+        console.error('Could not connect to DB');
         process.exit(1);
     }
 });

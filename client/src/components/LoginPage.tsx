@@ -1,4 +1,3 @@
-import { useCookies } from 'react-cookie';
 import LoginForm from './LoginForm';
 import { BackgroundBlob } from './tailwind/BackgroundBlob';
 

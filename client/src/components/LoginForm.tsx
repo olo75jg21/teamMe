@@ -7,80 +7,80 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 interface FormValues {
-  email: string;
-  password: string;
+	email: string;
+	password: string;
 };
 
 const loginSchema = yup.object({
-  email: yup.string().email('Provide a valid email').required('Email is required'),
-  password: yup.string().required('Password is required')
+	email: yup.string().email('Provide a valid email').required('Email is required'),
+	password: yup.string().required('Password is required')
 });
 
 const LoginForm = (): JSX.Element => {
-  const [cookies, setCookies] = useCookies(['credentials']);
-  const navigate = useNavigate();
+	const [, setCookies] = useCookies(['credentials']);
+	const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
-    resolver: yupResolver(loginSchema)
-  });
+	const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+		resolver: yupResolver(loginSchema)
+	});
 
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    axios.post('/users/login', data)
-      .then(res => {
-        setCookies('credentials', res.data, {
-          secure: true,
-          sameSite: 'lax',
-          maxAge: 30
-        });
-      })
-      .then(() => {
-        navigate('/');
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+	const onSubmit: SubmitHandler<FormValues> = data => {
+		axios.post('/users/login', data)
+			.then(res => {
+				setCookies('credentials', res.data, {
+					secure: true,
+					sameSite: 'lax',
+					maxAge: 60 * 15
+				});
+			})
+			.then(() => {
+				navigate('/');
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
 
-  return (
-    <div className='w-80'>
-      <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
-        <div className='mb-4 h-20'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            {...register("email")}
-          />
-          {errors.email?.message && <span className='text-red-600'>{errors.email?.message}</span>}
-        </div>
+	return (
+		<div className='w-80'>
+			<form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
+				<div className='mb-4 h-20'>
+					<label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
+					<input
+						className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+						{...register("email")}
+					/>
+					{errors.email?.message && <span className='text-red-600'>{errors.email?.message}</span>}
+				</div>
 
-        <div className='mb-5 h-20'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>Password</label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            type='password'
-            {...register("password")}
-          />
-          {errors.password?.message && <span className='text-red-600'>{errors.password?.message}</span>}
-        </div>
+				<div className='mb-5 h-20'>
+					<label className='block text-gray-700 text-sm font-bold mb-2'>Password</label>
+					<input
+						className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+						type='password'
+						{...register("password")}
+					/>
+					{errors.password?.message && <span className='text-red-600'>{errors.password?.message}</span>}
+				</div>
 
-        <input type="submit" value='Login' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+				<input type="submit" value='Login' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
 
-        <div className='mt-4'>
-          <span className=''>
-            Dont have account?&nbsp;
-          </span>
+				<div className='mt-4'>
+					<span className=''>
+						Dont have account?&nbsp;
+					</span>
 
-          <NavLink
-            to='/register'
-            className="font-bold duration-200 text-stone-400 hover:text-stone-700"
-          >
-            Create
-          </NavLink>
+					<NavLink
+						to='/register'
+						className="font-bold duration-200 text-stone-400 hover:text-stone-700"
+					>
+						Create
+					</NavLink>
 
-        </div>
-      </form>
-    </div>
-  );
+				</div>
+			</form>
+		</div>
+	);
 };
 
 export default LoginForm;
