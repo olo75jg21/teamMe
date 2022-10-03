@@ -13,3 +13,12 @@ export const yupUserRegistrationSchema = yup.object({
 		.max(64)
 		.required()
 });
+
+export const yupUserLoginSchema = yup.object({
+	email: yup
+		.string()	
+		.email(),
+		password: yup
+		.string()
+		.required()
+});

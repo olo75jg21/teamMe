@@ -7,7 +7,7 @@ const validation_1 = require("../middlewares/validation");
 const userValidationSchema_1 = require("../validation/userValidationSchema");
 const userRoutes = (app) => {
     app.post('/users/register', (0, validation_1.userValidation)(userValidationSchema_1.yupUserRegistrationSchema), user_controller_1.handleUserRegister);
-    app.post('/users/login', user_controller_1.handleUserLogin);
+    app.post('/users/login', (0, validation_1.userValidation)(userValidationSchema_1.yupUserLoginSchema), user_controller_1.handleUserLogin);
     app.get('/users/getAllUsers', authenticateJwt_1.authenticateJwt, user_controller_1.handleGetAllUsers);
     app.get('/users/getOneUser/:id', authenticateJwt_1.authenticateJwt, user_controller_1.handleGetOneUser);
 };
