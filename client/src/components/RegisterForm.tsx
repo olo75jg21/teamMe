@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { NavLink } from 'react-router-dom';
@@ -21,10 +22,15 @@ const RegisterForm = (): JSX.Element => {
     resolver: yupResolver(registrationSchema)
   });
 
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<FormValues> = data => {
     axios.post('/users/register', data)
       .then(res => {
         console.log(res.data);
+      })
+      .then(res => {
+        navigate('/login');
       })
       .catch(err => {
         console.log(err);
