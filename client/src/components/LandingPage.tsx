@@ -1,4 +1,13 @@
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+
 const LandingPage = (): JSX.Element => {
+  const [cookies, setCookies] = useCookies(['credentials']);
+
+  useEffect(() => {
+
+  }, []);
 
   return (
     <div className="bg-slate-200 flex h-fit">

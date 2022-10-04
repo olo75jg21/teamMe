@@ -5,8 +5,6 @@ import * as _ from 'lodash';
 import { UserModel } from '../models/user.model';
 import { signJwt } from '../utils/jwt.utils';
 
-import { SERVER_TOKEN_EXPIRETIME } from '../config/config';
-
 export const handleUserRegister = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -55,5 +53,5 @@ export const handleGetAllUsers = async (req: Request, res: Response) => {
 
 export const handleGetOneUser = async (req: Request, res: Response) => {
   const user = await UserModel.findOne({ _id: req.params.id });
-  res.send(user);
+  res.send(_.omit(user?.toObject(), ['password']));
 };

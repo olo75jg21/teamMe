@@ -1,10 +1,16 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+import { GameSchema, IGame } from './game.model';
+
 export interface IUser extends Document {
   email: string;
   username: string;
   password: string;
-}
+  languages: string[];
+  age: number;
+  description: string;
+  games: IGame[];
+};
 
 const UserSchema: Schema = new Schema({
   email: {
@@ -18,6 +24,9 @@ const UserSchema: Schema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  games: {
+    type: [GameSchema]
   }
 }, {
   timestamps: true
