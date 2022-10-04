@@ -28,21 +28,30 @@ const mongoose_1 = __importStar(require("mongoose"));
 const game_model_1 = require("./game.model");
 ;
 const UserSchema = new mongoose_1.Schema({
+    age: {
+        type: Number
+    },
+    description: {
+        type: String
+    },
     email: {
         type: String,
         required: true,
         unique: true
     },
-    username: {
-        type: String,
+    games: {
+        type: [game_model_1.GameSchema]
+    },
+    language: {
+        type: [String]
     },
     password: {
         type: String,
         required: true
     },
-    games: {
-        type: [game_model_1.GameSchema]
-    }
+    username: {
+        type: String,
+    },
 }, {
     timestamps: true
 });
