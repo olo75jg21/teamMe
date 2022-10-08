@@ -18,11 +18,7 @@ const Header = (): JSX.Element => {
               {/* Change '/' route later */}
               <HeaderItem route={'/'} text={'New Offert'} /> 
 
-              {/* {
-                user !== ''
-                  ? <LogoutButton />
-                  : <></>
-              } */}
+              <LogoutButton />
             </ul>
           </div>
         </div>

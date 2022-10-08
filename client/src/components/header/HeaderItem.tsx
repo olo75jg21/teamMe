@@ -9,8 +9,7 @@ export interface HeaderItemProps {
 export const HeaderItem = ({ route, text }: HeaderItemProps): JSX.Element => {
   const [cookies] = useCookies(['credentials']);
 
-  let user;
-  cookies.credentials ? user = cookies.credentials.user : user = '';
+  const user = cookies.credentials?.user;
 
   return (
     <div>

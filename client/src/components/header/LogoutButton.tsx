@@ -2,10 +2,13 @@ import { useCookies } from 'react-cookie';
 import { NavLink } from 'react-router-dom';
 
 export const LogoutButton = (): JSX.Element => {
-  const [, , removeCookies] = useCookies(['credentials']);
+  const [cookies, , removeCookies] = useCookies(['credentials']);
+  const user = cookies.credentials?.user;
 
   return (
-    <NavLink
+    user 
+      ?
+      <NavLink
       to='/'
       onClick={() => removeCookies('credentials', { path: '/' })}
       className="block py-2 pr-4 pl-3 text-slate-300 text-xl text-gray-400 hover:underline hover:underline-offset-8 
@@ -13,5 +16,7 @@ export const LogoutButton = (): JSX.Element => {
     >
       Logout
     </NavLink>
+    : 
+    <></>
   );
 };
