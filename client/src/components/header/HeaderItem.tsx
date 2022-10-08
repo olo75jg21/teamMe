@@ -1,12 +1,17 @@
 import { NavLink } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 export interface HeaderItemProps {
-  user: any;
   route: string;
   text: string;
 };
 
-export const HeaderItem = ({ user, route, text }: HeaderItemProps): JSX.Element => {
+export const HeaderItem = ({ route, text }: HeaderItemProps): JSX.Element => {
+  const [cookies] = useCookies(['credentials']);
+
+  let user;
+  cookies.credentials ? user = cookies.credentials.user : user = '';
+
   return (
     <div>
       <li>
