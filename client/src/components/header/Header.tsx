@@ -15,8 +15,7 @@ const Header = (): JSX.Element => {
               md:border-0 hover:text-slate-50'
             >
               <HeaderItem route={'/account'} text={'Account'} /> 
-              {/* Change '/' route later */}
-              <HeaderItem route={'/'} text={'New Offert'} /> 
+              <HeaderItem route={'/newoffert'} text={'New Offert'} /> 
 
               <LogoutButton />
             </ul>
