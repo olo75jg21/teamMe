@@ -29,7 +29,7 @@ const game_model_1 = require("./game.model");
 ;
 const UserSchema = new mongoose_1.Schema({
     age: {
-        type: Number
+        type: Number,
     },
     description: {
         type: String

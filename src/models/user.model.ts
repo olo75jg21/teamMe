@@ -14,7 +14,7 @@ export interface IUser extends Document {
 
 const UserSchema: Schema = new Schema({
   age: {
-    type: Number
+    type: Number,
   },
   description: {
     type: String

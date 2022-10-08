@@ -1,5 +1,5 @@
 import LoginForm from './LoginForm';
-import { BackgroundBlob } from './tailwind/BackgroundBlob';
+import { BackgroundBlob } from '../tailwind/BackgroundBlob';
 
 const LoginPage = (): JSX.Element => {
   return (
