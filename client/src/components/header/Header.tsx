@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
+import { HeaderItem } from './HeaderItem';
 import { LogoutButton } from './LogoutButton';
 
 const Header = (): JSX.Element => {
@@ -18,30 +19,11 @@ const Header = (): JSX.Element => {
             <ul className='flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium 
               md:border-0 hover:text-slate-50'
             >
-              <li>
-                <NavLink to={!user ? "/login" : "/account"} className="block py-2 pr-4 pl-3 text-slate-300 text-xl 
-                  text-gray-400 hover:underline hover:underline-offset-8 duration-200 md:p-2 
-                  hover:text-white md:hover:bg-transparent"
-                >
-                  Account
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact" className="block py-2 pr-4 pl-3 text-slate-300 text-xl text-gray-400
-                  hover:underline hover:underline-offset-8 duration-200 md:p-2 
-                  hover:text-white md:hover:bg-transparent"
-                >
-                  Contact
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to={!user ? "/login" : "/"} className="block py-2 pr-4 pl-3 text-slate-300 text-xl text-gray-400
-                  hover:underline hover:underline-offset-8 duration-200 md:p-2 
-                  hover:text-white md:hover:bg-transparent"
-                >
-                  New Offert
-                </NavLink>
-              </li>
+              <HeaderItem user={user} route={'/account'} text={'Account'} /> 
+              <HeaderItem user={user} route={'/contact'} text={'Contact'} />
+              {/* Change '/' route later */}
+              <HeaderItem user={user} route={'/'} text={'New Offert'} /> 
+
               {
                 user !== ''
                   ? <LogoutButton />
