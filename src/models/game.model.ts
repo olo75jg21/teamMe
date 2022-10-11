@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IGame extends Document {
   title: string;
   rank: string;
-  position: string;
+  position?: string;
 };
 
 export const GameSchema: Schema = new Schema({
