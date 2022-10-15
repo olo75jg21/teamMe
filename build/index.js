@@ -16,7 +16,7 @@ app.use((0, cookie_parser_1.default)());
 (0, connectDb_1.connect)();
 app.use(express_1.default.json());
 (0, user_routes_1.userRoutes)(app);
-(0, offert_routes_1.offerRoutes)(app);
+(0, offert_routes_1.offertRoutes)(app);
 app.listen(config_1.SERVER_PORT, () => {
     console.log('Server is running on port ' + config_1.SERVER_PORT);
 });

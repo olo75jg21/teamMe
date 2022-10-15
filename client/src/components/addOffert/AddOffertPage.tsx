@@ -1,16 +1,23 @@
+import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-type formData = {
+type FormData = {
   game: string;
   rank: string;
   description: string;
 };
 
 const AddOffertPage = (): JSX.Element => {
-  const { register, handleSubmit, watch, formState: { errors }} = useForm<formData>();
+  const { register, handleSubmit, watch, formState: { errors }} = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<formData> = data => {
-    console.log('eo')
+  const onSubmit: SubmitHandler<FormData> = data => {
+    axios.get('/offert/getAll')
+    .then(res => {
+      console.log(res);
+    })
+    .catch((err: any) => {
+      console.log(err);
+    });
   };
 
   return (

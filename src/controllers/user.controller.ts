@@ -55,3 +55,4 @@ export const handleGetOneUser = async (req: Request, res: Response) => {
   const user = await UserModel.findOne({ _id: req.params.id });
   res.send(_.omit(user?.toObject(), ['password']));
 };
+

@@ -1,6 +1,10 @@
 import { Express } from 'express';
-import { handleAddOffert } from '../controllers/offert.controller';
+import { 
+  handleAddOffert,
+  handleGetAllOfferts
+} from '../controllers/offert.controller';
 
-export const offerRoutes = (app: Express) => {
+export const offertRoutes = (app: Express) => {
   app.post('/offert/addNewOffert', handleAddOffert);
+  app.get('/offert/getAll', handleGetAllOfferts);
 };
