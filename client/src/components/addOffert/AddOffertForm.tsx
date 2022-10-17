@@ -7,12 +7,16 @@ type FormData = {
   description: string;
 };
 
-export const AddOffertForm = (): JSX.Element => {
+interface AddOfferFormProps {
+  userId: string;
+};
+
+export const AddOffertForm = ({userId}: AddOfferFormProps): JSX.Element => {
   const { register, handleSubmit, watch, formState: { errors }} = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = data => {
     axios.post('/offert/addNewOffert', { 
-        _user: '633c66f82d67a00741fdb829',
+        _user: userId,
         ...data
      })
     .then(res => {
