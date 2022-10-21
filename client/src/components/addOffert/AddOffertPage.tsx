@@ -23,14 +23,9 @@ const AddOffertPage = (): JSX.Element => {
   }, []);
 
   return (
-    <div>
-      <AddOffertForm userId={userId} />
-      <div>
-        {
-          offers.map((offer) => {
-            return <p>{offer?._id}</p>
-          })
-        }
+    <div className='bg-slate-200 flex h-screen'>
+      <div className='m-auto'>
+        <AddOffertForm userId={userId} />
       </div>
     </div>    
   )
