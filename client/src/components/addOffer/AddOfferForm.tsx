@@ -11,11 +11,11 @@ interface AddOfferFormProps {
   userId: string;
 };
 
-export const AddOffertForm = ({userId}: AddOfferFormProps): JSX.Element => {
+export const AddOfferForm = ({userId}: AddOfferFormProps): JSX.Element => {
   const { register, handleSubmit, watch, formState: { errors }} = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = data => {
-    axios.post('/offert/addNewOffert', { 
+    axios.post('/offer/addNewOffer', { 
         _user: userId,
         ...data
      })

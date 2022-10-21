@@ -1,13 +1,13 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IOffert extends Document {
+export interface IOffer extends Document {
   _user: any,
   game: string,
   description: string,
   rank: string,
 };
 
-const offertModel: Schema = new Schema({
+const offerModel: Schema = new Schema({
   _user: {
     type: String,
     ref: 'User'
@@ -25,4 +25,4 @@ const offertModel: Schema = new Schema({
   timestamps: true
 });
 
-export const OffertModel = mongoose.model<IOffert>('Offert', offertModel);
+export const OfferModel = mongoose.model<IOffer>('Offer', offerModel);

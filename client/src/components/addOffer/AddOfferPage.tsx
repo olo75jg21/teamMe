@@ -2,16 +2,16 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
-import { AddOffertForm } from './AddOffertForm';
+import { AddOfferForm } from './AddOfferForm';
 
-const AddOffertPage = (): JSX.Element => {
+export const AddOfferPage = (): JSX.Element => {
   const [cookies] = useCookies(['credentials'])
   const userId = cookies.credentials?.user._id;
   const [ offers, setOffers ] = useState<any[]>([]);
 
   useEffect(() => {
     (() => {
-      axios.get('/offert/getAll')
+      axios.get('/offer/getAll')
       .then((res) => {
         console.log(res.data);
         setOffers(res.data);
@@ -25,10 +25,8 @@ const AddOffertPage = (): JSX.Element => {
   return (
     <div className='bg-slate-200 flex h-screen'>
       <div className='m-auto'>
-        <AddOffertForm userId={userId} />
+        <AddOfferForm userId={userId} />
       </div>
     </div>    
   )
 };
-
-export default AddOffertPage;
