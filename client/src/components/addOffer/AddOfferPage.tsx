@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router';
 
 import { AddOfferForm } from './AddOfferForm';
 
@@ -8,6 +9,8 @@ export const AddOfferPage = (): JSX.Element => {
   const [cookies] = useCookies(['credentials'])
   const userId = cookies.credentials?.user._id;
   const [ offers, setOffers ] = useState<any[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     (() => {
@@ -21,6 +24,10 @@ export const AddOfferPage = (): JSX.Element => {
       })
     })();
   }, []);
+
+  if (!userId) {
+    navigate('/login');
+  }
 
   return (
     <div className='bg-slate-200 flex h-screen'>

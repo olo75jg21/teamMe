@@ -1,6 +1,10 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-import { GameSchema, IGame } from './game.model';
+export type IGame = {
+  title?: string;
+  rank?: string;
+  position?: string;
+};
 
 export interface IUser extends Document {
   age: number;
@@ -25,7 +29,17 @@ const UserSchema: Schema = new Schema({
     unique: true
   },
   games: {
-    type: [GameSchema]
+    type: [{
+      name: {
+        type: String
+      },
+      rank: {
+        type: String
+      },
+      additionalInfo: {
+        type: String
+      }
+    }]
   },
   language: {
     type: [String]

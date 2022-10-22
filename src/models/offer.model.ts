@@ -7,6 +7,7 @@ export interface IOffer extends Document {
   rank: string,
 };
 
+
 const offerModel: Schema = new Schema({
   _user: {
     type: String,

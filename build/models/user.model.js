@@ -25,7 +25,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const game_model_1 = require("./game.model");
 ;
 const UserSchema = new mongoose_1.Schema({
     age: {
@@ -40,7 +39,17 @@ const UserSchema = new mongoose_1.Schema({
         unique: true
     },
     games: {
-        type: [game_model_1.GameSchema]
+        type: [{
+                name: {
+                    type: String
+                },
+                rank: {
+                    type: String
+                },
+                additionalInfo: {
+                    type: String
+                }
+            }]
     },
     language: {
         type: [String]
