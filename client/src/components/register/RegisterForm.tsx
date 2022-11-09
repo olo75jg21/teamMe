@@ -9,6 +9,7 @@ type FormValues = {
   email: string;
   password: string;
   repeatPassword: string;
+  age: number;
 };
 
 const registrationSchema = yup.object({
@@ -67,6 +68,16 @@ const RegisterForm = (): JSX.Element => {
             {...register("repeatPassword")}
           />
           {errors.repeatPassword?.message && <span className='text-red-600'>{errors.repeatPassword?.message}</span>}
+        </div>
+
+        <div className='mb-5 h-20'>
+          <label className='block text-gray-700 text-sm font-bold mb-2'>Age</label>
+          <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              type='number'
+              {...register("age")}
+          />
+          {/*{errors.repeatPassword?.message && <span className='text-red-600'>{errors.repeatPassword?.message}</span>}*/}
         </div>
 
         <input type="submit" value='Sign In' className='bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />

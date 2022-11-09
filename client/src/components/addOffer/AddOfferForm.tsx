@@ -33,6 +33,7 @@ export const AddOfferForm = ({userId}: AddOfferFormProps): JSX.Element => {
 
         <div className='mb-4 h-20'>
           <label className='block text-gray-700 text-sm font-bold mb-2'>Game</label>
+       
           <select defaultValue={"Select"} {...register('game')}>
             <option value="lol">lol</option>
             <option value="cs">cs</option>

@@ -8,7 +8,7 @@ import { AddOfferForm } from './AddOfferForm';
 export const AddOfferPage = (): JSX.Element => {
   const [cookies] = useCookies(['credentials'])
   const userId = cookies.credentials?.user._id;
-  const [ offers, setOffers ] = useState<any[]>([]);
+  const [offers, setOffers] = useState<any[]>([]);
 
   const navigate = useNavigate();
 
