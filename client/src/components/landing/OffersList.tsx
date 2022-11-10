@@ -20,9 +20,7 @@ export const OffersList = () => {
     const renderOffers = (): any => {
         return offers.map((offer) => {
             return (
-                <div key={offer._id} className="border p-5 rounded-sm">
-                    <Offer title={offer.title} game={offer.game} description={offer.description} rank={offer.rank}></Offer>
-                </div>
+                <Offer key={offer._id} title={offer.title} game={offer.game} description={offer.description} rank={offer.rank}></Offer>
             );
         });
     };
