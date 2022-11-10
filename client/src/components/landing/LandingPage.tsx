@@ -1,19 +1,14 @@
-import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
-import axios from 'axios';
+import { OffersList } from './OffersList';
 
 const LandingPage = (): JSX.Element => {
   const [cookies, setCookies] = useCookies(['credentials']);
 
-  useEffect(() => {
-
-  }, []);
-
   return (
-    <div className="bg-slate-200 flex h-fit">
+    <div className="bg-slate-50 flex h-fit">
       <div className='m-auto'>
-        <h2>Landing Page</h2>
+        <OffersList />
       </div>
     </div>
   );
