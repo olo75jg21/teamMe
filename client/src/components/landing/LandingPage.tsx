@@ -6,7 +6,7 @@ const LandingPage = (): JSX.Element => {
   const [cookies, setCookies] = useCookies(['credentials']);
 
   return (
-    <div className="bg-slate-50 flex h-fit">
+    <div className=" flex">
       <div className='m-auto'>
         <OffersList />
       </div>
