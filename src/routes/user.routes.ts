@@ -19,5 +19,5 @@ export const userRoutes = (app: Express) => {
   app.post('/users/register', userValidation(yupUserRegistrationSchema), handleUserRegister);
   app.post('/users/login', userValidation(yupUserLoginSchema), handleUserLogin);
   app.get('/users/getAllUsers', handleGetAllUsers);
-  app.get('/users/getOneUser/:id', authenticateJwt, handleGetOneUser);
+  app.get('/users/getOneUser/:id', handleGetOneUser);
 };

@@ -18,9 +18,16 @@ export const OffersList = () => {
     }, []);
 
     const renderOffers = (): any => {
-        return offers.map((offer) => {
+        return offers.map(({ _id, _user, title, game, description, rank }) => {
             return (
-                <Offer key={offer._id} title={offer.title} game={offer.game} description={offer.description} rank={offer.rank}></Offer>
+                <Offer
+                    key={_id}
+                    _user={_user}
+                    title={title}
+                    game={game}
+                    description={description}
+                    rank={rank}
+                ></Offer>
             );
         });
     };
