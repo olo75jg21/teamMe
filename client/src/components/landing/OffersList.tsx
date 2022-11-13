@@ -18,7 +18,7 @@ export const OffersList = () => {
     }, []);
 
     const renderOffers = (): any => {
-        return offers.map(({ _id, _user, title, game, description, rank }) => {
+        return offers.map(({ _id, _user, title, game, description, rank, createdAt }) => {
             return (
                 <Offer
                     key={_id}
@@ -27,6 +27,7 @@ export const OffersList = () => {
                     game={game}
                     description={description}
                     rank={rank}
+                    createdAt={createdAt}
                 ></Offer>
             );
         });

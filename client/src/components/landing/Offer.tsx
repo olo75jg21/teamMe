@@ -4,7 +4,7 @@ import axios from 'axios';
 export interface IOffer {
     // _id: string;
     _user: string;
-    // createdAd: string;
+    createdAt: string;
     // updatedAt: string;
     title: string;
     description: string;
@@ -12,7 +12,7 @@ export interface IOffer {
     rank: string;
 };
 
-export const Offer = ({ _user, title, game, description, rank }: IOffer): JSX.Element => {
+export const Offer = ({ _user, title, game, description, rank, createdAt }: IOffer): JSX.Element => {
     const [creator, setCreator] = useState<any>('');
 
     useEffect(() => {
@@ -21,6 +21,10 @@ export const Offer = ({ _user, title, game, description, rank }: IOffer): JSX.El
             setCreator(res.data);
         })();
     }, []);
+
+    const calculateDays = (): string => {
+        return createdAt;
+    };
 
     return (
         <div className="border p-5 rounded-sm">
@@ -36,8 +40,14 @@ export const Offer = ({ _user, title, game, description, rank }: IOffer): JSX.El
 
                 </div>
                 <div className="text-sm mt-2">{description}</div>
-                <div className="text-sm mt-2">
-                    <p>Added by: {creator.email}</p>
+
+                <div className="flex justify-between text-sm mt-2">
+                    <div>
+                        <p>Created by: {creator.email}</p>
+                    </div>
+                    <div>
+                        {calculateDays()}
+                    </div>
                 </div>
             </div>
         </div>
