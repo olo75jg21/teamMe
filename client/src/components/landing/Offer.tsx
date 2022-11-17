@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { renderPassedDays } from './landingUtils';
 
 export interface IOffer {
     // _id: string;
@@ -22,10 +23,6 @@ export const Offer = ({ _user, title, game, description, rank, createdAt }: IOff
         })();
     }, []);
 
-    const calculateDays = (): string => {
-        return createdAt;
-    };
-
     return (
         <div className="border p-5 rounded-sm">
             <div>
@@ -46,7 +43,7 @@ export const Offer = ({ _user, title, game, description, rank, createdAt }: IOff
                         <p>Created by: {creator.email}</p>
                     </div>
                     <div>
-                        {calculateDays()}
+                        {renderPassedDays(createdAt)}
                     </div>
                 </div>
             </div>
