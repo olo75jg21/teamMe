@@ -91,11 +91,6 @@ const RegisterForm = (): JSX.Element => {
               <option value="female">Female</option>
               <option value="male">Male</option>
             </select>
-            {/* <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              type='number'
-              {...register("gender")}
-            /> */}
             {errors.gender?.message && <span className='text-red-600'>{errors.gender?.message}</span>}
           </div>
 

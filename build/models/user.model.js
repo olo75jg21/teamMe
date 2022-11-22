@@ -29,6 +29,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const UserSchema = new mongoose_1.Schema({
     age: {
         type: Number,
+        required: true
     },
     description: {
         type: String
@@ -60,7 +61,13 @@ const UserSchema = new mongoose_1.Schema({
     },
     username: {
         type: String,
+        required: true,
+        unique: true,
     },
+    gender: {
+        type: String,
+        required: true
+    }
 }, {
     timestamps: true
 });

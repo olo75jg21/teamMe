@@ -7,11 +7,11 @@ import { signJwt } from '../utils/jwt.utils';
 
 export const handleUserRegister = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username, gender, age } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await UserModel.create({ email, password: hashedPassword });
+    const user = await UserModel.create({ email, username, gender, age, password: hashedPassword });
     res.status(201).send(user);
   } catch (e: any) {
     res.status(409).send(e.message);
@@ -55,4 +55,3 @@ export const handleGetOneUser = async (req: Request, res: Response) => {
   const user = await UserModel.findOne({ _id: req.params.id });
   res.send(_.omit(user?.toObject(), ['password']));
 };
-

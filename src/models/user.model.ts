@@ -14,11 +14,13 @@ export interface IUser extends Document {
   language: string[];
   password: string;
   username: string;
+  gender: string;
 };
 
 const UserSchema: Schema = new Schema({
   age: {
     type: Number,
+    required: true
   },
   description: {
     type: String
@@ -50,7 +52,13 @@ const UserSchema: Schema = new Schema({
   },
   username: {
     type: String,
+    required: true,
+    unique: true,
   },
+  gender: {
+    type: String,
+    required: true
+  }
 }, {
   timestamps: true
 });

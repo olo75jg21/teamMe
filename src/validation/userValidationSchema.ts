@@ -6,19 +6,30 @@ export const yupUserRegistrationSchema = yup.object({
 		.email()
 		.required(),
 	username: yup
-		.string(),
+		.string()
+		.min(6)
+		.max(8)
+		.required(),
 	password: yup
 		.string()
 		.min(8)
 		.max(64)
+		.required(),
+	age: yup
+		.number()
+		.min(16)
+		.max(130)
+		.required(),
+	gender: yup
+		.string()
 		.required()
 });
 
 export const yupUserLoginSchema = yup.object({
 	email: yup
-		.string()	
+		.string()
 		.email(),
-		password: yup
+	password: yup
 		.string()
 		.required()
 });
