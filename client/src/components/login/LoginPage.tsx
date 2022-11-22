@@ -6,7 +6,7 @@ const LoginPage = (): JSX.Element => {
     <div>
       <div className='bg-slate-200 flex h-screen'>
         <div className='m-auto'>
-          <BackgroundBlobs />
+          {/* <BackgroundBlobs /> */}
           <LoginForm />
         </div>
       </div>
