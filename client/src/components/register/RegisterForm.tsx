@@ -19,7 +19,7 @@ const registrationSchema = yup.object({
   email: yup.string().email('Provide a valid email').required('Email is required'),
   password: yup.string().min(8, 'At least 8 characters long').max(64, 'Max length is 64'),
   repeatPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords aren\'t the same'),
-  age: yup.string().min(16, 'You need to be at least 16').max(120, 'I dont think so').required('Age is required'),
+  age: yup.number().min(16, 'You need to be at least 16').max(120, 'I dont think so').required('Age is required'),
   gender: yup.string()
 });
 
@@ -87,7 +87,7 @@ const RegisterForm = (): JSX.Element => {
         <div className='flex justify-between'>
           <div className='mb-5 h-20 mr-5'>
             <label className='block text-gray-700 text-sm font-bold mb-2'>Gender</label>
-            <select {...register('gender')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <select {...register('gender')} className="bg-gray-50 w-28 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
               <option value="female">Female</option>
               <option value="male">Male</option>
             </select>
@@ -102,8 +102,9 @@ const RegisterForm = (): JSX.Element => {
           <div className='mb-5 h-20'>
             <label className='block text-gray-700 text-sm font-bold mb-2'>Age</label>
             <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              className='shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
               type='number'
+              defaultValue={0}
               {...register("age")}
             />
             {errors.age?.message && <span className='text-red-600'>{errors.age?.message}</span>}
@@ -111,7 +112,7 @@ const RegisterForm = (): JSX.Element => {
 
         </div>
 
-        <input type="submit" value='Sign In' defaultValue='1' className='bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+        <input type="submit" value='Sign In' className='bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
 
         <div className='flex mt-5'>
           <p>Have an account?&nbsp;</p>
