@@ -1,6 +1,6 @@
 import { useCookies } from 'react-cookie';
 
-import { OffersList } from './OffersList';
+import { OffersList } from '../offersList/OffersList';
 
 const LandingPage = (): JSX.Element => {
   const [cookies, setCookies] = useCookies(['credentials']);
