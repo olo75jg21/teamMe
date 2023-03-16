@@ -3,16 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { NavLink } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
-import axiosIns from '../../plugins/axios';
-
-type FormValues = {
-  username: string;
-  email: string;
-  password: string;
-  repeatPassword: string;
-  age: number;
-  gender: string;
-};
+import axios from '../../plugins/axios';
+import { RegisterFormValues } from '../../types/types';
 
 const registrationSchema = yup.object({
   username: yup.string().min(6, 'At least 6 characters long').max(14, 'Max length is 14').required('Username is required'),
@@ -24,23 +16,22 @@ const registrationSchema = yup.object({
 });
 
 const RegisterForm = (): JSX.Element => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormValues>({
     resolver: yupResolver(registrationSchema)
   });
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    axiosIns.post('/users/register', data)
-      .then(res => {
-        console.log(res.data);
-      })
-      .then(res => {
-        navigate('/login');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  const onSubmit: SubmitHandler<RegisterFormValues> = async (formData: RegisterFormValues) => {
+    try {
+      const { status } = await axios.post('/users/register', formData)
+
+      if (status === 201) {
+        navigate('/login')
+      }
+    } catch (e) {
+      console.error(e)
+    }
   };
 
   return (

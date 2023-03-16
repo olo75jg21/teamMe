@@ -38,7 +38,7 @@ const LoginForm = (): JSX.Element => {
         navigate('/');
       }
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
   };
 
