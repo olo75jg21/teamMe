@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { NavLink } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from 'axios';
+import axiosIns from '../../plugins/axios';
 
 type FormValues = {
   username: string;
@@ -31,7 +31,7 @@ const RegisterForm = (): JSX.Element => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    axios.post('/users/register', data)
+    axiosIns.post('/users/register', data)
       .then(res => {
         console.log(res.data);
       })
