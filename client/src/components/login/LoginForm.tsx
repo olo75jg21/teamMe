@@ -48,6 +48,7 @@ const LoginForm = (): JSX.Element => {
         <div className='mb-4 h-20'>
           <label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
           <input
+            defaultValue={'uwuuwu@uwu.com'}
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             {...register("email")}
           />
@@ -59,6 +60,7 @@ const LoginForm = (): JSX.Element => {
           <input
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             type='password'
+            defaultValue={123123123}
             {...register("password")}
           />
           {errors.password?.message && <span className='text-red-600'>{errors.password?.message}</span>}
