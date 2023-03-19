@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export type IGame = {
+export interface IGame {
   title?: string;
   rank?: string;
   position?: string;

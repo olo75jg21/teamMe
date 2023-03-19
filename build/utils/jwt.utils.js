@@ -10,4 +10,3 @@ const signJwt = (user) => {
     return jsonwebtoken_1.default.sign({ email: user.email }, config_1.SERVER_TOKEN_SECRET, { expiresIn: config_1.SERVER_TOKEN_EXPIRETIME, algorithm: 'HS256' });
 };
 exports.signJwt = signJwt;
-// user.toJSON()

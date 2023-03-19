@@ -7,4 +7,3 @@ export const signJwt = (user: IUser): string => {
   return jwt.sign({ email: user.email }, SERVER_TOKEN_SECRET, { expiresIn: SERVER_TOKEN_EXPIRETIME, algorithm: 'HS256' });
 };
 
-// user.toJSON()

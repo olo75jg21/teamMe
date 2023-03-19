@@ -1,7 +1,7 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Types } from 'mongoose';
 
 export interface IOffer extends Document {
-  _user: any,
+  _user: Types.ObjectId,
   game: string,
   description: string,
   rank: string,
@@ -9,7 +9,7 @@ export interface IOffer extends Document {
 
 const offerModel: Schema = new Schema({
   _user: {
-    type: String,
+    type: Types.ObjectId,
     ref: 'User'
   },
   title: {
