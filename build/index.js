@@ -10,11 +10,13 @@ const connectDb_1 = require("./utils/connectDb");
 const user_routes_1 = require("./routes/user.routes");
 const offer_routes_1 = require("./routes/offer.routes");
 const config_1 = require("./config/config");
+const auth_routes_1 = require("./routes/auth.routes");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 (0, connectDb_1.connect)();
 app.use(express_1.default.json());
+(0, auth_routes_1.authRoutes)(app);
 (0, user_routes_1.userRoutes)(app);
 (0, offer_routes_1.offerRoutes)(app);
 app.listen(config_1.SERVER_PORT, () => {

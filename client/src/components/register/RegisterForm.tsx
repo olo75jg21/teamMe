@@ -24,7 +24,7 @@ const RegisterForm = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (formData: RegisterFormValues) => {
     try {
-      const { status } = await axios.post('/users/register', formData)
+      const { status } = await axios.post('/auth/register', formData)
 
       if (status === 201) {
         navigate('/login')

@@ -15,15 +15,3 @@ const LandingPage = (): JSX.Element => {
 };
 
 export default LandingPage;
-
-
-    // Get request with setting up header
-    // axios.get('/users/getAllUsers', {
-    //   headers: {
-    //     'Authorization': 'Bearer ' + cookies.credentials.token
-    //   }
-    // }).then(res => [
-    //   console.log(res.data)
-    // ]).catch((e: any) => {
-    //   console.log(e);
-    // });

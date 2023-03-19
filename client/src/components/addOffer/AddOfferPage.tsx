@@ -1,24 +1,16 @@
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router';
+import useIsUserLogged from '../../utils/useIsUserLogged';
+import LoginPage from '../login/LoginPage';
 
 import { AddOfferForm } from './AddOfferForm';
 
 export const AddOfferPage = (): JSX.Element => {
-  const [cookies] = useCookies(['credentials'])
-  const userId = cookies.credentials?.user._id;
+  const { isLogged, cookiesData } = useIsUserLogged()
+  const userId = cookiesData.credentials?.user._id
+  const token = cookiesData.credentials?.token
 
-  const navigate = useNavigate();
-
-  if (!userId) {
-    navigate('/login');
-  }
-
-  return (
-    <div className='bg-slate-200 flex h-screen'>
-      <div className='m-auto'>
-        <AddOfferForm userId={userId} />
-
-      </div>
-    </div>
-  )
+  return !isLogged
+    ? <LoginPage />
+    : (
+      <AddOfferForm userId={userId} />
+    );
 };

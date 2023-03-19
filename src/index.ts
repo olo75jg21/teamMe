@@ -6,6 +6,7 @@ import { userRoutes } from './routes/user.routes';
 import { offerRoutes } from './routes/offer.routes';
 
 import { SERVER_PORT } from './config/config';
+import { authRoutes } from './routes/auth.routes';
 
 const app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ connect();
 
 app.use(express.json());
 
+authRoutes(app)
 userRoutes(app);
 offerRoutes(app);
 

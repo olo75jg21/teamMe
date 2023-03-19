@@ -11,10 +11,7 @@ import LandingPage from './landing/LandingPage';
 import LoginPage from './login/LoginPage';
 import RegisterPage from './register/RegisterPage';
 
-import useIsUserLogged from '../utils/useIsUserLogged';
 export const App = (): JSX.Element => {
-
-  const isUserLogged = useIsUserLogged()
 
   return (
     <div className='box-border'>
@@ -23,7 +20,7 @@ export const App = (): JSX.Element => {
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/register' element={<RegisterPage />} />
-          <Route path='/login' element={isUserLogged ? <LandingPage /> : <LoginPage />} />
+          <Route path='/login' element={<LoginPage />} />
           <Route path='/newoffer' element={<AddOfferPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/account' element={<Account />} />

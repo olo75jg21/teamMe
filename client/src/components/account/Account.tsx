@@ -1,33 +1,30 @@
-import { useCookies } from 'react-cookie';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import useIsUserLogged from '../../utils/useIsUserLogged';
 
 import { fetchSingleUser } from '../../utils/fetchingUserData';
 import { ProfileData } from './ProfileData';
+import LoginPage from '../login/LoginPage';
 
 export const Account = (): JSX.Element => {
-  const navigate = useNavigate();
-
-  const [cookies] = useCookies(['credentials']);
-
   const [user, setUser] = useState<any>('');
 
-  const userId = cookies.credentials?.user._id;
-  const token = cookies.credentials?.token;
+  const { isLogged, cookiesData } = useIsUserLogged()
+
+  const userId = cookiesData.credentials?.user._id;
+  const token = cookiesData.credentials?.token;
 
   useEffect(() => {
-    (async function () {
-      const res = await fetchSingleUser(userId, token);
-      setUser(res);
-    })();
+    if (isLogged) {
+      (async function () {
+        const response = await fetchSingleUser(userId, token);
+        setUser(response);
+      })();
+    }
+  }, [userId, token, isLogged]);
 
-  }, [userId, token]);
-
-  if (!userId) navigate('/login');
-
-  return (
-    <div>
+  return !isLogged
+    ? <LoginPage />
+    : (
       <ProfileData user={user} />
-    </div>
-  );
+    );
 };

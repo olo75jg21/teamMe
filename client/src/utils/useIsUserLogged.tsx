@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
-const useIsUserLogged = () => {
-    const [isLogged, setIsLogged] = useState<any>(null);
-    const [cookies] = useCookies(['credentials']);
+interface IUseIsUserLogged {
+  isLogged: boolean;
+  cookiesData: any; //TODO add a type
+}
 
-    useEffect(() => {
-        setIsLogged(!!cookies.credentials);
-    }, [cookies]);
+const useIsUserLogged = (): IUseIsUserLogged => {
+  const [cookiesData] = useCookies(['credentials']);
+  const isLogged = !!cookiesData.credentials
 
-    return isLogged;
+  return { isLogged, cookiesData };
 };
 
 export default useIsUserLogged;
