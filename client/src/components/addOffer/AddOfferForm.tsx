@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../plugins/axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 type FormData = {
@@ -15,6 +15,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = data => {
+    // TODO change this promised based request for async/await
     axios.post('/offer/addNewOffer', {
       _user: userId,
       ...data
