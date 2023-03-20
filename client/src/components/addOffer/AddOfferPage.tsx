@@ -1,12 +1,11 @@
-import useIsUserLogged from '../../utils/useIsUserLogged';
+import useIsUserLogged from '../../hooks/useIsUserLoggedIn';
 import LoginPage from '../login/LoginPage';
 
 import { AddOfferForm } from './AddOfferForm';
 
 export const AddOfferPage = (): JSX.Element => {
-  const { isLogged, cookiesData } = useIsUserLogged()
-  const userId = cookiesData.credentials?.user._id
-  const token = cookiesData.credentials?.token
+  const { isLogged, userData } = useIsUserLogged()
+  const userId = userData.user._id;
 
   return !isLogged
     ? <LoginPage />

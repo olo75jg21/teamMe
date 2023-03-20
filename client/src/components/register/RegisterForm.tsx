@@ -35,81 +35,86 @@ const RegisterForm = (): JSX.Element => {
   };
 
   return (
-    <div className='w-80 max-w-xs'>
-      <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
-        <div className='mb-4 h-20'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>Username</label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            {...register("username")}
-          />
-          {errors.username?.message && <span className='text-red-600'>{errors.username?.message}</span>}
+
+    <div className='bg-slate-200 flex h-screen'>
+      <div className='m-auto'>
+        <div className='w-80 max-w-xs'>
+          <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
+            <div className='mb-4 h-20'>
+              <label className='block text-gray-700 text-sm font-bold mb-2'>Username</label>
+              <input
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                {...register("username")}
+              />
+              {errors.username?.message && <span className='text-red-600'>{errors.username?.message}</span>}
+            </div>
+
+            <div className='mb-4 h-20'>
+              <label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
+              <input
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                {...register("email")}
+              />
+              {errors.email?.message && <span className='text-red-600'>{errors.email?.message}</span>}
+            </div>
+
+            <div className='mb-4 h-20'>
+              <label className='block text-gray-700 text-sm font-bold mb-2'>Password</label>
+              <input
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                type='password'
+                {...register("password")}
+              />
+              {errors.password?.message && <span className='text-red-600'>{errors.password?.message}</span>}
+            </div>
+
+            <div className='mb-5 h-20'>
+              <label className='block text-gray-700 text-sm font-bold mb-2'>Repeat password</label>
+              <input
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                type='password'
+                {...register("repeatPassword")}
+              />
+              {errors.repeatPassword?.message && <span className='text-red-600'>{errors.repeatPassword?.message}</span>}
+            </div>
+
+            <div className='flex justify-between'>
+              <div className='mb-5 h-20 mr-5'>
+                <label className='block text-gray-700 text-sm font-bold mb-2'>Gender</label>
+                <select {...register('gender')} className="bg-gray-50 w-28 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                </select>
+                {errors.gender?.message && <span className='text-red-600'>{errors.gender?.message}</span>}
+              </div>
+
+              <div className='mb-5 h-20'>
+                <label className='block text-gray-700 text-sm font-bold mb-2'>Age</label>
+                <input
+                  className='shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                  type='number'
+                  defaultValue={0}
+                  {...register("age")}
+                />
+                {errors.age?.message && <span className='text-red-600'>{errors.age?.message}</span>}
+              </div>
+
+            </div>
+
+            <input type="submit" value='Sign In' className='bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+
+            <div className='flex mt-5'>
+              <p>Have an account?&nbsp;</p>
+              <NavLink
+                to='/login'
+                className="font-bold duration-200 text-stone-400 hover:text-stone-700"
+              >
+                Login
+              </NavLink>
+            </div>
+          </form>
         </div>
-
-        <div className='mb-4 h-20'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            {...register("email")}
-          />
-          {errors.email?.message && <span className='text-red-600'>{errors.email?.message}</span>}
-        </div>
-
-        <div className='mb-4 h-20'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>Password</label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            type='password'
-            {...register("password")}
-          />
-          {errors.password?.message && <span className='text-red-600'>{errors.password?.message}</span>}
-        </div>
-
-        <div className='mb-5 h-20'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>Repeat password</label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            type='password'
-            {...register("repeatPassword")}
-          />
-          {errors.repeatPassword?.message && <span className='text-red-600'>{errors.repeatPassword?.message}</span>}
-        </div>
-
-        <div className='flex justify-between'>
-          <div className='mb-5 h-20 mr-5'>
-            <label className='block text-gray-700 text-sm font-bold mb-2'>Gender</label>
-            <select {...register('gender')} className="bg-gray-50 w-28 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-            </select>
-            {errors.gender?.message && <span className='text-red-600'>{errors.gender?.message}</span>}
-          </div>
-
-          <div className='mb-5 h-20'>
-            <label className='block text-gray-700 text-sm font-bold mb-2'>Age</label>
-            <input
-              className='shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              type='number'
-              defaultValue={0}
-              {...register("age")}
-            />
-            {errors.age?.message && <span className='text-red-600'>{errors.age?.message}</span>}
-          </div>
-
-        </div>
-
-        <input type="submit" value='Sign In' className='bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
-
-        <div className='flex mt-5'>
-          <p>Have an account?&nbsp;</p>
-          <NavLink
-            to='/login'
-            className="font-bold duration-200 text-stone-400 hover:text-stone-700"
-          >
-            Login
-          </NavLink>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };

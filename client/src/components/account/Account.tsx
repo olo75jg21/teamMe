@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import useIsUserLogged from '../../utils/useIsUserLogged';
+import useIsUserLogged from '../../hooks/useIsUserLoggedIn';
 
 import { fetchSingleUser } from '../../utils/fetchingUserData';
 import { ProfileData } from './ProfileData';
@@ -8,10 +8,10 @@ import LoginPage from '../login/LoginPage';
 export const Account = (): JSX.Element => {
   const [user, setUser] = useState<any>('');
 
-  const { isLogged, cookiesData } = useIsUserLogged()
+  const { isLogged, userData } = useIsUserLogged()
 
-  const userId = cookiesData.credentials?.user._id;
-  const token = cookiesData.credentials?.token;
+  const userId = userData.user._id;
+  const token = userData.accessToken;
 
   useEffect(() => {
     if (isLogged) {
@@ -20,7 +20,7 @@ export const Account = (): JSX.Element => {
         setUser(response);
       })();
     }
-  }, [userId, token, isLogged]);
+  }, [isLogged, userId, token]);
 
   return !isLogged
     ? <LoginPage />

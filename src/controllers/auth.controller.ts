@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import * as _ from 'lodash';
 
 import { UserModel } from '../models/user.model';
-import { signJwt } from '../utils/jwt.utils';
+import { generateAccessToken, generateRefreshToken } from '../utils/jwt.utils';
 
 export const handleUserRegister = async (req: Request, res: Response) => {
   try {
@@ -26,9 +26,10 @@ export const handleUserLogin = async (req: Request, res: Response) => {
       const comparePassword = await bcrypt.compare(password, user.password);
 
       if (comparePassword) {
-        const jwt = signJwt(user);
+        const accessToken = generateAccessToken(user);
+        const refreshToken = generateRefreshToken(user)
         const omitUser = _.omit(user.toObject(), ['password']);
-        return res.status(200).send({ user: omitUser, token: jwt });
+        return res.status(200).send({ user: omitUser, token: accessToken, refreshToken });
       }
 
       return res.status(401).json({
@@ -47,5 +48,13 @@ export const handleUserLogin = async (req: Request, res: Response) => {
 };
 
 export const handleTokenRefresh = async (req: Request, res: Response) => {
-  return res.status(200).send({ EO: "EO" })
+  try {
+    // const { refreshToken } = req.body;
+    // const refreshToken = generateRefreshToken('123123123');
+
+    // return res.status(200).json({ refreshToken });
+
+  } catch (error) {
+    return res.status(401).json({ message: 'Invalid refresh token' });
+  }
 }

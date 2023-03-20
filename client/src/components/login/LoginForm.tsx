@@ -17,7 +17,7 @@ const loginSchema = yup.object({
 });
 
 const LoginForm = (): JSX.Element => {
-  const [, setCookies] = useCookies(['credentials']);
+  const [, setCookies] = useCookies(['refreshToken']);
   const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
@@ -29,11 +29,14 @@ const LoginForm = (): JSX.Element => {
       const { data, status } = await axios.post('/auth/login', formData);
 
       if (status === 200) {
-        setCookies('credentials', data, {
+        setCookies('refreshToken', data.refreshToken, {
           secure: true,
           sameSite: 'lax',
-          maxAge: 60 * 15
+          maxAge: 60 * 120 //TODO add expire time in response
         });
+
+        localStorage.setItem('userData', JSON.stringify(data.user));
+        localStorage.setItem('accessToken', JSON.stringify(data.token));
 
         navigate('/');
       }

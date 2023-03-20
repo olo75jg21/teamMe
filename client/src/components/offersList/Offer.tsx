@@ -17,6 +17,7 @@ export const Offer = ({ _user, title, game, description, rank, createdAt }: IOff
     const [creator, setCreator] = useState<any>('');
 
     useEffect(() => {
+        console.log('fire');
         (async () => {
             const res = await axios.get('/users/getOneUser/' + _user);
             setCreator(res.data);
