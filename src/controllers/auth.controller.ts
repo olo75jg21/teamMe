@@ -59,13 +59,12 @@ export const handleUserLogin = async (req: Request, res: Response) => {
 
 export const handleTokenRefresh = async (req: Request, res: Response) => {
   try {
-    const { refreshToken, email } = req.body;
+    const { refreshToken } = req.body;
     // Old refresh token
     const token = await RefreshTokenModel.findOne({ token: refreshToken });
 
     if (!token || new Date(token.expiresAt) < new Date())
       return res.status(401).json({ message: 'Invalid refresh token' });
-
 
     const newAccessToken = generateAccessToken(token._id);
     const newRefreshToken = generateRefreshToken(token._id);
@@ -74,11 +73,28 @@ export const handleTokenRefresh = async (req: Request, res: Response) => {
     await RefreshTokenModel.create({
       userId: token,
       token: newRefreshToken,
-      expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 1000)
+      expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 1000)
     });
 
     return res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
   } catch (error) {
     return res.status(401).json({ message: 'Invalid refresh token' });
   }
-}
+};
+
+export const handleLogout = async (req: Request, res: Response) => {
+  try {
+    const { userId, refreshToken } = req.body;
+
+    const refreshTokenToDelete = await RefreshTokenModel.findOne({ id: userId, token: refreshToken });
+
+    if (!refreshTokenToDelete)
+      return res.status(404).json({ message: 'Token dont exists' });
+
+    await refreshTokenToDelete.remove();
+
+    return res.status(200).json({ message: 'Logout successful' })
+  } catch (error) {
+    return res.status(404).json({ message: 'Invalid data' });
+  }
+};
