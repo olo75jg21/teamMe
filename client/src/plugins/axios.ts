@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(async (config: AxiosRequestConfig) => {
   const { userData } = useIsUserLoggedIn();
-  console.log('interceptor', userData);
 
   if (userData.accessToken && userData.accessToken !== '' && config.headers)
     config.headers.Authorization = `Bearer ${userData.accessToken}`
