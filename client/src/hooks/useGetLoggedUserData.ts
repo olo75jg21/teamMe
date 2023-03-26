@@ -18,7 +18,7 @@ const useGetLoggedUserData = (): IGetLoggedUserData => {
   const user = localStorage.getItem('userData');
   const userJson = user ? JSON.parse(user) : '';
 
-  const refreshToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
   const refreshTokenJson = refreshToken ? JSON.parse(refreshToken) : '';
 
   const userData = {
