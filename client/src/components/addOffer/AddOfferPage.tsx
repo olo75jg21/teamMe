@@ -1,15 +1,21 @@
-import useIsUserLogged from '../../hooks/useIsUserLoggedIn';
+import { useState } from 'react';
+import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
+import Header from '../header/Header';
 import LoginPage from '../login/LoginPage';
 
 import { AddOfferForm } from './AddOfferForm';
 
 export const AddOfferPage = (): JSX.Element => {
-  const { isLogged, userData } = useIsUserLogged()
+  const { userData } = useGetLoggedUserData();
+  const [isLogged] = useState(!!(localStorage.getItem('accessToken')));
   const userId = userData.user._id;
 
   return !isLogged
     ? <LoginPage />
     : (
-      <AddOfferForm userId={userId} />
+      <div>
+        <Header />
+        <AddOfferForm userId={userId} />
+      </div>
     );
 };

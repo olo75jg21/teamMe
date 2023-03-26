@@ -14,7 +14,7 @@ const authenticateJwt = (req, res, next) => {
     }
     jsonwebtoken_1.default.verify(token, config_1.SERVER_TOKEN_SECRET, (error, user) => {
         if (error) {
-            return res.status(404).json({
+            return res.status(401).json({
                 message: error,
             });
         }

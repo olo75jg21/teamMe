@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../plugins/axios';
 import { renderPassedDays } from './landingUtils';
 
 export interface IOffer {

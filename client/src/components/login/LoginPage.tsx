@@ -1,9 +1,10 @@
-import useIsUserLoggedIn from '../../hooks/useIsUserLoggedIn';
+import { useState } from 'react';
 import LandingPage from '../landing/LandingPage';
 import LoginForm from './LoginForm';
 
 const LoginPage = (): JSX.Element => {
-  const { isLogged } = useIsUserLoggedIn();
+  const [isLogged] = useState(!!(localStorage.getItem('accessToken')));
+
 
   return isLogged
     ? <LandingPage />

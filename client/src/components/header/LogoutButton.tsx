@@ -1,20 +1,20 @@
-import { useCookies } from 'react-cookie';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import useIsUserLoggedIn from '../../hooks/useIsUserLoggedIn';
+import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import axios from '../../plugins/axios';
 
 export const LogoutButton = (): JSX.Element => {
-  const [cookies, , removeCookies] = useCookies(['refreshToken']);
-  const { userData } = useIsUserLoggedIn()
-  const user = cookies.refreshToken
+  const { userData } = useGetLoggedUserData();
+  const [isLogged, setIsLogged] = useState(!!(localStorage.getItem('accessToken')));
 
   const handleLogout = async () => {
     try {
-      const { status } = await axios.post('/auth/logout', { userId: userData.user._id, refreshToken: user });
+      const { status } = await axios.post('/auth/logout', { userId: userData.user._id, refreshToken: userData.refreshToken });
       if (status === 200) {
-        removeCookies('refreshToken', { path: '/' });
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('userData');
+        setIsLogged(false);
       }
     } catch (error) {
       console.error(error)
@@ -22,7 +22,7 @@ export const LogoutButton = (): JSX.Element => {
   };
 
   return (
-    user
+    isLogged
       ?
       <NavLink
         to='/'

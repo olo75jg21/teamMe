@@ -6,7 +6,6 @@ import { AddOfferPage } from './addOffer/AddOfferPage';
 
 import ContactPage from './ContactPage';
 import ErrorPage from "./ErrorPage";
-import Header from './header/Header';
 import LandingPage from './landing/LandingPage';
 import LoginPage from './login/LoginPage';
 import RegisterPage from './register/RegisterPage';
@@ -16,11 +15,10 @@ export const App = (): JSX.Element => {
   return (
     <div className='box-border'>
       <BrowserRouter>
-        <Header />
         <Routes>
           <Route path='/' element={<LandingPage />} />
-          <Route path='/register' element={<RegisterPage />} />
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
           <Route path='/newoffer' element={<AddOfferPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/account' element={<Account />} />

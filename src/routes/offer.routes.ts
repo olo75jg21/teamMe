@@ -1,12 +1,13 @@
 import { Express } from 'express';
-import { 
+import {
   handleAddOffer,
   handleGetAllOffers,
   handleGetMyOffers
 } from '../controllers/offer.controller';
+import { authenticateJwt } from '../middlewares/authenticateJwt';
 
 export const offerRoutes = (app: Express) => {
-  app.post('/offer/addNewOffer', handleAddOffer);
+  app.post('/offer/addNewOffer', authenticateJwt, handleAddOffer);
   app.get('/offer/getAll', handleGetAllOffers);
-  app.get('/offer/getMyOffers', handleGetMyOffers);
+  app.get('/offer/getMyOffers', authenticateJwt, handleGetMyOffers);
 };

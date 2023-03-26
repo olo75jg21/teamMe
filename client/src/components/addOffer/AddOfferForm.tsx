@@ -14,18 +14,25 @@ interface AddOfferFormProps {
 export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = data => {
-    // TODO change this promised based request for async/await
-    axios.post('/offer/addNewOffer', {
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    // // TODO change this promised based request for async/await
+    const response = await axios.post('/offer/addNewoffer', {
       _user: userId,
       ...data
-    })
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch((err: any) => {
-        console.log(err);
-      });
+    });
+
+    console.log(response);
+    //   axios.post('/offer/addNewOffer', {
+    //     _user: userId,
+    //     ...data
+    //   })
+    //     .then(res => {
+    //       console.log(res.data);
+    //     })
+    //     .catch((err: any) => {
+    //       console.log(err);
+    //     });
+    // };
   };
 
   return (

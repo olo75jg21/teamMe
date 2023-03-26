@@ -73,7 +73,8 @@ export const handleTokenRefresh = async (req: Request, res: Response) => {
     await RefreshTokenModel.create({
       userId: token,
       token: newRefreshToken,
-      expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 1000)
+      // expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 1000)
+      expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 1000)
     });
 
     return res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
@@ -86,12 +87,7 @@ export const handleLogout = async (req: Request, res: Response) => {
   try {
     const { userId, refreshToken } = req.body;
 
-    const refreshTokenToDelete = await RefreshTokenModel.findOne({ id: userId, token: refreshToken });
-
-    if (!refreshTokenToDelete)
-      return res.status(404).json({ message: 'Token dont exists' });
-
-    await refreshTokenToDelete.remove();
+    await RefreshTokenModel.findOneAndDelete({ id: userId });
 
     return res.status(200).json({ message: 'Logout successful' })
   } catch (error) {

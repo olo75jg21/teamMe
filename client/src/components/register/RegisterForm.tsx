@@ -112,6 +112,16 @@ const RegisterForm = (): JSX.Element => {
                 Login
               </NavLink>
             </div>
+
+            <div className='flex mt-2'>
+              <p>Go back to home page&nbsp;</p>
+              <NavLink
+                to='/'
+                className="font-bold duration-200 text-stone-400 hover:text-stone-700"
+              >
+                Home
+              </NavLink>
+            </div>
           </form>
         </div>
       </div>

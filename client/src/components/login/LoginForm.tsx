@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { useCookies } from 'react-cookie';
-import axios from '../../plugins/axios'
+// import axios from '../../plugins/axios'
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +17,6 @@ const loginSchema = yup.object({
 });
 
 const LoginForm = (): JSX.Element => {
-  const [, setCookies] = useCookies(['refreshToken']);
   const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
@@ -26,15 +25,16 @@ const LoginForm = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<FormValues> = async formData => {
     try {
-      const { data, status } = await axios.post('/auth/login', formData);
+      const { data, status } = await axios.post('http://localhost:5000/auth/login', formData);
 
       if (status === 200) {
-        setCookies('refreshToken', data.refreshToken, {
-          secure: true,
-          sameSite: 'lax',
-          maxAge: 60 * 120 //TODO add expire time in response
-        });
+        // setCookies('refreshToken', data.refreshToken, {
+        //   secure: true,
+        //   sameSite: 'lax',
+        //   maxAge: 2 * 60 //TODO add expire time in response 60 * 120
+        // });
 
+        localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken))
         localStorage.setItem('userData', JSON.stringify(data.user));
         localStorage.setItem('accessToken', JSON.stringify(data.token));
 
@@ -84,7 +84,18 @@ const LoginForm = (): JSX.Element => {
                   className="font-bold duration-200 text-stone-400 hover:text-stone-700"
                 >
                   Create
+
                 </NavLink>
+
+                <div className='flex mt-2'>
+                  <p>Go back to home page&nbsp;</p>
+                  <NavLink
+                    to='/'
+                    className="font-bold duration-200 text-stone-400 hover:text-stone-700"
+                  >
+                    Home
+                  </NavLink>
+                </div>
 
               </div>
             </form>

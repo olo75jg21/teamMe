@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import useIsUserLoggedIn from '../../hooks/useIsUserLoggedIn';
 
 export interface HeaderItemProps {
   route: string;
@@ -7,7 +7,7 @@ export interface HeaderItemProps {
 };
 
 export const HeaderItem = ({ route, text }: HeaderItemProps): JSX.Element => {
-  const { isLogged } = useIsUserLoggedIn()
+  const [isLogged] = useState(!!(localStorage.getItem('accessToken')));
 
   return (
     <div>

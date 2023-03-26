@@ -1,8 +1,12 @@
+import Header from '../header/Header';
 import { OffersList } from '../offersList/OffersList';
 
 const LandingPage = (): JSX.Element => {
   return (
-    <OffersList />
+    <div>
+      <Header />
+      <OffersList />
+    </div>
   );
 };
 
