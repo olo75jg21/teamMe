@@ -5,8 +5,6 @@ export const handleAddOffer = async (req: Request, res: Response) => {
   try {
     // const { _user } = req.body;
 
-    console.log('added');
-
     const offer = await OfferModel.create(req.body);
 
     res.status(201).send(offer);
@@ -27,7 +25,7 @@ export const handleGetAllOffers = async (req: Request, res: Response) => {
 
 export const handleGetMyOffers = async (req: Request, res: Response) => {
   try {
-    
+
 
     const offers = await OfferModel.find({});
 

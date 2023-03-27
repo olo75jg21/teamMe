@@ -13,7 +13,7 @@ export interface IOffer extends Document {
   applicants: IApplicant[];
 };
 
-const offerModel: Schema = new Schema({
+const OffertSchema: Schema = new Schema({
   _user: {
     type: Types.ObjectId,
     ref: 'User'
@@ -60,4 +60,4 @@ const offerModel: Schema = new Schema({
   timestamps: true
 });
 
-export const OfferModel = mongoose.model<IOffer>('Offer', offerModel);
+export const OfferModel = mongoose.model<IOffer>('Offer', OffertSchema);
