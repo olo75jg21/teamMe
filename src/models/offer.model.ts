@@ -1,11 +1,16 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 
+interface IApplicant {
+  _user: Types.ObjectId;
+  status: string;
+}
+
 export interface IOffer extends Document {
   _user: Types.ObjectId;
   game: string;
   description: string;
   rank: string;
-  applicants: string[];
+  applicants: IApplicant[];
 };
 
 const offerModel: Schema = new Schema({
@@ -14,19 +19,42 @@ const offerModel: Schema = new Schema({
     ref: 'User'
   },
   title: {
-    type: String
+    type: String,
+    required: true
   },
   game: {
-    type: String
+    type: String,
+    required: true
   },
   description: {
-    type: String
+    type: String,
+    required: true
   },
   rank: {
-    type: String
+    type: String,
+    deafult: null
   },
   applicants: {
-    type: [String]
+    type: [{
+      _user: {
+        type: Types.ObjectId,
+        ref: 'User'
+      },
+      status: {
+        type: String,
+        enum: ['pending', 'rejected', 'accepted'],
+        required: true,
+        default: 'pending'
+      }
+    }]
+  },
+  slots: {
+    type: Number,
+    required: true
+  },
+  voiceCommunicators: {
+    type: [String],
+    required: true
   }
 }, {
   timestamps: true

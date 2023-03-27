@@ -43,10 +43,10 @@ axiosInstance.interceptors.response.use((res: AxiosResponse) => {
     catch (_error: any) {
       const err = _error as AxiosError;
       if (err.response?.status === 401) {
-        window.location.href = `${baseFrontURL}`
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('userData');
+        window.location.href = `${baseFrontURL}`
       }
       if (err.response && _error.response.data)
         return Promise.reject(_error.response.data)

@@ -41,8 +41,6 @@ export const handleUserLogin = async (req: Request, res: Response) => {
           expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 1000)
         });
 
-        console.log(new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 1000));
-
         const omitUser = _.omit(user.toObject(), ['password']);
         return res.status(200).send({ user: omitUser, token: accessToken, refreshToken });
       }
@@ -67,7 +65,6 @@ export const handleTokenRefresh = async (req: Request, res: Response) => {
     const { refreshToken } = req.body;
     // Old refresh token
     const token = await RefreshTokenModel.findOne({ token: refreshToken });
-    console.log(token);
 
     if (!token || token.expiresAt < new Date())
       return res.status(401).json({ message: 'Invalid refresh token' });
@@ -80,7 +77,7 @@ export const handleTokenRefresh = async (req: Request, res: Response) => {
       userId: token,
       token: newRefreshToken,
       // expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 1000)
-      expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 1000)
+      expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 1000)
     });
 
     return res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
