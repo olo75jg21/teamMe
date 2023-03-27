@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router';
 import useGetLoggedUserData from '../hooks/useGetLoggedUserData';
 import useIsUserLoggedIn from '../hooks/useGetLoggedUserData';
 
@@ -42,9 +43,10 @@ axiosInstance.interceptors.response.use((res: AxiosResponse) => {
     catch (_error: any) {
       const err = _error as AxiosError;
       if (err.response?.status === 401) {
-
-        console.log('redirect nop');
-        // window.location.href = `${baseFrontURL}login` // TODO change the way of redirecting user
+        window.location.href = `${baseFrontURL}`
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('userData');
       }
       if (err.response && _error.response.data)
         return Promise.reject(_error.response.data)

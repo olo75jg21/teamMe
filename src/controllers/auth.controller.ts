@@ -30,12 +30,15 @@ export const handleUserLogin = async (req: Request, res: Response) => {
       if (comparePassword) {
         const accessToken = generateAccessToken(user._id);
 
+        // If there is token in RefreshTokenModel collection we want to delete it
+        await RefreshTokenModel.findOneAndDelete({ _id: user._id });
+
         // Generate and save refresh token to db
         const refreshToken = generateRefreshToken(user._id)
         await RefreshTokenModel.create({
           _id: user._id,
           token: refreshToken,
-          expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 1000)
+          expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 1000)
         });
 
         console.log(new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 1000));

@@ -1,10 +1,11 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 
 export interface IOffer extends Document {
-  _user: Types.ObjectId,
-  game: string,
-  description: string,
-  rank: string,
+  _user: Types.ObjectId;
+  game: string;
+  description: string;
+  rank: string;
+  applicants: string[];
 };
 
 const offerModel: Schema = new Schema({
@@ -23,6 +24,9 @@ const offerModel: Schema = new Schema({
   },
   rank: {
     type: String
+  },
+  applicants: {
+    type: [String]
   }
 }, {
   timestamps: true
