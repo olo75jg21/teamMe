@@ -7,7 +7,7 @@ import {
   handleLogout
 } from '../controllers/auth.controller';
 
-import { userValidation } from '../middlewares/validation';
+import { schemaValidation } from '../middlewares/validation';
 
 import {
   yupUserRegistrationSchema,
@@ -15,8 +15,8 @@ import {
 } from '../validation/userValidationSchema';
 
 export const authRoutes = (app: Express) => {
-  app.post('/auth/register', userValidation(yupUserRegistrationSchema), handleUserRegister);
-  app.post('/auth/login', userValidation(yupUserLoginSchema), handleUserLogin);
+  app.post('/auth/register', schemaValidation(yupUserRegistrationSchema), handleUserRegister);
+  app.post('/auth/login', schemaValidation(yupUserLoginSchema), handleUserLogin);
   app.post('/auth/refresh', handleTokenRefresh);
   app.post('/auth/logout', handleLogout);
 }

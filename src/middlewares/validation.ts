@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-export const userValidation = (schema: any) => async (req: Request, res: Response, next: NextFunction) => {
+export const schemaValidation = (schema: any) => async (req: Request, res: Response, next: NextFunction) => {
     const body = req.body;
 
     try {
