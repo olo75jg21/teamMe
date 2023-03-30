@@ -8,6 +8,7 @@ interface IApplicant {
 export interface IOffer extends Document {
   _user: Types.ObjectId;
   game: string;
+  format: string;
   description: string;
   rank: string;
   applicants: IApplicant[];
@@ -17,6 +18,11 @@ const OffertSchema: Schema = new Schema({
   _user: {
     type: Types.ObjectId,
     ref: 'User'
+  },
+  offerType: {
+    type: String,
+    required: true,
+    enum: ['solo', 'team'] // Solo means Im solo player and I am looking for a team/ team otherwise
   },
   title: {
     type: String,
@@ -32,7 +38,8 @@ const OffertSchema: Schema = new Schema({
   },
   rank: {
     type: String,
-    deafult: null
+    required: true
+    // deafult: null
   },
   applicants: {
     type: [{
@@ -43,10 +50,10 @@ const OffertSchema: Schema = new Schema({
       status: {
         type: String,
         enum: ['pending', 'rejected', 'accepted'],
-        required: true,
         default: 'pending'
       }
-    }]
+    }],
+    default: {}
   },
   slots: {
     type: Number,
