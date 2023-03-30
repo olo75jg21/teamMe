@@ -7,8 +7,8 @@ export const yupUserRegistrationSchema = yup.object({
 		.required(),
 	username: yup
 		.string()
-		.min(6)
-		.max(8)
+		.min(5)
+		.max(14)
 		.required(),
 	password: yup
 		.string()

@@ -7,7 +7,7 @@ import axios from '../../plugins/axios';
 import { RegisterFormValues } from '../../types/types';
 
 const registrationSchema = yup.object({
-  username: yup.string().min(6, 'At least 6 characters long').max(14, 'Max length is 14').required('Username is required'),
+  username: yup.string().min(5, 'At least 5 characters long').max(14, 'Max length is 14').required('Username is required'),
   email: yup.string().email('Provide a valid email').required('Email is required'),
   password: yup.string().min(8, 'At least 8 characters long').max(64, 'Max length is 64'),
   repeatPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords aren\'t the same'),

@@ -39,7 +39,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
             <div className='grid grid-cols-2 gap-8'>
               <div>
                 <div className='mb-4 h-20'>
-                  <label className='block text-gray-700 text-sm font-bold mb-2'>Title</label>
+                  <label className='block text-gray-700 text-sm font-bold mb-4'>Title</label>
                   <input
                     className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                     type='text'
@@ -54,11 +54,11 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                 <div className='mb-4 h-20'>
                   <label className='block text-gray-700 text-sm font-bold mb-2'>Description</label>
 
-                  <input
-                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                    type='text'
+                  <textarea
+                    className="resize-none h-56 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     {...register('description')}
                   />
+
 
                   {errors.description && (
                     <span className="text-red-500">This field is required</span>
@@ -67,7 +67,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
               </div>
 
               <div>
-                <div className='mb-4 h-20'>
+                <div className=' h-20'>
                   <label className='block text-gray-700 text-sm font-bold mb-2'>Game</label>
 
                   <select
