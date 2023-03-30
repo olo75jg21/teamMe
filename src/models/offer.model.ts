@@ -7,17 +7,24 @@ interface IApplicant {
 
 export interface IOffer extends Document {
   _user: Types.ObjectId;
+  isActive: boolean;
+  offerType: string;
+  title: string;
   game: string;
-  format: string;
   description: string;
   rank: string;
   applicants: IApplicant[];
+  slots: number;
 };
 
 const OffertSchema: Schema = new Schema({
   _user: {
     type: Types.ObjectId,
     ref: 'User'
+  },
+  isActive: {
+    type: Boolean,
+    default: true
   },
   offerType: {
     type: String,
@@ -39,7 +46,6 @@ const OffertSchema: Schema = new Schema({
   rank: {
     type: String,
     required: true
-    // deafult: null
   },
   applicants: {
     type: [{
@@ -57,10 +63,6 @@ const OffertSchema: Schema = new Schema({
   },
   slots: {
     type: Number,
-    required: true
-  },
-  voiceCommunicators: {
-    type: [String],
     required: true
   }
 }, {
