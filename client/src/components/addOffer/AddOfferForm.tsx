@@ -1,7 +1,9 @@
 import axios from '../../plugins/axios';
+import * as yup from 'yup';
 import { gamesRanks } from './data';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 type FormData = {
   title: string;
@@ -16,24 +18,35 @@ interface AddOfferFormProps {
   userId: string;
 };
 
+const addOffferSchema = yup.object({
+  title: yup.string().min(16, 'At least 16 characters long').max(64, 'Max length is 64').required('Title is required'),
+  description: yup.string().min(30, 'At least 30 characters long').max(256, 'Max length is 256').required('Description is required'),
+  game: yup.string().required(),
+  rank: yup.string().required(),
+  offerType: yup.string().required()
+});
+
 export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
   const [selectedGame, setSelectedGame] = useState<string>('');
   const [offerType, setOfferType] = useState<string>('');
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>({
+    resolver: yupResolver(addOffferSchema)
+  });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    // await axios.post('/offer/addNewoffer', {
-    //   _user: userId,
-    //   ...data
-    // });
+    // TODO add a error handling if error occur on backend
+    const response = await axios.post('/offer/addNewoffer', {
+      _user: userId,
+      ...data
+    });
 
-    console.log(data);
+    console.log(response);
   };
 
   return (
     <div className='bg-slate-200 flex h-screen'>
       <div className='m-auto'>
-        <div className=''>
+        <div className='w-75'>
           <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
 
             <div className='grid grid-cols-2 gap-8'>
@@ -46,8 +59,8 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                     {...register('title')}
                   />
 
-                  {errors.title && (
-                    <span className="text-red-500">This field is required</span>
+                  {errors.title?.message && (
+                    <span className="text-red-600">{errors.title.message}</span>
                   )}
                 </div>
 
@@ -59,10 +72,10 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                     {...register('description')}
                   />
 
-
-                  {errors.description && (
-                    <span className="text-red-500">This field is required</span>
+                  {errors.description?.message && (
+                    <span className="text-red-600">{errors.description.message}</span>
                   )}
+
                 </div>
               </div>
 
@@ -82,7 +95,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                     <option value="csgo">CS:GO</option>
                   </select>
                   {errors.game && (
-                    <span className="text-red-500">This field is required</span>
+                    <span className="text-red-600">This field is required</span>
                   )}
                 </div>
 
