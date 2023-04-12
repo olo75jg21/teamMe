@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const MONGO_URL = process.env.DB_CONN_STRING || '';
+export const MONGO_URL = 'mongodb://localhost:27017/teamMeDB' || process.env.DB_CONN_STRING;
 
 export const SERVER_PORT = process.env.SERVER_PROT || 5000;
 

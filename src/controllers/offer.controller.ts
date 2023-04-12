@@ -16,6 +16,8 @@ export const handleAddOffer = async (req: Request, res: Response) => {
 export const handleGetAllOffers = async (req: Request, res: Response) => {
   try {
     const offers = await OfferModel.find({});
+    // const offers = await OfferModel.find({}).populate('_user');
+    // console.log(offers);
 
     res.status(201).send(offers);
   } catch (error: any) {
@@ -25,8 +27,6 @@ export const handleGetAllOffers = async (req: Request, res: Response) => {
 
 export const handleGetMyOffers = async (req: Request, res: Response) => {
   try {
-
-
     const offers = await OfferModel.find({});
 
     res.status(201).send(offers);
