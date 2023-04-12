@@ -20,13 +20,18 @@ const LandingPage = (): JSX.Element => {
     })();
   }, [filters]);
 
+  const handleFilterChange = (newFilters: any) => {
+    console.log(newFilters);
+    setFilters(newFilters);
+  };
+
   return (
     <div>
       <Header />
       <div>
         <div className='flex flex-row'>
           <div className='basis-1/4'>
-            <AsidePanel />
+            <AsidePanel onFilterChange={handleFilterChange} />
           </div>
           <div className='basis-3/4'>
             {offers && <OffersList offers={offers} />}

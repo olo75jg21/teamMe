@@ -1,26 +1,49 @@
-export const AsidePanel = (): JSX.Element => {
+import { useState } from 'react';
+
+interface Props {
+  onFilterChange: (filters: any) => void;
+}
+
+export const AsidePanel = ({ onFilterChange }: Props): JSX.Element => {
+  const [ageMin, setAgeMin] = useState(0);
+  const [ageMax, setAgeMax] = useState(100);
+  const [game, setGame] = useState('');
+
+  const handleAgeMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAgeMin(parseInt(event.target.value));
+    onFilterChange({ age_min: parseInt(event.target.value), age_max: ageMax, game });
+  };
+
+  const handleAgeMaxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAgeMax(parseInt(event.target.value));
+    onFilterChange({ age_min: ageMin, age_max: parseInt(event.target.value), game });
+  };
+
+  const handleGameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setGame(event.target.value);
+    onFilterChange({ age_min: ageMin, age_max: ageMax, game: event.target.value });
+  };
+
+
   return (
-    <div className='m-5 p-5 border border-sky-500'>
-      <label className="block font-semibold mb-2">Search by title:</label>
-      <input type="text" className="w-full border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Search..." />
-
-      <label className="block font-semibold mt-4 mb-2">Filter by Date:</label>
-      <input type="date" className="w-full border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-
-      <label className="block font-semibold mt-4 mb-2">Filter by Age:</label>
-      <select className="w-full border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-        <option value="under-18">Under 18</option>
-        <option value="18-24">18-24</option>
-        <option value="25-34">25-34</option>
-        <option value="over-34">Over 34</option>
-      </select>
-
-      <label className="block font-semibold mt-4 mb-2">Filter by Game:</label>
-      <select className="w-full border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-        <option value="lol">League of Legends</option>
-        <option value="cs">Counter-Strike</option>
-        <option value="valorant">Valorant</option>
-      </select>
+    <div className="bg-gray-100 rounded-md p-4 mb-4">
+      <div className="flex flex-col mb-2">
+        <label htmlFor="age_min" className="text-sm font-medium mb-1">Age Min:</label>
+        <input type="number" id="age_min" name="age_min" value={ageMin} onChange={handleAgeMinChange} className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring focus:border-blue-400" />
+      </div>
+      <div className="flex flex-col mb-2">
+        <label htmlFor="age_max" className="text-sm font-medium mb-1">Age Max:</label>
+        <input type="number" id="age_max" name="age_max" value={ageMax} onChange={handleAgeMaxChange} className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring focus:border-blue-400" />
+      </div>
+      <div className="flex flex-col mb-2">
+        <label htmlFor="game" className="text-sm font-medium mb-1">Game:</label>
+        <select id="game" name="game" value={game} onChange={handleGameChange} className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring focus:border-blue-400">
+          <option value="">Select Game</option>
+          <option value="lol">League of Legends</option>
+          <option value="cs">Counter-Strike: Global Offensive</option>
+          <option value="valorant">Valorant</option>
+        </select>
+      </div>
     </div>
   );
 }
