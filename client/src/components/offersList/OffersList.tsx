@@ -1,21 +1,11 @@
-import axios from '../../plugins/axios';
-import { useState, useEffect } from 'react';
-
+import { IOffer } from '../../types/offer';
 import { Offer } from './Offer';
 
-export const OffersList = () => {
-  const [offers, setOffers] = useState<any[]>([]);
+interface Props {
+  offers: IOffer[]
+}
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get('/offer/getAll');
-        setOffers(res.data);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-  }, []);
+export const OffersList = ({ offers }: Props) => {
 
   const renderOffers = (): JSX.Element[] => {
     return offers.map(({ _id, _user, title, game, description, rank, createdAt }) => {
