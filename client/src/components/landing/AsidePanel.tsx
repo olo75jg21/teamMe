@@ -5,28 +5,38 @@ interface Props {
 }
 
 export const AsidePanel = ({ onFilterChange }: Props): JSX.Element => {
-  const [ageMin, setAgeMin] = useState(0);
-  const [ageMax, setAgeMax] = useState(100);
-  const [game, setGame] = useState('');
+  const [title, setTitle] = useState<string>('');
+  const [ageMin, setAgeMin] = useState<number>(0);
+  const [ageMax, setAgeMax] = useState<number>(100);
+  const [game, setGame] = useState<string>('');
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+    onFilterChange({ title: event.target.value, ageMin: ageMin, ageMax: ageMax, game });
+  };
 
   const handleAgeMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAgeMin(parseInt(event.target.value));
-    onFilterChange({ age_min: parseInt(event.target.value), age_max: ageMax, game });
+    onFilterChange({ ageMin: parseInt(event.target.value), ageMax: ageMax, game });
   };
 
   const handleAgeMaxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAgeMax(parseInt(event.target.value));
-    onFilterChange({ age_min: ageMin, age_max: parseInt(event.target.value), game });
+    onFilterChange({ ageMin: ageMin, ageMax: parseInt(event.target.value), game });
   };
 
   const handleGameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(event.target.value);
     setGame(event.target.value);
-    onFilterChange({ age_min: ageMin, age_max: ageMax, game: event.target.value });
+    onFilterChange({ ageMin: ageMin, ageMax: ageMax, game: event.target.value });
   };
-
 
   return (
     <div className="bg-gray-100 rounded-md p-4 mb-4">
+      <div className="flex flex-col mb-2">
+        <label htmlFor="tile" className="text-sm font-medium mb-1">Title:</label>
+        <input type="text" id="title" name="tile" value={title} onChange={handleTitleChange} className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring focus:border-blue-400" />
+      </div>
       <div className="flex flex-col mb-2">
         <label htmlFor="age_min" className="text-sm font-medium mb-1">Age Min:</label>
         <input type="number" id="age_min" name="age_min" value={ageMin} onChange={handleAgeMinChange} className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring focus:border-blue-400" />
@@ -43,6 +53,26 @@ export const AsidePanel = ({ onFilterChange }: Props): JSX.Element => {
           <option value="cs">Counter-Strike: Global Offensive</option>
           <option value="valorant">Valorant</option>
         </select>
+      </div>
+      <div>
+
+        {
+          game === 'lol' && <div>
+            LOL
+          </div>
+        }
+
+        {
+          game === 'cs' && <div>
+            LOL
+          </div>
+        }
+
+        {
+          game === 'valorant' && <div>
+            LOL
+          </div>
+        }
       </div>
     </div>
   );
