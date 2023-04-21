@@ -5,7 +5,7 @@ import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import { fetchSingleUser } from '../../utils/fetchingUserData';
 
 export interface IOffer {
-  // _id: string;
+  _id: string;
   _user: string;
   createdAt: string;
   // updatedAt: string;
@@ -15,7 +15,7 @@ export interface IOffer {
   rank: string;
 };
 
-export const Offer = ({ _user, title, game, description, rank, createdAt }: IOffer): JSX.Element => {
+export const Offer = ({ _id, _user, title, game, description, rank, createdAt }: IOffer): JSX.Element => {
   const [creator, setCreator] = useState<any>('');
 
   const { userData } = useGetLoggedUserData()
@@ -34,8 +34,13 @@ export const Offer = ({ _user, title, game, description, rank, createdAt }: IOff
 
   const handleApplyOnOffer = async () => {
     try {
+      // Get current logged user data
       const me = await fetchSingleUser(userId, token);
-      console.log(me);
+      // console.log(me);
+
+      const response = await axios.post('/offer/apply', { userId, offerId: _id });
+
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

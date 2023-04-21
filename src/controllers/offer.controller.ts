@@ -44,3 +44,24 @@ export const handleGetMyOffers = async (req: Request, res: Response) => {
     console.log(error);
   }
 };
+
+export const handleApplyOnOffer = async (req: Request, res: Response) => {
+  try {
+    const offer = await OfferModel.findOneAndUpdate({
+      _id: req.body.offerId
+    }, {
+      $push: {
+        applicants: {
+          _user: req.body.userId,
+          status: 'pending'
+        }
+      }
+    }, {
+      new: true
+    });
+
+    res.status(200).send(offer);
+  } catch (error) {
+    console.log(error);
+  }
+}

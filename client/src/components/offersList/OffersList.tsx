@@ -12,6 +12,7 @@ export const OffersList = ({ offers }: Props) => {
       return (
         <Offer
           key={_id}
+          _id={_id}
           _user={_user}
           title={title}
           game={game}
