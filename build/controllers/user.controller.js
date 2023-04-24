@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleGetOneUser = exports.handleGetAllUsers = void 0;
+exports.handleGetUserProfileData = exports.handleGetOneUser = exports.handleGetAllUsers = void 0;
 const _ = __importStar(require("lodash"));
 const user_model_1 = require("../models/user.model");
 const handleGetAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -45,3 +45,14 @@ const handleGetOneUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
     res.send(_.omit(user === null || user === void 0 ? void 0 : user.toObject(), ['password']));
 });
 exports.handleGetOneUser = handleGetOneUser;
+const handleGetUserProfileData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield user_model_1.UserModel.findOne({ _id: req.query.id });
+        res.status(200).send(_.omit(user === null || user === void 0 ? void 0 : user.toObject(), ['password', 'updatedAt']));
+    }
+    catch (error) {
+        res.status(404).send(error);
+        console.error(error);
+    }
+});
+exports.handleGetUserProfileData = handleGetUserProfileData;
