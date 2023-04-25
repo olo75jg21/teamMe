@@ -2,6 +2,7 @@ import { Express } from 'express';
 import {
   handleAddOffer,
   handleApplyOnOffer,
+  handleGetAllUserOffers,
   handleGetAllOffers,
   handleGetMyOffers
 } from '../controllers/offer.controller';
@@ -13,6 +14,7 @@ import { yupOfferCreationSchema } from '../validation/offerValidationSchema';
 export const offerRoutes = (app: Express) => {
   app.get('/offer/getAll', handleGetAllOffers);
   app.get('/offer/getMyOffers', authenticateJwt, handleGetMyOffers);
+  app.get('/offer/allUserOffers', handleGetAllUserOffers);
   app.post('/offer/addNewOffer', [authenticateJwt, schemaValidation(yupOfferCreationSchema)], handleAddOffer);
   app.post('/offer/apply', handleApplyOnOffer);
 };

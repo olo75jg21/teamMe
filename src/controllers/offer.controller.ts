@@ -17,14 +17,24 @@ export const handleGetAllOffers = async (req: Request, res: Response) => {
   try {
     const title = typeof req.query.title === 'string' ? req.query.title : '';
 
+    const userId = req.query?.userId; // or however you're getting the user ID
+    const applicantsQuery = userId ? { 'applicants._user': { $nin: [userId] } } : {};
+
     const offers = await OfferModel.find({
+      $and: [
+        { _user: { $ne: userId } },
+        applicantsQuery
+      ],
       title: {
         $regex: title,
         $options: 'i'
       },
-
-      age: req.query.minAge,
-
+      // minAge: {
+      //   $gte: req.query.minAge
+      // },
+      // maxAge: {
+      //   $lte: req.params.maxAge
+      // },
       ...(req.query.game !== '' && { game: req.query.game })
     });
 
@@ -36,7 +46,6 @@ export const handleGetAllOffers = async (req: Request, res: Response) => {
 
 export const handleGetMyOffers = async (req: Request, res: Response) => {
   try {
-
     const offers = await OfferModel.find({});
 
     res.status(201).send(offers);
@@ -61,6 +70,18 @@ export const handleApplyOnOffer = async (req: Request, res: Response) => {
     });
 
     res.status(200).send(offer);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const handleGetAllUserOffers = async (req: Request, res: Response) => {
+  try {
+    const userId = req.query?.userId; // or however you're getting the user ID
+
+    const offers = await OfferModel.find({ _user: userId })
+
+    res.status(200).send(offers);
   } catch (error) {
     console.log(error);
   }

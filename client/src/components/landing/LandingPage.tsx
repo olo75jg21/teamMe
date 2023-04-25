@@ -4,10 +4,13 @@ import { IOffer } from '../../types/offer';
 import Header from '../header/Header';
 import { OffersList } from '../offersList/OffersList';
 import { AsidePanel } from './AsidePanel';
+import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 
 const LandingPage = (): JSX.Element => {
   const [filters, setFilters] = useState({ title: '', ageMin: 0, ageMax: 100, game: '', rank: '' });
   const [offers, setOffers] = useState<IOffer[]>([]);
+
+  const { userData } = useGetLoggedUserData();
 
   useEffect(() => {
     (async () => {
@@ -21,6 +24,7 @@ const LandingPage = (): JSX.Element => {
             ageMax,
             game,
             rank,
+            userId: userData.user._id,
           }
         });
         console.log(filters);
@@ -44,7 +48,11 @@ const LandingPage = (): JSX.Element => {
             <AsidePanel onFilterChange={handleFilterChange} />
           </div>
           <div className='basis-3/4'>
-            {offers && <OffersList offers={offers} />}
+            <div className='p-5'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6'>
+                {offers && <OffersList offers={offers} />}
+              </div>
+            </div>
           </div>
         </div>
       </div>

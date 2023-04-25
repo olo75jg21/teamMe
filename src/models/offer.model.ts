@@ -11,6 +11,8 @@ export interface IOffer extends Document {
   offerType: string;
   title: string;
   game: string;
+  minAge: number;
+  maxAge: number;
   description: string;
   rank: string;
   applicants: IApplicant[];
@@ -42,6 +44,14 @@ const OffertSchema: Schema = new Schema({
   description: {
     type: String,
     required: true
+  },
+  minAge: {
+    type: Number,
+    default: 16,
+  },
+  maxAge: {
+    type: Number,
+    default: 100
   },
   rank: {
     type: String,
