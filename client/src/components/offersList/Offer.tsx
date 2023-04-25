@@ -3,26 +3,16 @@ import axios from '../../plugins/axios';
 import { renderPassedDays } from './landingUtils';
 import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import { fetchSingleUser } from '../../utils/fetchingUserData';
+import { IOffer } from '../../types/offer';
 
-export interface IOffer {
-  _id: string;
-  _user: string;
-  createdAt: string;
-  // updatedAt: string;
-  title: string;
-  description: string;
-  game: string;
-  rank: string;
-};
+export interface IOfferProps extends IOffer { };
 
-export const Offer = ({ _id, _user, title, game, description, rank, createdAt }: IOffer): JSX.Element => {
+export const Offer = ({ _id, _user, title, game, description, rank, createdAt, applicants }: IOfferProps): JSX.Element => {
   const [creator, setCreator] = useState<any>('');
 
   const { userData } = useGetLoggedUserData()
-  // const [isLogged] = useState(!!(localStorage.getItem('accessToken')));
 
   const userId = userData.user._id;
-  const token = userData.accessToken;
 
   useEffect(() => {
     (async () => {
@@ -65,10 +55,16 @@ export const Offer = ({ _id, _user, title, game, description, rank, createdAt }:
           <div>
             {renderPassedDays(createdAt)}
           </div>
+          {/* {
+            applicants &&
+            applicants.map((applicant) => {
+              return <div>{applicant._user}</div>
+            })
+          } */}
 
           <div>
             {
-              _user === userId
+              _user === userId || applicants.some(applicant => applicant._user === userId)
                 ? <div>Details</div>
                 : <button onClick={handleApplyOnOffer}>Apply</button>
             }

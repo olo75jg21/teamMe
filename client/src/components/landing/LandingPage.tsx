@@ -27,7 +27,6 @@ const LandingPage = (): JSX.Element => {
             userId: userData.user._id,
           }
         });
-        console.log(filters);
         setOffers(res.data);
       } catch (e) {
         console.log(e);
