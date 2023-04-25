@@ -14,10 +14,14 @@ export const Account = (): JSX.Element => {
       <div>
         <Header />
 
-        <div className='p-5 grid grid-cols-1 sm:grid-cols1 md:grid-cols2 gap-4 md:gap-6'>
-          <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 md:gap-6'>
-            <ProfileData />
-            <OfferTabs />
+        <div className='p-5 h-full'>
+          <div className='grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-1'>
+            <div className='col-span-1 md:col-span-1 border-r h-full'>
+              <ProfileData />
+            </div>
+            <div className='col-span-2 md:col-span-2'>
+              <OfferTabs />
+            </div>
           </div>
         </div>
       </div>

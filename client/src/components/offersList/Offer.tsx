@@ -24,7 +24,6 @@ export const Offer = ({ _id, _user, title, game, description, rank, createdAt }:
   const userId = userData.user._id;
   const token = userData.accessToken;
 
-
   useEffect(() => {
     (async () => {
       const res = await axios.get('/users/getOneUser/' + _user);
@@ -35,8 +34,6 @@ export const Offer = ({ _id, _user, title, game, description, rank, createdAt }:
   const handleApplyOnOffer = async () => {
     try {
       // Get current logged user data
-      const me = await fetchSingleUser(userId, token);
-      // console.log(me);
 
       const response = await axios.post('/offer/apply', { userId, offerId: _id });
 
@@ -70,7 +67,11 @@ export const Offer = ({ _id, _user, title, game, description, rank, createdAt }:
           </div>
 
           <div>
-            <button onClick={handleApplyOnOffer}>Apply</button>
+            {
+              _user === userId
+                ? <div>Details</div>
+                : <button onClick={handleApplyOnOffer}>Apply</button>
+            }
           </div>
         </div>
       </div>

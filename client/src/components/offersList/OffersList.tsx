@@ -6,7 +6,6 @@ interface Props {
 }
 
 export const OffersList = ({ offers }: Props) => {
-
   const renderOffers = (): JSX.Element[] => {
     return offers.map(({ _id, _user, title, game, description, rank, createdAt }) => {
       return (

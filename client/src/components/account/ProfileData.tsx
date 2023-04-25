@@ -59,7 +59,7 @@ export const ProfileData = (): JSX.Element => {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-8">User Profile</h1>
-      <form className="w-3/4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="w-4/5" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="username">
             Username

@@ -44,16 +44,6 @@ export const handleGetAllOffers = async (req: Request, res: Response) => {
   }
 };
 
-export const handleGetMyOffers = async (req: Request, res: Response) => {
-  try {
-    const offers = await OfferModel.find({});
-
-    res.status(201).send(offers);
-  } catch (error: any) {
-    console.log(error);
-  }
-};
-
 export const handleApplyOnOffer = async (req: Request, res: Response) => {
   try {
     const offer = await OfferModel.findOneAndUpdate({
@@ -73,11 +63,11 @@ export const handleApplyOnOffer = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const handleGetAllUserOffers = async (req: Request, res: Response) => {
   try {
-    const userId = req.query?.userId; // or however you're getting the user ID
+    const userId = req.query?.userId;
 
     const offers = await OfferModel.find({ _user: userId })
 
@@ -85,4 +75,18 @@ export const handleGetAllUserOffers = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const handleGetUserApplications = async (req: Request, res: Response) => {
+  try {
+    const userId = req.query?.userId;
+
+    const offers = await OfferModel.find({
+      'applicants._user': userId
+    });
+
+    res.status(200).send(offers);
+  } catch (error) {
+    console.log(error);
+  }
+};
