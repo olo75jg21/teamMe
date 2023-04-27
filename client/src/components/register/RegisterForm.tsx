@@ -44,6 +44,7 @@ const RegisterForm = (): JSX.Element => {
               <label className='block text-gray-700 text-sm font-bold mb-2'>Username</label>
               <input
                 className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                defaultValue="userTest1"
                 {...register("username")}
               />
               {errors.username?.message && <span className='text-red-600'>{errors.username?.message}</span>}
@@ -53,6 +54,7 @@ const RegisterForm = (): JSX.Element => {
               <label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
               <input
                 className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                defaultValue="userTest1@op.pl"
                 {...register("email")}
               />
               {errors.email?.message && <span className='text-red-600'>{errors.email?.message}</span>}
@@ -63,6 +65,7 @@ const RegisterForm = (): JSX.Element => {
               <input
                 className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                 type='password'
+                defaultValue='123123123'
                 {...register("password")}
               />
               {errors.password?.message && <span className='text-red-600'>{errors.password?.message}</span>}
@@ -73,6 +76,7 @@ const RegisterForm = (): JSX.Element => {
               <input
                 className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                 type='password'
+                defaultValue='123123123'
                 {...register("repeatPassword")}
               />
               {errors.repeatPassword?.message && <span className='text-red-600'>{errors.repeatPassword?.message}</span>}
@@ -93,7 +97,7 @@ const RegisterForm = (): JSX.Element => {
                 <input
                   className='shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   type='number'
-                  defaultValue={0}
+                  defaultValue={16}
                   {...register("age")}
                 />
                 {errors.age?.message && <span className='text-red-600'>{errors.age?.message}</span>}

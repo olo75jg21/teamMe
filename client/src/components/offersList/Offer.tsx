@@ -16,25 +16,14 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
 
   const userId = userData.user._id;
 
-  useEffect(() => {
-    (async () => {
-      const res = await axios.get('/users/getOneUser/' + _user);
-      setCreator(res.data);
-    })();
-  }, []);
-
-  const handleApplyOnOffer = async (): Promise<void> => {
-    try {
-      // Get current logged user data
-      const response = await axios.post('/offer/apply', { userId, offerId: _id });
-
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   const { _id, _user, game, rank, title, description, applicants, slots } = offer;
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const res = await axios.get('/users/getOneUser/' + _user._id);
+  //     setCreator(res.data);
+  //   })();
+  // }, []);
 
   const avilableSlots = applicants.reduce((count, applicant) => {
     if (applicant.status === 'accepted') {
@@ -54,7 +43,7 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
             alt="Profile picture"
           />
           <div>
-            <p className="text-gray-100 font-bold">{_user}</p>
+            <p className="text-gray-100 font-bold">{_user.username}</p>
             <p className="text-gray-300 text-sm font-semibold">{`${game} ${rank}`}</p>
           </div>
         </div>

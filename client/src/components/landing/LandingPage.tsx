@@ -34,6 +34,8 @@ const LandingPage = (): JSX.Element => {
     })();
   }, [filters]);
 
+  console.log(offers);
+
   const handleFilterChange = (newFilters: any) => {
     setFilters(newFilters);
   };

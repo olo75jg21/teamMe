@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import axios from '../../plugins/axios';
 import { IOffer } from '../../types/offer';
-import LandingPage from '../landing/LandingPage';
 
 const OfferDetailsCard = (): JSX.Element => {
   const [offer, setOffer] = useState<IOffer>(null!);
@@ -19,13 +18,32 @@ const OfferDetailsCard = (): JSX.Element => {
 
         setOffer(data[0]);
       } catch (e) {
-
+        console.log(e);
       }
     })();
   }, [])
 
+  const avilableSlots = offer ? offer.applicants.reduce((count, applicant) => {
+    if (applicant.status === 'accepted') {
+      return count + 1;
+    } else {
+      return count;
+    }
+  }, 0) : 0;
+
+  const handleApplyOnOffer = async (): Promise<void> => {
+    try {
+      // Get current logged user data
+      const response = await axios.post('/offer/apply', { userId: offer._user, offerId: offer._id });
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (offer &&
-    <div className="bg-gray-900 rounded-lg shadow-md p-6 border border-gray-800 w-3/4 mx-auto mt-16">
+    <div className="bg-gray-800 rounded-lg shadow-md p-6 border border-gray-800 w-3/4">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row items-center">
           <img
@@ -34,12 +52,12 @@ const OfferDetailsCard = (): JSX.Element => {
             alt="Profile picture"
           />
           <div>
-            <p className="text-gray-100 font-bold">{offer._user}</p>
+            <p className="text-gray-100 font-bold">{offer._user.username}</p>
             <p className="text-gray-300 text-sm font-semibold">{`${offer.game} ${offer.rank}`}</p>
           </div>
         </div>
         <div className="bg-violet-500 text-white font-semibold py-2 px-4 rounded">
-          {/* {`Available slots: ${offer.availableSlots} / ${offer.slots}`} */}
+          {`Available slots: ${avilableSlots} / ${offer.slots}`}
         </div>
       </div>
       <div className="mt-5">
@@ -50,18 +68,26 @@ const OfferDetailsCard = (): JSX.Element => {
         <p className="text-gray-200 text-xl font-bold">Description:</p>
         <p className="text-gray-300 text-md">{offer.description}</p>
       </div>
-      <div className="mt-6 flex justify-end">
+      <div className="mt-6 flex justify-between">
         <div>
           <NavLink
             className="bg-violet-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            to={`/offerDetails/${offer._id}`}
+            to={`/`}
           >
-            Details
+            Go Back
           </NavLink>
+        </div>
+        <div>
+          <button
+            className="bg-violet-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handleApplyOnOffer}
+          >
+            Apply
+          </button>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default OfferDetailsCard;

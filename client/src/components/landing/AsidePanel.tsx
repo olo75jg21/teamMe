@@ -32,9 +32,9 @@ export const AsidePanel = ({ onFilterChange }: Props): JSX.Element => {
   };
 
   return (
-    <div className="bg-gray-100 rounded-md p-4 m-5">
+    <div className="bg-gray-700 rounded-md p-4 m-5">
       <div className="flex flex-col mb-2">
-        <label htmlFor="title" className="text-sm font-medium mb-1">Title:</label>
+        <label htmlFor="title" className="text-lg text-gray-100 font-bold mb-1">Title:</label>
         <input
           type="text"
           id="title"

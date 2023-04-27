@@ -55,6 +55,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                 <input
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   type='text'
+                  defaultValue="Offer title eoeoeoeoeo"
                   {...register('title')}
                 />
 
@@ -68,6 +69,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
                 <textarea
                   className="resize-none h-56 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  defaultValue="Lorem Ibook. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in"
                   {...register('description')}
                 />
 

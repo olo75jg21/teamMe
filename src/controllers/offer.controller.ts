@@ -29,14 +29,8 @@ export const handleGetAllOffers = async (req: Request, res: Response) => {
         $regex: title,
         $options: 'i'
       },
-      // minAge: {
-      //   $gte: req.query.minAge
-      // },
-      // maxAge: {
-      //   $lte: req.params.maxAge
-      // },
       ...(req.query.game !== '' && { game: req.query.game })
-    });
+    }).populate('_user');
 
     res.status(201).send(offers);
   } catch (error: any) {

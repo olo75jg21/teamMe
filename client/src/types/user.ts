@@ -8,4 +8,5 @@ export interface IUser {
     createdAt: string;
     updatedAt: string;
     age: number;
+    description: string;
 };

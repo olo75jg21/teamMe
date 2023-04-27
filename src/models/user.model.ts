@@ -7,14 +7,14 @@ export interface IGame {
 };
 
 export interface IUser extends Document {
-  age: number;
-  description: string;
   email: string;
-  games: IGame[];
   language: string[];
-  password: string;
   username: string;
   gender: string;
+  games: IGame[];
+  age: number;
+  description: string;
+  password: string;
 };
 
 const UserSchema: Schema = new Schema({

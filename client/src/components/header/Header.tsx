@@ -13,7 +13,6 @@ const Header = (): JSX.Element => {
             <ul className='flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium 
               md:border-0 hover:text-slate-50'
             >
-
               <HeaderItem route={'/account'} text={'Account'} />
               <HeaderItem route={'/newoffer'} text={'New Offer'} />
 

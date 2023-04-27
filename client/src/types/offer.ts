@@ -1,3 +1,5 @@
+import { IUser } from './user';
+
 interface Applicant {
   _id: string;
   _user: string;
@@ -6,7 +8,7 @@ interface Applicant {
 
 export interface IOffer {
   _id: string;
-  _user: string;
+  _user: IUser;
   title: string;
   game: string;
   applicants: Applicant[];
