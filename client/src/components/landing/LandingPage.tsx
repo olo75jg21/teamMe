@@ -42,7 +42,7 @@ const LandingPage = (): JSX.Element => {
     <div>
       <Header />
       <div>
-        <div className='flex flex-row'>
+        <div className='flex flex-row bg-gray-800'>
           <div className='basis-1/4'>
             <AsidePanel onFilterChange={handleFilterChange} />
           </div>

@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from '../../plugins/axios';
 import { renderPassedDays } from './landingUtils';
 import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
-import { fetchSingleUser } from '../../utils/fetchingUserData';
 import { IOffer } from '../../types/offer';
+import { NavLink } from 'react-router-dom';
 
-export interface IOfferProps extends IOffer { };
+export interface IOfferProps {
+  offer: IOffer
+};
 
-export const Offer = ({ _id, _user, title, game, description, rank, createdAt, applicants }: IOfferProps): JSX.Element => {
+export const Offer = ({ offer }: IOfferProps): JSX.Element => {
   const [creator, setCreator] = useState<any>('');
 
   const { userData } = useGetLoggedUserData()
@@ -21,10 +23,9 @@ export const Offer = ({ _id, _user, title, game, description, rank, createdAt, a
     })();
   }, []);
 
-  const handleApplyOnOffer = async () => {
+  const handleApplyOnOffer = async (): Promise<void> => {
     try {
       // Get current logged user data
-
       const response = await axios.post('/offer/apply', { userId, offerId: _id });
 
       console.log(response);
@@ -33,42 +34,56 @@ export const Offer = ({ _id, _user, title, game, description, rank, createdAt, a
     }
   }
 
+  const { _id, _user, game, rank, title, description, applicants, slots } = offer;
+
+  const avilableSlots = applicants.reduce((count, applicant) => {
+    if (applicant.status === 'accepted') {
+      return count + 1;
+    } else {
+      return count;
+    }
+  }, 0);
+
   return (
-    <div className="border p-5 rounded-sm">
-      <div>
-        <div className="flex">
-          <div className="p-2 w-12 h-12 border rounded">
-            <img src={game === "League of legends" ? require("../../img/lol_logo.png") : null} alt="GI" className="" />
+    <div className="bg-gray-700 rounded-lg shadow-md p-6 border-1 border-gray-900">
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center">
+          <img
+            className="h-14 w-14 rounded-full object-cover mr-4"
+            src="https://via.placeholder.com/150"
+            alt="Profile picture"
+          />
+          <div>
+            <p className="text-gray-100 font-bold">{_user}</p>
+            <p className="text-gray-300 text-sm font-semibold">{`${game} ${rank}`}</p>
           </div>
-
-          <div className="text-md font-semibold p-2 w-80 mx-6">
-            {title}
-          </div>
-
         </div>
-        <div className="text-sm mt-2">{description}</div>
-
-        <div className="flex justify-between text-sm mt-2">
-          <div>
-            <p>Created by: {creator.email}</p>
-          </div>
-          <div>
-            {renderPassedDays(createdAt)}
-          </div>
-          {/* {
-            applicants &&
-            applicants.map((applicant) => {
-              return <div>{applicant._user}</div>
-            })
-          } */}
-
-          <div>
-            {
-              _user === userId || applicants.some(applicant => applicant._user === userId)
-                ? <div>Details</div>
-                : <button onClick={handleApplyOnOffer}>Apply</button>
-            }
-          </div>
+        <div className="bg-violet-500 text-white font-semibold py-2 px-4 rounded">
+          {`Avilable slots: ${avilableSlots} / ${slots}`}
+        </div>
+      </div>
+      <div className="mt-5">
+        <p className='text-gray-200 text-xl font-bold'>Title:</p>
+        <p className="text-gray-300 text-md truncate">
+          {title}
+        </p>
+      </div>
+      <div className="mt-3">
+        <p className="text-gray-300 text-sm">
+          <p className='text-gray-200 text-xl font-semibold'>Description:</p>
+          <p className="text-gray-300 text-md truncate">
+            {description}
+          </p>
+        </p>
+      </div>
+      <div className="mt-6 flex justify-end">
+        <div>
+          <NavLink
+            className='bg-violet-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+            to={`/offerDetails/${_id}`}
+          >
+            Details
+          </NavLink>
         </div>
       </div>
     </div>
