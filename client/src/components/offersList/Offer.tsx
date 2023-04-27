@@ -69,11 +69,9 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
         </p>
       </div>
       <div className="mt-3">
-        <p className="text-gray-300 text-sm">
-          <p className='text-gray-200 text-xl font-semibold'>Description:</p>
-          <p className="text-gray-300 text-md truncate">
-            {description}
-          </p>
+        <p className='text-gray-200 text-xl font-semibold'>Description:</p>
+        <p className="text-gray-300 text-md truncate">
+          {description}
         </p>
       </div>
       <div className="mt-6 flex justify-end">

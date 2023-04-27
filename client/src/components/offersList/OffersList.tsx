@@ -1,4 +1,3 @@
-import { application } from 'express';
 import { IOffer } from '../../types/offer';
 import { Offer } from './Offer';
 
@@ -11,6 +10,7 @@ export const OffersList = ({ offers }: Props) => {
     return offers.map((offer: IOffer) => {
       return (
         <Offer
+          key={offer._id}
           offer={offer}
         />
       );

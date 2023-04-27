@@ -1,9 +1,13 @@
+import Header from '../header/Header';
+import OfferDetailsCard from './OfferDetailsCard';
+
 const OfferDetails = (): JSX.Element => {
   return (
-    <div>
-      XD
-    </div>
-  )
-}
+    <>
+      <Header />
+      <OfferDetailsCard />
+    </>
+  );
+};
 
 export default OfferDetails;

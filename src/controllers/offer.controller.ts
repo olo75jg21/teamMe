@@ -44,6 +44,17 @@ export const handleGetAllOffers = async (req: Request, res: Response) => {
   }
 };
 
+export const handleGetOffer = async (req: Request, res: Response) => {
+  try {
+    const offerId = req.query?.id;
+
+    const offer = await OfferModel.find({ _id: offerId });
+    res.status(200).send(offer);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const handleApplyOnOffer = async (req: Request, res: Response) => {
   try {
     const offer = await OfferModel.findOneAndUpdate({
