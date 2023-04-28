@@ -42,23 +42,25 @@ export const OfferTabs = (): JSX.Element => {
 		})();
 	}, [activeTab])
 
-	console.log(tabData);
+	const renderTabs = () => {
+		return tabs.map((tab) => (
+			<button
+				key={tab.id}
+				className={`py-2 w-full px-4 ${activeTab === tab.id
+					? "bg-blue-500 text-white"
+					: "bg-white text-blue-500 hover:bg-gray-100"
+					} rounded-t-lg focus:outline-none`}
+				onClick={() => setActiveTab(tab.id)}
+			>
+				{tab.label}
+			</button>
+		))
+	};
 
 	return (
 		<div className="border border-gray-300 rounded-lg w-3/4 mx-auto">
 			<div className="flex justify-center border-b border-gray-300">
-				{tabs.map((tab) => (
-					<button
-						key={tab.id}
-						className={`py-2 w-full px-4 ${activeTab === tab.id
-							? "bg-blue-500 text-white"
-							: "bg-white text-blue-500 hover:bg-gray-100"
-							} rounded-t-lg focus:outline-none`}
-						onClick={() => setActiveTab(tab.id)}
-					>
-						{tab.label}
-					</button>
-				))}
+				{renderTabs()}
 			</div>
 			<div className="p-4 bg-white rounded-b-lg">
 				{tabData && <OffersList offers={tabData} />}

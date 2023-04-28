@@ -10,5 +10,5 @@ exports.MONGO_URL = 'mongodb://localhost:27017/teamMeDB' || process.env.DB_CONN_
 exports.SERVER_PORT = process.env.SERVER_PROT || 5000;
 exports.SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || 'jdsalkhfjhekljhdwajdhsjkh';
 exports.SERVER_TOKEN_REFRESH = process.env.SERVER_TOKEN_REFRESH || 'dsaijufhaheifhah';
-exports.SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || '1m';
-exports.SERVER_TOKEN_REFRESH_EXPIRETIME = process.env.SERVER_TOKEN_REFRESH_EXPIRETIME || '120m';
+exports.SERVER_TOKEN_EXPIRETIME = '30m' || process.env.SERVER_TOKEN_EXPIRETIME;
+exports.SERVER_TOKEN_REFRESH_EXPIRETIME = '120m' || process.env.SERVER_TOKEN_REFRESH_EXPIRETIME;

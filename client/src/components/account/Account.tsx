@@ -14,9 +14,9 @@ export const Account = (): JSX.Element => {
       <div>
         <Header />
 
-        <div className='p-5 h-full'>
+        <div className='p-5 pt-12 h-full bg-gray-800'>
           <div className='grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-1'>
-            <div className='col-span-1 md:col-span-1 border-r h-full'>
+            <div className='bg-gray-700 h-2/4 col-span-1 md:col-span-1 rounded'>
               <ProfileData />
             </div>
             <div className='col-span-2 md:col-span-2'>

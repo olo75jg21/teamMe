@@ -47,9 +47,6 @@ const UserSchema = new mongoose_1.Schema({
                 },
                 rank: {
                     type: String
-                },
-                additionalInfo: {
-                    type: String
                 }
             }]
     },

@@ -37,9 +37,6 @@ const UserSchema: Schema = new Schema({
       },
       rank: {
         type: String
-      },
-      additionalInfo: {
-        type: String
       }
     }]
   },

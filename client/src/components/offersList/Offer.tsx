@@ -12,18 +12,7 @@ export interface IOfferProps {
 export const Offer = ({ offer }: IOfferProps): JSX.Element => {
   const [creator, setCreator] = useState<any>('');
 
-  const { userData } = useGetLoggedUserData()
-
-  const userId = userData.user._id;
-
   const { _id, _user, game, rank, title, description, applicants, slots } = offer;
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await axios.get('/users/getOneUser/' + _user._id);
-  //     setCreator(res.data);
-  //   })();
-  // }, []);
 
   const avilableSlots = applicants.reduce((count, applicant) => {
     if (applicant.status === 'accepted') {
