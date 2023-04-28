@@ -1,5 +1,9 @@
 export const gamesRanks = {
   lolRanks: [
+    "Iron 1",
+    "Iron 2",
+    "Iron 3",
+    "Iron 4",
     "Bronze 1",
     "Bronze 2",
     "Bronze 3",
@@ -11,6 +15,18 @@ export const gamesRanks = {
     "Gold 1",
     "Gold 2",
     "Gold 3",
+    "Gold 4",
+    "Platinium 1",
+    "Platinium 2",
+    "Platinium 3",
+    "Platinium 4",
+    "Diamond 1",
+    "Diamond 2",
+    "Diamond 3",
+    "Diamond 4",
+    "Mastertier",
+    "Grandmaster",
+    "Challanger",
   ],
 
   valoRanks: [

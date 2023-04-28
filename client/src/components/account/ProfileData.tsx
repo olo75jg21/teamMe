@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import axios from '../../plugins/axios';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import * as yup from "yup";
 import { IUser } from '../../types/user';
-import GamesList from './GamesList';
+import { IGame } from '../../types/game';
+import AddGameModal from './AddGameModal';
 
 interface IUserProfileData extends IUser { }
 
@@ -44,8 +45,19 @@ export const ProfileData = (): JSX.Element => {
     defaultValues: user,
   });
 
+  const handleAddEmptyGame = (game: string, rank: string) => {
+    if (!user) return;
+
+    console.log(rank);
+
+    const newGame = { name: game, rank };
+    const newUser = { ...user, games: [...user.games, newGame] };
+    setUser(newUser);
+    console.log(user);
+  };
+
   const onSubmit: SubmitHandler<IUserProfileData> = async formData => {
-    console.log('XD');
+    console.log(formData);
   }
 
   return (
@@ -125,6 +137,16 @@ export const ProfileData = (): JSX.Element => {
           />
         </div>
 
+        {
+          user?.games.map((game: IGame) => {
+            return <div key={crypto.randomUUID()} className='flex justify-between my-4 bg-violet-500 rounded'>
+              <p className="text-md text-gray-100 font-bold px-4 py-2">{game.name + ' ' + game.rank}</p>
+            </div>
+          })
+        }
+
+        <AddGameModal handleAddEmptyGame={handleAddEmptyGame} />
+
         <div className="flex items-center justify-center">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -135,7 +157,6 @@ export const ProfileData = (): JSX.Element => {
         </div>
       </form>
 
-      <GamesList />
     </div>
   );
 };

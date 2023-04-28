@@ -29,7 +29,7 @@ const addOffferSchema = yup.object({
 export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
   const [selectedGame, setSelectedGame] = useState<string>('');
   const [offerType, setOfferType] = useState<string>('');
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(addOffferSchema)
   });
 
