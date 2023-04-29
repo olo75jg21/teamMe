@@ -48,7 +48,7 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
   return (
     <div className="flex items-center justify-center mb-4">
       <button
-        className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
+        className='bg-violet-600 hover:bg-violet-800 text-white w-48 font-bold py-2 px-4 rounded'
         type="button"
         onClick={openModal}
       >
