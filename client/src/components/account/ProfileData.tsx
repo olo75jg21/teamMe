@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react';
-import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
-import axios from '../../plugins/axios';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
+
+import Select from "react-tailwindcss-select";
+import axios from '../../plugins/axios';
+import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import { IUser } from '../../types/user';
 import { IGame } from '../../types/game';
 import AddGameModal from './AddGameModal';
+import { languages } from '../../data/languages';
 
 interface IUserProfileData extends IUser { }
 
 const schema = yup.object().shape({
-  // age: yup
-  //   .number()
-  //   .positive("Age must be a positive number")
-  //   .integer("Age must be a whole number"),
-  // email: yup.string().email("Email must be a valid email address"),
-  // gender: yup.string().oneOf(["male", "female", "other"], "Gender must be male, female, or other"),
-  // username: yup.string(),
+  age: yup
+    .number()
+    .positive("Age must be a positive number")
+    .integer("Age must be a whole number"),
+  email: yup.string().email("Email must be a valid email address"),
+  gender: yup.string().oneOf(["male", "female", "other"], "Gender must be male, female, or other"),
+  username: yup.string(),
 });
 
 export const ProfileData = (): JSX.Element => {
@@ -46,12 +49,15 @@ export const ProfileData = (): JSX.Element => {
   const handleAddEmptyGame = (game: string, rank: string) => {
     if (!user) return;
 
-    console.log(rank);
-
     const newGame = { name: game, rank };
     const newUser = { ...user, games: [...user.games, newGame] };
     setUser(newUser);
-    console.log(user);
+  };
+
+  const handleChangeLanguages = (value: any) => {
+    if (!user) return;
+    const newUser = { ...user, language: value }
+    setUser(newUser);
   };
 
   const onSubmit: SubmitHandler<IUserProfileData> = async formData => {
@@ -73,9 +79,14 @@ export const ProfileData = (): JSX.Element => {
   const renderGames = () => {
     return user?.games.map((game: IGame) => {
       return (
-        <li key={crypto.randomUUID()} className="text-md text-gray-100 font-bold px-4 py-2">{renderProperGameName(game.name) + ' ' + game.rank}</li>
-      )
-    })
+        <li
+          key={crypto.randomUUID()}
+          className="text-md text-gray-100 font-bold px-4 py-2"
+        >
+          {renderProperGameName(game.name) + ' | ' + game.rank}
+        </li>
+      );
+    });
   };
 
   const renderNoGames = () => {
@@ -86,7 +97,7 @@ export const ProfileData = (): JSX.Element => {
     );
   };
 
-  return (
+  return user ? (
     <div className="flex flex-col items-center">
       <div className='my-4 bg-violet-600 rounded'>
         <p className="text-xl text-gray-100 font-bold px-4 py-2">User Profile</p>
@@ -100,7 +111,7 @@ export const ProfileData = (): JSX.Element => {
           <input
             className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
             type="text"
-            defaultValue={user?.username}
+            defaultValue={user.username}
             {...register("username")}
           />
           {errors.username && <span className="text-red-500">This field is required</span>}
@@ -113,7 +124,7 @@ export const ProfileData = (): JSX.Element => {
           <input
             className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
             type="email"
-            defaultValue={user?.email}
+            defaultValue={user.email}
             {...register("email")}
           />
           {errors.email && <span className="text-red-500">This field is required</span>}
@@ -127,7 +138,7 @@ export const ProfileData = (): JSX.Element => {
             <input
               className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
               type="number"
-              defaultValue={user?.age}
+              defaultValue={user.age}
               {...register("age")}
             />
             {errors.age && <span className="text-red-500">This field is required</span>}
@@ -139,7 +150,7 @@ export const ProfileData = (): JSX.Element => {
             </label>
             <select
               className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-              // className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              defaultValue={user.gender}
               {...register("gender")}
             >
               <option value="">Select Gender</option>
@@ -152,14 +163,15 @@ export const ProfileData = (): JSX.Element => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="language">
-            Language
+          <label className="block text-sm text-gray-100 font-bold mb-2">
+            Languages
           </label>
-          <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            placeholder="Language"
-            {...register("language")}
+          <Select
+            value={user?.language as []}
+            isMultiple
+            onChange={handleChangeLanguages}
+            options={languages}
+            primaryColor={"violet"}
           />
         </div>
 
@@ -167,21 +179,19 @@ export const ProfileData = (): JSX.Element => {
           Games:
         </label>
 
-        {user?.games.length !== 0 ? renderGames() : renderNoGames()}
+        {user.games.length !== 0 ? renderGames() : renderNoGames()}
 
         <AddGameModal handleAddEmptyGame={handleAddEmptyGame} />
 
         <div className="flex items-center justify-center">
           <button
-            className="bg-blue-500 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-violet-600 hover:bg-violet-800 w-48 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Save
+            Save changes
           </button>
         </div>
-
       </form>
-
     </div>
-  );
+  ) : <></>;
 };
