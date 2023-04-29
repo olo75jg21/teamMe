@@ -9,7 +9,6 @@ import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import { IUser } from '../../types/user';
 import { IGame } from '../../types/game';
 import AddGameModal from './AddGameModal';
-import { languages } from '../../data/languages';
 
 interface IUserProfileData extends IUser { }
 
@@ -51,12 +50,6 @@ export const ProfileData = (): JSX.Element => {
 
     const newGame = { name: game, rank };
     const newUser = { ...user, games: [...user.games, newGame] };
-    setUser(newUser);
-  };
-
-  const handleChangeLanguages = (value: any) => {
-    if (!user) return;
-    const newUser = { ...user, language: value }
     setUser(newUser);
   };
 
@@ -160,19 +153,6 @@ export const ProfileData = (): JSX.Element => {
             </select>
             {errors.gender && <span className="text-red-500">This field is required</span>}
           </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm text-gray-100 font-bold mb-2">
-            Languages
-          </label>
-          <Select
-            value={user?.language as []}
-            isMultiple
-            onChange={handleChangeLanguages}
-            options={languages}
-            primaryColor={"violet"}
-          />
         </div>
 
         <label className="block text-sm text-gray-100 font-bold mb-2" htmlFor="username">
