@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from '../../plugins/axios';
 import { IOffer } from '../../types/offer';
 import Header from '../header/Header';
-import { OffersList } from '../offersList/OffersList';
+import { OffersList } from '../offer/offersList/OffersList';
 import { AsidePanel } from './AsidePanel';
 import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 

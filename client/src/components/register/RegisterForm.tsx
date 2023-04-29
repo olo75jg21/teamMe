@@ -105,7 +105,7 @@ const RegisterForm = (): JSX.Element => {
 
             </div>
 
-            <input type="submit" value='Sign In' className='bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+            <input type="submit" value='Sign In' className='bg-blue-500 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
 
             <div className='flex mt-5'>
               <p>Have an account?&nbsp;</p>

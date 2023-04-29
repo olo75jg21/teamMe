@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from '../../plugins/axios';
+import axios from '../../../plugins/axios';
 import { renderPassedDays } from './landingUtils';
-import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
-import { IOffer } from '../../types/offer';
+import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
+import { IOffer } from '../../../types/offer';
 import { NavLink } from 'react-router-dom';
 
 export interface IOfferProps {
@@ -36,7 +36,7 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
             <p className="text-gray-300 text-sm font-semibold">{`${game} ${rank}`}</p>
           </div>
         </div>
-        <div className="bg-violet-500 text-white font-semibold py-2 px-4 rounded">
+        <div className="bg-violet-600 text-white font-semibold py-2 px-4 rounded">
           {`Avilable slots: ${avilableSlots} / ${slots}`}
         </div>
       </div>
@@ -55,7 +55,7 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
       <div className="mt-6 flex justify-end">
         <div>
           <NavLink
-            className='bg-violet-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+            className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
             to={`/offerDetails/${_id}`}
           >
             Details

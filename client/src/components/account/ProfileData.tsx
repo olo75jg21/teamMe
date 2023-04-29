@@ -11,14 +11,13 @@ import AddGameModal from './AddGameModal';
 interface IUserProfileData extends IUser { }
 
 const schema = yup.object().shape({
-  age: yup
-    .number()
-    .positive("Age must be a positive number")
-    .integer("Age must be a whole number")
-    .required("Age is required"),
-  email: yup.string().email("Email must be a valid email address").required("Email is required"),
-  gender: yup.string().oneOf(["male", "female", "other"], "Gender must be male, female, or other").required("Gender is required"),
-  username: yup.string().required("Username is required"),
+  // age: yup
+  //   .number()
+  //   .positive("Age must be a positive number")
+  //   .integer("Age must be a whole number"),
+  // email: yup.string().email("Email must be a valid email address"),
+  // gender: yup.string().oneOf(["male", "female", "other"], "Gender must be male, female, or other"),
+  // username: yup.string(),
 });
 
 export const ProfileData = (): JSX.Element => {
@@ -39,7 +38,6 @@ export const ProfileData = (): JSX.Element => {
     })();
   }, [userId]);
 
-
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
     defaultValues: user,
@@ -57,12 +55,40 @@ export const ProfileData = (): JSX.Element => {
   };
 
   const onSubmit: SubmitHandler<IUserProfileData> = async formData => {
-    console.log(formData);
+    if (!user) return;
+    console.log({ ...formData, games: [...user.games] });
   }
+
+  const renderProperGameName = (gameName: string) => {
+    switch (gameName) {
+      case 'lol':
+        return 'League Of Legends'
+      case 'valorant':
+        return 'Valorant'
+      case 'csgo':
+        return 'Counter-Strike Global Offensive'
+    }
+  };
+
+  const renderGames = () => {
+    return user?.games.map((game: IGame) => {
+      return (
+        <li key={crypto.randomUUID()} className="text-md text-gray-100 font-bold px-4 py-2">{renderProperGameName(game.name) + ' ' + game.rank}</li>
+      )
+    })
+  };
+
+  const renderNoGames = () => {
+    return (
+      <div className='mb-4'>
+        <p className="text-gray-200 font-semibold text-xl">There are no games added...</p>
+      </div>
+    );
+  };
 
   return (
     <div className="flex flex-col items-center">
-      <div className='my-4 bg-violet-500 rounded'>
+      <div className='my-4 bg-violet-600 rounded'>
         <p className="text-xl text-gray-100 font-bold px-4 py-2">User Profile</p>
       </div>
 
@@ -137,24 +163,23 @@ export const ProfileData = (): JSX.Element => {
           />
         </div>
 
-        {
-          user?.games.map((game: IGame) => {
-            return <div key={crypto.randomUUID()} className='flex justify-between my-4 bg-violet-500 rounded'>
-              <p className="text-md text-gray-100 font-bold px-4 py-2">{game.name + ' ' + game.rank}</p>
-            </div>
-          })
-        }
+        <label className="block text-sm text-gray-100 font-bold mb-2" htmlFor="username">
+          Games:
+        </label>
+
+        {user?.games.length !== 0 ? renderGames() : renderNoGames()}
 
         <AddGameModal handleAddEmptyGame={handleAddEmptyGame} />
 
         <div className="flex items-center justify-center">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Save
           </button>
         </div>
+
       </form>
 
     </div>

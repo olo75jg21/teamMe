@@ -9,7 +9,7 @@ import ErrorPage from "./ErrorPage";
 import LandingPage from './landing/LandingPage';
 import LoginPage from './login/LoginPage';
 import RegisterPage from './register/RegisterPage';
-import OfferDetails from './offerDetails/OfferDetails';
+import OfferDetails from './offer/offerDetails/OfferDetails';
 
 export const App = (): JSX.Element => {
 

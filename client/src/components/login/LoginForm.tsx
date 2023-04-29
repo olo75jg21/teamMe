@@ -72,7 +72,7 @@ const LoginForm = (): JSX.Element => {
                 {errors.password?.message && <span className='text-red-600'>{errors.password?.message}</span>}
               </div>
 
-              <input type="submit" value='Login' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+              <input type="submit" value='Login' className='bg-blue-500 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
 
               <div className='mt-4'>
                 <span className=''>

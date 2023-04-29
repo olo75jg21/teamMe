@@ -1,4 +1,4 @@
-import { IOffer } from '../../types/offer';
+import { IOffer } from '../../../types/offer';
 import { Offer } from './Offer';
 
 interface Props {

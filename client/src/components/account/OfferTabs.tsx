@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from '../../plugins/axios';
 import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import { forEach } from 'lodash';
-import { OffersList } from '../offersList/OffersList';
+import { OffersList } from '../offer/offersList/OffersList';
 
 export const OfferTabs = (): JSX.Element => {
 	const tabs = [

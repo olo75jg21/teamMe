@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { gamesRanks } from '../addOffer/data';
 import Modal from 'react-modal';
 
@@ -6,10 +6,12 @@ const customStyles = {
   content: {
     top: '50%',
     left: '50%',
-    right: 'auto',
-    bottom: 'auto',
+    right: '70%',
+    bottom: '20%',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    backgroundColor: 'rgb(55 65 81)',
+    borderRadius: '4%'
   },
 };
 
@@ -26,32 +28,31 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
 
   let subtitle: any;
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
-  function afterOpenModal() {
+  const afterOpenModal = () => {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
-  }
+  };
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
 
   const addGame = (event: any) => {
     event.preventDefault();
     handleAddEmptyGame(selectedGame, selectedRank);
-  }
+  };
 
   return (
-    <div>
+    <div className="flex items-center justify-center mb-4">
       <button
-        className="px-3 py-2 bg-blue-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
         type="button"
         onClick={openModal}
       >
-        Add Game
+        Add New Game
       </button>
 
       <Modal
@@ -61,31 +62,35 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
+        <div className='flex justify-between '>
+          <div className='mb-3 bg-violet-600 rounded px-3 py-1'>
+            <p className="text-2xl font-bold text-gray-100" ref={(_subtitle) => (subtitle = _subtitle)}>Add Game</p>
+          </div>
+
+          <div onClick={closeModal} className='mb-3 bg-violet-600 rounded px-3 py-1'>
+            <button className='text-2xl text-gray-100'>&#10005;</button>
+          </div>
+        </div>
         <div>
           <form onSubmit={addGame}>
-            <div className='mb-4 h-20'>
-              <label className='block text-gray-700 text-sm font-bold mb-2'>Game</label>
-
-              <select
-                className="border border-gray-400 p-2 rounded w-full mt-2"
-                value={selectedGame}
-                onChange={(e) => setSelectedGame(e.target.value)}
-              >
-                <option value="">Select a game</option>
-                <option value="lol">League of Legends</option>
-                <option value="valorant">Valorant</option>
-                <option value="csgo">CS:GO</option>
-              </select>
-            </div>
-
-            <div className='mb-4 h-20'>
-              {selectedGame === "" && (
-                <label
-                  className="block text-gray-700 mb-2"
+            <div className='flex justify-between'>
+              <div className='mb-4 h-20 w-1/2'>
+                <label className="block text-gray-100 font-bold mb-2">Game</label>
+                <select
+                  className="border border-gray-400 p-2 rounded w-full"
+                  value={selectedGame}
+                  onChange={(e) => setSelectedGame(e.target.value)}
                 >
-                  Rank:
+                  <option value="">Select a game</option>
+                  <option value="lol">League of Legends</option>
+                  <option value="valorant">Valorant</option>
+                  <option value="csgo">CS:GO</option>
+                </select>
+              </div>
+
+              <div className='mb-4 w-2/5'>
+                <label className="block text-gray-100 font-bold mb-2">Rank</label>
+                {selectedGame === "" && (
                   <select
                     defaultValue=""
                     className="border border-gray-400 p-2 rounded w-full mt-2"
@@ -93,14 +98,9 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
                   >
                     <option disabled value="">Select a game first</option>
                   </select>
-                </label>
-              )}
+                )}
 
-              {selectedGame === "lol" && (
-                <label
-                  className="block text-gray-700 mb-2"
-                >
-                  Rank:
+                {selectedGame === "lol" && (
                   <select
                     defaultValue=""
                     className="border border-gray-400 p-2 rounded w-full mt-2"
@@ -113,14 +113,9 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
                       </option>
                     ))}
                   </select>
-                </label>
-              )}
+                )}
 
-              {selectedGame === "valorant" && (
-                <label
-                  className="block text-gray-700 mb-2"
-                >
-                  Rank:
+                {selectedGame === "valorant" && (
                   <select
                     defaultValue=""
                     className="border border-gray-400 p-2 rounded w-full mt-2"
@@ -133,14 +128,9 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
                       </option>
                     ))}
                   </select>
-                </label>
-              )}
+                )}
 
-              {selectedGame === "csgo" && (
-                <label
-                  className="block text-gray-700 mb-2"
-                >
-                  Rank:
+                {selectedGame === "csgo" && (
                   <select
                     defaultValue=""
                     className="border border-gray-400 p-2 rounded w-full mt-2"
@@ -153,10 +143,19 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
                       </option>
                     ))}
                   </select>
-                </label>
-              )}
+                )}
+              </div>
             </div>
-            <button type='submit'>Add new game</button>
+
+            <div className='flex justify-end'>
+              <button
+                className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
+                type="submit"
+                onClick={openModal}
+              >
+                Add New Game
+              </button>
+            </div>
           </form>
         </div>
       </Modal>
