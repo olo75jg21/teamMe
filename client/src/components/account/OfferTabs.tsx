@@ -32,7 +32,7 @@ export const OfferTabs = (): JSX.Element => {
 
 				setTabData(data);
 			} else {
-				const { data } = await axios.get('/offers/userApplications', {
+				const { data } = await axios.get(`/offers/userApplications`, {
 					params: {
 						userId: userData.user._id
 					}

@@ -10,11 +10,7 @@ const OfferDetailsCard = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get('/offers/single', {
-          params: {
-            id
-          }
-        });
+        const { data } = await axios.get(`/offers/${id}`);
 
         setOffer(data[0]);
       } catch (e) {
@@ -34,7 +30,7 @@ const OfferDetailsCard = (): JSX.Element => {
   const handleApplyOnOffer = async (): Promise<void> => {
     try {
       // Get current logged user data
-      const response = await axios.post('/offer/apply', { userId: offer._user, offerId: offer._id });
+      const response = await axios.post(`/offers/apply`, { userId: offer._user, offerId: offer._id });
 
       console.log(response);
     } catch (error) {
