@@ -31,11 +31,7 @@ export const ProfileData = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get('/user/getProfileData', {
-        params: {
-          id: userId
-        }
-      });
+      const { data } = await axios.get(`/users/profile/${userId}`);
       setUser(data);
     })();
   }, [userId]);

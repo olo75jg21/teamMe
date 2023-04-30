@@ -3,11 +3,6 @@ import * as _ from 'lodash';
 
 import { UserModel } from '../models/user.model';
 
-export const handleGetAllUsers = async (req: Request, res: Response) => {
-  const users = await UserModel.find({});
-  res.send(users);
-};
-
 export const handleGetOneUser = async (req: Request, res: Response) => {
   const user = await UserModel.findOne({ _id: req.params.id });
   res.send(_.omit(user?.toObject(), ['password']));
@@ -15,7 +10,7 @@ export const handleGetOneUser = async (req: Request, res: Response) => {
 
 export const handleGetUserProfileData = async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findOne({ _id: req.query.id });
+    const user = await UserModel.findOne({ _id: req.params.id });
     res.status(200).send(_.omit(user?.toObject(), ['password', 'updatedAt']));
   } catch (error) {
     res.status(404).send(error);
