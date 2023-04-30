@@ -24,7 +24,7 @@ export const OfferTabs = (): JSX.Element => {
 	useEffect(() => {
 		(async () => {
 			if (activeTab === tabs[0].id) {
-				const { data } = await axios.get('/offer/allUserOffers', {
+				const { data } = await axios.get('/offers/user', {
 					params: {
 						userId: userData.user._id
 					}
@@ -32,7 +32,7 @@ export const OfferTabs = (): JSX.Element => {
 
 				setTabData(data);
 			} else {
-				const { data } = await axios.get('/offer/userApplications', {
+				const { data } = await axios.get('/offers/userApplications', {
 					params: {
 						userId: userData.user._id
 					}

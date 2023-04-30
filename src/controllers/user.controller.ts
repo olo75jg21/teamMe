@@ -21,4 +21,12 @@ export const handleGetUserProfileData = async (req: Request, res: Response) => {
     res.status(404).send(error);
     console.error(error);
   }
-}
+};
+
+export const handleUpdateUserProfile = async (req: Request, res: Response) => {
+  try {
+    res.status(200).send({ status: 'ok' });
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};

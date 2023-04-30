@@ -10,7 +10,7 @@ const OfferDetailsCard = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get('/offer/single', {
+        const { data } = await axios.get('/offers/single', {
           params: {
             id
           }

@@ -35,7 +35,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     // TODO add a error handling if error occur on backend
-    const response = await axios.post('/offer/addNewoffer', {
+    const response = await axios.post('/offers/new', {
       _user: userId,
       ...data
     });

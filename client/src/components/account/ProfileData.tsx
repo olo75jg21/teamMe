@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
+// import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 
-import Select from "react-tailwindcss-select";
+// import Select from "react-tailwindcss-select";
 import axios from '../../plugins/axios';
 import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import { IUser } from '../../types/user';
@@ -41,7 +41,7 @@ export const ProfileData = (): JSX.Element => {
   }, [userId]);
 
   const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema),
+    // resolver: yupResolver(schema),
     defaultValues: user,
   });
 
@@ -55,7 +55,7 @@ export const ProfileData = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<IUserProfileData> = async formData => {
     if (!user) return;
-    console.log({ ...formData, games: [...user.games] });
+    console.log({ ...user, ...formData, games: [...user.games] });
   }
 
   const renderProperGameName = (gameName: string) => {
