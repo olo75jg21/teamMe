@@ -52,7 +52,7 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
         type="button"
         onClick={openModal}
       >
-        Add New Game
+        Add Game
       </button>
 
       <Modal
