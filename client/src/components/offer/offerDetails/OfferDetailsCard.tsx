@@ -27,12 +27,12 @@ const OfferDetailsCard = (): JSX.Element => {
     }
   }, 0) : 0;
 
-  const handleApplyOnOffer = async (): Promise<void> => {
+  const handleApplyOnOffer = async () => {
     try {
       // Get current logged user data
       const response = await axios.post(`/offers/apply`, { userId: offer._user, offerId: offer._id });
 
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }

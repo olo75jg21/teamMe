@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from '../../plugins/axios';
 import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
-import { forEach } from 'lodash';
 import { OffersList } from '../offer/offersList/OffersList';
 
 export const OfferTabs = (): JSX.Element => {
@@ -20,24 +19,37 @@ export const OfferTabs = (): JSX.Element => {
 	const [tabData, setTabData] = useState([]);
 
 	const { userData } = useGetLoggedUserData();
+	const userId = userData.user._id;
 
 	useEffect(() => {
 		(async () => {
 			if (activeTab === tabs[0].id) {
-				const { data } = await axios.get('/offers/user', {
-					params: {
-						userId: userData.user._id
-					}
-				});
+				try {
+					console.log('tab1');
+					const { data } = await axios.get('/offers/user', {
+						params: {
+							userId
+						}
+					});
+					console.log(data);
 
-				setTabData(data);
+					setTabData(data);
+				} catch (error) {
+					console.log(error);
+				}
 			} else {
-				const { data } = await axios.get(`/offers/userApplications`, {
-					params: {
-						userId: userData.user._id
-					}
-				});
-				setTabData(data);
+				try {
+					console.log('tab2');
+					const response = await axios.get('/offers/userApplications', {
+						params: {
+							userId
+						}
+					});
+					console.log(response);
+					setTabData(response.data);
+				} catch (error) {
+					console.log(error);
+				}
 			}
 		})();
 	}, [activeTab])
@@ -58,11 +70,11 @@ export const OfferTabs = (): JSX.Element => {
 	};
 
 	return (
-		<div className="border border-gray-300 rounded-lg w-3/4 mx-auto">
-			<div className="flex justify-center border-b border-gray-300">
+		<div className="bg-gray-700 border border-gray-300 rounded-lg w-3/4 mx-auto">
+			<div className="bg-gray-700 flex justify-center border-b border-gray-300">
 				{renderTabs()}
 			</div>
-			<div className="p-4 bg-white rounded-b-lg">
+			<div className="p-4 bg-gray-700 rounded-b-lg">
 				{tabData && <OffersList offers={tabData} />}
 			</div>
 		</div>

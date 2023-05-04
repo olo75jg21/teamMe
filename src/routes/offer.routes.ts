@@ -4,8 +4,8 @@ import {
   handleApplyOnOffer,
   handleGetAllUserOffers,
   handleGetAllOffers,
-  handleGetUserApplications,
   handleGetOffer,
+  handleGetAllUserApplications,
 } from '../controllers/offer.controller';
 import { authenticateJwt } from '../middlewares/authenticateJwt';
 import { schemaValidation } from '../middlewares/validation';
@@ -23,12 +23,11 @@ export const offerRoutes = (app: Express) => {
 
   // @TODO fix route name
   // Get all of application for given user id
-  app.get('/offers/applications', authenticateJwt, handleGetUserApplications);
+  app.get('/offers/userApplications', authenticateJwt, handleGetAllUserApplications);
 
   // Create new offer
   app.post('/offers/new', [authenticateJwt, schemaValidation(yupOfferCreationSchema)], handleAddOffer);
 
   // Apply for offer with given offer id
   app.post('/offers/apply', authenticateJwt, handleApplyOnOffer);
-
 };

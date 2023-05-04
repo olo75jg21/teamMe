@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
     app.use(
-        ["/users", "/offer"],
+        ["/users", "/offers"],
         createProxyMiddleware({
             target: "http://localhost:5000"
         })

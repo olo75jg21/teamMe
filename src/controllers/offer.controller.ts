@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { OfferModel } from '../models/offer.model';
+import { ObjectId } from 'mongodb';
 
 export const handleAddOffer = async (req: Request, res: Response) => {
   try {
@@ -51,6 +52,7 @@ export const handleGetOffer = async (req: Request, res: Response) => {
 
 export const handleApplyOnOffer = async (req: Request, res: Response) => {
   try {
+    console.log('XDD');
     const offerId = req.body.offerId;
 
     const offer = await OfferModel.findOneAndUpdate({
@@ -84,16 +86,15 @@ export const handleGetAllUserOffers = async (req: Request, res: Response) => {
   }
 };
 
-export const handleGetUserApplications = async (req: Request, res: Response) => {
+export const handleGetAllUserApplications = async (req: Request, res: Response) => {
   try {
-    const userId = req.query?.userId;;
+    // const userId = req.query?.userId;
 
-    const offers = await OfferModel.find({
-      'applicants._user': userId
-    });
+    const offers = await OfferModel.find()
 
     res.status(200).send(offers);
   } catch (error) {
+    // res.status(404).send(error);
     console.log(error);
   }
 };
