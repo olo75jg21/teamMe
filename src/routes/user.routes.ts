@@ -1,7 +1,6 @@
 import { Express } from 'express';
 
 import {
-  exampleUser,
   handleGetOneUser,
   handleGetUserProfileData
 } from '../controllers/user.controller';

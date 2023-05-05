@@ -6,7 +6,6 @@ import {
   handleGetAllOffers,
   handleGetOffer,
   handleGetAllUserApplications,
-  exampleGet,
 } from '../controllers/offer.controller';
 import { authenticateJwt } from '../middlewares/authenticateJwt';
 import { schemaValidation } from '../middlewares/validation';
@@ -18,8 +17,6 @@ export const offerRoutes = (app: Express) => {
 
   // Get all given user offers, pass id of user as a Param
   app.get('/offers/user', authenticateJwt, handleGetAllUserOffers);
-
-  app.get('/offers/example', exampleGet);
 
   // Get all of application for given user id
   app.get('/offers/applications', handleGetAllUserApplications);
