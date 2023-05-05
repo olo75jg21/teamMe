@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../../../../plugins/axios';
 import { IOffer } from '../../../../types/offer';
-import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 
 import OfferDetailsCardHeader from './OfferDetailsCardHeader';
 import OfferDetailsCardContent from './OfferDetailsCardContent';
@@ -58,7 +57,7 @@ const OfferDetailsCard = (): JSX.Element => {
 
         <OfferDetailsCardContent
           title={offer.title}
-          description={offer.title}
+          description={offer.description}
         />
 
         <OfferDetailsCardBadges
