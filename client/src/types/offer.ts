@@ -1,6 +1,6 @@
 import { IUser } from './user';
 
-interface Applicant {
+export interface Applicant {
   _id: string;
   _user: string;
   status: string;

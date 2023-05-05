@@ -1,5 +1,5 @@
 import Header from '../../header/Header';
-import OfferDetailsCard from './OfferDetailsCard';
+import OfferDetailsCard from './offerDetailsCard/OfferDetailsCard';
 
 const OfferDetails = (): JSX.Element => {
   return (

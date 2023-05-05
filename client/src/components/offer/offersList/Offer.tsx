@@ -23,7 +23,7 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
   }, 0);
 
   return (
-    <div className="bg-gray-700 rounded-lg shadow-md p-6 border-1 border-gray-900">
+    <div className="bg-gray-700 rounded-lg shadow-md p-6 border-1 border-gray-900 mb-4">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row items-center">
           <img

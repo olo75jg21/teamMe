@@ -22,38 +22,39 @@ export const OfferTabs = (): JSX.Element => {
 	const userId = userData.user._id;
 
 	useEffect(() => {
-		(async () => {
-			console.log(userId);
-			if (activeTab === tabs[0].id) {
-				setTabData([]);
-				try {
-					console.log('tab1');
-					const { data } = await axios.get('/offers/user', {
-						params: {
-							userId
-						}
-					});
-					console.log(data);
+		const getUserOffers = async () => {
+			try {
+				const { data } = await axios.get('/offers/user', {
+					params: {
+						userId
+					}
+				});
+				setTabData(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
 
-					setTabData(data);
-				} catch (error) {
-					console.log(error);
-				}
+		const getUserApplications = async () => {
+			try {
+				console.log('tab2');
+				setTabData([]);
+				const { data } = await axios.get('/offers/applications', {
+					params: {
+						userId
+					}
+				});
+				setTabData(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		(async () => {
+			if (activeTab === tabs[0].id) {
+				await getUserOffers();
 			} else {
-				try {
-					console.log('tab2');
-					setTabData([]);
-					const { data } = await axios.get('/offers/applications', {
-						params: {
-							userId
-						}
-					});
-					console.log(data);
-					console.log('after request');
-					setTabData(data);
-				} catch (error) {
-					console.log(error);
-				}
+				await getUserApplications();
 			}
 		})();
 	}, [activeTab])
@@ -63,8 +64,8 @@ export const OfferTabs = (): JSX.Element => {
 			<button
 				key={tab.id}
 				className={`py-2 w-full px-4 ${activeTab === tab.id
-					? "bg-blue-500 text-white"
-					: "bg-white text-blue-500 hover:bg-gray-100"
+					? "bg-violet-700 text-gray-100"
+					: "bg-white text-violet-700 hover:bg-gray-200"
 					} rounded-t-lg focus:outline-none`}
 				onClick={() => setActiveTab(tab.id)}
 			>
@@ -74,11 +75,11 @@ export const OfferTabs = (): JSX.Element => {
 	};
 
 	return (
-		<div className="bg-gray-700 border border-gray-300 rounded-lg w-3/4 mx-auto">
+		<div className="bg-gray-700 border border-gray-500 rounded-lg w-3/4 mx-auto">
 			<div className="bg-gray-700 flex justify-center border-b border-gray-300">
 				{renderTabs()}
 			</div>
-			<div className="p-4 bg-gray-700 rounded-b-lg">
+			<div className="p-4 bg-gray-800 rounded-b-lg">
 				{tabData && <OffersList offers={tabData} />}
 			</div>
 		</div>

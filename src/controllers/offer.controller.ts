@@ -40,7 +40,7 @@ export const handleGetOffer = async (req: Request, res: Response) => {
   try {
     const offerId = req.params.id;
 
-    const offer = await OfferModel.findOne({ _id: offerId });
+    const offer = await OfferModel.findOne({ _id: offerId }).populate('_user');
     res.status(200).send(offer);
   } catch (error) {
     console.log(error);
