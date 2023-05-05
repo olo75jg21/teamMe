@@ -44,6 +44,7 @@ export const OfferTabs = (): JSX.Element => {
 						userId
 					}
 				});
+				console.log(data);
 				setTabData(data);
 			} catch (error) {
 				console.log(error);

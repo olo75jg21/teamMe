@@ -7,6 +7,7 @@ import OfferDetailsCardHeader from './OfferDetailsCardHeader';
 import OfferDetailsCardContent from './OfferDetailsCardContent';
 import OfferDetailsCardBadges from './OfferDetailsCardBadges';
 import OfferDetailsCardFooter from './OfferDetailsCardFooter';
+import OfferDetailsCardApplicantsList from './OfferDetailsCardApplicantsList';
 
 const OfferDetailsCard = (): JSX.Element => {
   const [offer, setOffer] = useState<IOffer>(null!);
@@ -18,6 +19,7 @@ const OfferDetailsCard = (): JSX.Element => {
     (async () => {
       try {
         const { data } = await axios.get(`/offers/${id}`);
+        console.log(data);
 
         setOffer(data);
       } catch (e) {
@@ -64,7 +66,15 @@ const OfferDetailsCard = (): JSX.Element => {
           minAge={offer.minAge}
           maxAge={offer.maxAge}
           offerType={offer.offerType}
+          isActive={offer.isActive}
         />
+
+        {
+          offer.applicants.length !== 0 &&
+          <OfferDetailsCardApplicantsList
+            applicants={offer.applicants}
+          />
+        }
 
         <OfferDetailsCardFooter
           _id={offer._id}

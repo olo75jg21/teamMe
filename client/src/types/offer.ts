@@ -2,7 +2,7 @@ import { IUser } from './user';
 
 export interface Applicant {
   _id: string;
-  _user: string;
+  _user: IUser;
   status: string;
 };
 
