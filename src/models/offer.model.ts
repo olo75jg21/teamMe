@@ -68,7 +68,6 @@ const OffertSchema: Schema = new Schema({
         enum: ['pending', 'rejected', 'accepted'],
       }
     }],
-    default: {}
   },
   slots: {
     type: Number,

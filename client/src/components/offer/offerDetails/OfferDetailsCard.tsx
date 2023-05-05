@@ -2,17 +2,24 @@ import { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import axios from '../../../plugins/axios';
 import { IOffer } from '../../../types/offer';
+import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
 
 const OfferDetailsCard = (): JSX.Element => {
   const [offer, setOffer] = useState<IOffer>(null!);
+
   let { id } = useParams();
+
+  const { userData } = useGetLoggedUserData();
+  const userId = userData.user._id;
 
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axios.get(`/offers/${id}`);
+        console.log(data);
 
-        setOffer(data[0]);
+        setOffer(data);
+
       } catch (e) {
         console.log(e);
       }
@@ -29,10 +36,12 @@ const OfferDetailsCard = (): JSX.Element => {
 
   const handleApplyOnOffer = async () => {
     try {
-      // Get current logged user data
-      const response = await axios.post(`/offers/apply`, { userId: offer._user, offerId: offer._id });
 
-      // console.log(response);
+      // Get current logged user data
+      if (userId) {
+        const response = await axios.post(`/offers/apply`, { userId, offerId: offer._id });
+        console.log(response);
+      }
     } catch (error) {
       console.log(error);
     }

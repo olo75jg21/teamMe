@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleUpdateUserProfile = exports.handleGetUserProfileData = exports.handleGetOneUser = void 0;
+exports.exampleUser = exports.handleUpdateUserProfile = exports.handleGetUserProfileData = exports.handleGetOneUser = void 0;
 const _ = __importStar(require("lodash"));
 const user_model_1 = require("../models/user.model");
 const handleGetOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -60,3 +60,12 @@ const handleUpdateUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.handleUpdateUserProfile = handleUpdateUserProfile;
+const exampleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.status(200).send({ status: 'ok' });
+    }
+    catch (error) {
+        res.status(404).send(error);
+    }
+});
+exports.exampleUser = exampleUser;

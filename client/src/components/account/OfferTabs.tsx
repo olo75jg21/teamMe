@@ -23,7 +23,9 @@ export const OfferTabs = (): JSX.Element => {
 
 	useEffect(() => {
 		(async () => {
+			console.log(userId);
 			if (activeTab === tabs[0].id) {
+				setTabData([]);
 				try {
 					console.log('tab1');
 					const { data } = await axios.get('/offers/user', {
@@ -40,13 +42,15 @@ export const OfferTabs = (): JSX.Element => {
 			} else {
 				try {
 					console.log('tab2');
-					const response = await axios.get('/offers/userApplications', {
+					setTabData([]);
+					const { data } = await axios.get('/offers/applications', {
 						params: {
 							userId
 						}
 					});
-					console.log(response);
-					setTabData(response.data);
+					console.log(data);
+					console.log('after request');
+					setTabData(data);
 				} catch (error) {
 					console.log(error);
 				}

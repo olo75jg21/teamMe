@@ -3,6 +3,7 @@ import { MONGO_URL } from '../config/config';
 
 export const connect = async () => {
   try {
+    mongoose.set('strictQuery', false);
     await mongoose.connect(MONGO_URL);
     console.log('Connected to DB');
   } catch (e) {
