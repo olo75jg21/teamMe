@@ -28,6 +28,7 @@
     "mongodb": "^4.7.0",
     "mongoose": "^6.4.0",
     "nodemon": "^2.0.16",
+    "react-loader-spinner": "^5.3.4",
     "ts-node": "^10.8.1",
     "yup": "^0.32.11"
   },

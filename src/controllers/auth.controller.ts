@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { UserModel } from '../models/user.model';
 import { RefreshTokenModel } from '../models/refreshToken.model';
 import { generateAccessToken, generateRefreshToken } from '../utils/jwt.utils';
-import { SERVER_TOKEN_REFRESH_EXPIRETIME } from '../config/config';
 
 export const handleUserRegister = async (req: Request, res: Response) => {
   try {
@@ -20,7 +19,8 @@ export const handleUserRegister = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await UserModel.create({ email, username, gender, age, password: hashedPassword });
-    res.status(201).send(user);
+    const userWithoutPassword = _.omit(user.toObject(), ['password']);
+    res.status(201).send(userWithoutPassword);
   } catch (e: any) {
     res.status(409).send(e.message);
   }
