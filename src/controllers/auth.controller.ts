@@ -48,10 +48,11 @@ export const handleUserLogin = async (req: Request, res: Response) => {
 
     // Generate and save refresh token to db
     const refreshToken = generateRefreshToken(user._id)
+    const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 2) // 2h
     await RefreshTokenModel.create({
       _id: user._id,
       token: refreshToken,
-      expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 60 * 1000 * 1000)
+      expiresAt
     });
 
     const userWithoutPassword = _.omit(user.toObject(), ['password']);
@@ -74,11 +75,11 @@ export const handleTokenRefresh = async (req: Request, res: Response) => {
     const newRefreshToken = generateRefreshToken(token._id);
 
     await RefreshTokenModel.deleteOne({ token: refreshToken });
+    const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 2) // 2h
     await RefreshTokenModel.create({
       userId: token,
       token: newRefreshToken,
-      // expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 1000)
-      expiresAt: new Date(Date.now() + Number(SERVER_TOKEN_REFRESH_EXPIRETIME.slice(0, -1)) * 60 * 60 * 60 * 1000 * 1000)
+      expiresAt
     });
 
     return res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
