@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { IUser } from '../types/types';
+import { IUser } from '../types/user';
 
 interface userData {
   accessToken: string;
@@ -8,7 +7,7 @@ interface userData {
 }
 
 interface IGetLoggedUserData {
-  userData: userData; //TODO add a type
+  userData: userData;
 }
 
 const useGetLoggedUserData = (): IGetLoggedUserData => {

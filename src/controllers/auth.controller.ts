@@ -11,6 +11,12 @@ export const handleUserRegister = async (req: Request, res: Response) => {
   try {
     const { email, password, username, gender, age } = req.body;
 
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser)
+      return res.status(409).send({
+        error: 'Email already in use'
+      });
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await UserModel.create({ email, username, gender, age, password: hashedPassword });

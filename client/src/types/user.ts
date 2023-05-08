@@ -3,7 +3,6 @@ import { IGame } from './game';
 export interface IUser {
     _id: string;
     email: string;
-    language: string[];
     username: string;
     gender: string;
     games: IGame[],

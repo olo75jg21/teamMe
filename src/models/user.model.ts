@@ -8,7 +8,6 @@ export interface IGame {
 
 export interface IUser extends Document {
   email: string;
-  language: string[];
   username: string;
   gender: string;
   games: IGame[];
@@ -39,9 +38,6 @@ const UserSchema: Schema = new Schema({
         type: String
       }
     }]
-  },
-  language: {
-    type: [String]
   },
   password: {
     type: String,
