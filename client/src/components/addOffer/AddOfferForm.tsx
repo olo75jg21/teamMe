@@ -251,7 +251,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                 </div>
               </div>
 
-              <input type="submit" value='Add offer' className='bg-blue-500 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+              <input type="submit" value='Add offer' className='bg-violet-700 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
             </form>
         }
       </div>
