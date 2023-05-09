@@ -100,7 +100,7 @@ export const handleLogout = async (req: Request, res: Response) => {
 
     await RefreshTokenModel.findOneAndDelete({ id: userId });
 
-    return res.status(200).json({ message: 'Logout successful' })
+    return res.status(202).json({ message: 'Logout successful' })
   } catch (error) {
     return res.status(404).json({ message: 'Invalid data' });
   }

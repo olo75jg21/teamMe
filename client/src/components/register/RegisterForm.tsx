@@ -7,7 +7,6 @@ import axios from '../../plugins/axios';
 import { RegisterFormValues } from '../../types/types';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
-import { Circles } from 'react-loader-spinner';
 import CirclesLoader from '../utils/CirclesLoader';
 import ResponseError from '../utils/ResponseError';
 
