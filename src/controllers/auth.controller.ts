@@ -10,6 +10,12 @@ export const handleUserRegister = async (req: Request, res: Response) => {
   try {
     const { email, password, username, gender, age } = req.body;
 
+    const existingUsernameUser = await UserModel.findOne({ username });
+    if (existingUsernameUser)
+      return res.status(409).send({
+        error: 'Username already in use'
+      });
+
     const existingUser = await UserModel.findOne({ email });
     if (existingUser)
       return res.status(409).send({

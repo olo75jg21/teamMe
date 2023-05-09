@@ -9,6 +9,7 @@ import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { Circles } from 'react-loader-spinner';
 import CirclesLoader from '../utils/CirclesLoader';
+import ResponseError from '../utils/ResponseError';
 
 const registrationSchema = yup.object({
   username: yup.string().min(5, 'At least 5 characters long').max(14, 'Max length is 14').required('Username is required'),
@@ -32,8 +33,7 @@ const RegisterForm = (): JSX.Element => {
   const onSubmit: SubmitHandler<RegisterFormValues> = async (formData: RegisterFormValues) => {
     try {
       setIsLoading(true);
-      const { data, status } = await axios.post('/auth/register', formData)
-      console.log(data);
+      const { status } = await axios.post('/auth/register', formData)
 
       if (status === 201) {
         setResponseError('');
@@ -44,22 +44,11 @@ const RegisterForm = (): JSX.Element => {
     } catch (e) {
       const axiosError = e as AxiosError;
       if (axiosError.response?.status === 409) {
-        console.log(axiosError.response);
-        setResponseError('Email already in use');
+        setResponseError('Email or username is taken');
       }
       setIsLoading(false);
-      // console.error(axiosError);
     }
   };
-
-  const renderResponseError = (): JSX.Element => {
-    return responseError !== '' ? (
-      <div className='block text-red-700 text-sm font-bold mb-2'>
-        {responseError}
-      </div>
-    ) : <></>;
-  };
-
 
   return (
     <div className='bg-slate-200 flex h-screen'>
@@ -68,7 +57,7 @@ const RegisterForm = (): JSX.Element => {
           {isLoading ? <CirclesLoader /> :
             <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
 
-              {renderResponseError()}
+              <ResponseError message={responseError} />
 
               <div className='mb-4 h-20'>
                 <label className='block text-gray-700 text-sm font-bold mb-2'>Username</label>
