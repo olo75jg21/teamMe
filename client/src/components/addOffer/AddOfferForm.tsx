@@ -41,7 +41,6 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
   });
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    // TODO add a error handling if error occur on backend
     try {
       setIsLoading(true);
       setResponseError('');
@@ -68,21 +67,21 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
   };
 
   return (
-    <div className='bg-slate-200 flex h-screen'>
+    <div className='bg-gray-800 flex h-screen'>
       <div className='m-auto'>
         {
           isLoading
             ? <CirclesLoader />
-            : <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
+            : <form className='bg-gray-700 shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
 
               <ResponseError message={responseError} />
 
               <div className='grid grid-cols-2 gap-8'>
                 <div>
                   <div className='mb-6 h-20'>
-                    <label className='block text-gray-700 text-sm font-bold mb-4'>Title</label>
+                    <label className='block text-sm text-gray-100 font-bold mb-2'>Title</label>
                     <input
-                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                      className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                       type='text'
                       defaultValue="Offer title eoeoeoeoeo"
                       {...register('title')}
@@ -94,10 +93,10 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                   </div>
 
                   <div className='mb-4 h-20'>
-                    <label className='block text-gray-700 text-sm font-bold mb-2'>Description</label>
+                    <label className='block text-sm text-gray-100 font-bold mb-2'>Description</label>
 
                     <textarea
-                      className="resize-none h-56 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      className="resize-none h-56 bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                       defaultValue="Lorem Ibook. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in"
                       {...register('description')}
                     />
@@ -111,10 +110,11 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
                 <div>
                   <div className='mb-4 h-20'>
-                    <label className='block text-gray-700 text-sm font-bold mb-2'>Game</label>
+                    <label className='block text-sm text-gray-100 font-bold mb-2'>Game</label>
 
                     <select
-                      className="border border-gray-400 p-2 rounded w-full mt-2"
+                      className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                      // className="border border-gray-400 p-2 rounded w-full"
                       {...register("game")}
                       value={selectedGame}
                       onChange={(e) => setSelectedGame(e.target.value)}
@@ -132,12 +132,12 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                   <div className='mb-4 h-20'>
                     {selectedGame === "" && (
                       <label
-                        className="block text-gray-700 mb-2"
+                        className="block text-sm text-gray-100 font-bold mb-2"
                       >
                         Rank:
                         <select
                           defaultValue=""
-                          className="border border-gray-400 p-2 rounded w-full mt-2"
+                          className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                         >
                           <option disabled value="">Select a game first</option>
                         </select>
@@ -149,11 +149,11 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
                     {selectedGame === "lol" && (
                       <label
-                        className="block text-gray-700 mb-2"
+                        className="block text-sm text-gray-100 font-bold mb-2"
                       >
                         Rank:
                         <select
-                          className="border border-gray-400 p-2 rounded w-full mt-2"
+                          className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                           {...register("rank")}
                         >
                           <option value="" disabled>Select a rank</option>
@@ -175,7 +175,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                       >
                         Rank:
                         <select
-                          className="border border-gray-400 p-2 rounded w-full mt-2"
+                          className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                           {...register("rank")}
                         >
                           <option value="" disabled>Select a rank</option>
@@ -193,11 +193,11 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
                     {selectedGame === "csgo" && (
                       <label
-                        className="block text-gray-700 mb-2"
+                        className="block text-sm text-gray-100 font-bold mb-2"
                       >
                         Rank:
                         <select
-                          className="border border-gray-400 p-2 rounded w-full mt-2"
+                          className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                           {...register("rank")}
                         >
                           <option value="" disabled>Select a rank</option>
@@ -216,12 +216,12 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
                   <div className='mb-4 h-20'>
 
-                    <label className="block mb-2" htmlFor="playerType">
+                    <label className="block text-sm text-gray-100 font-bold mb-2">
                       Offer type
                     </label>
                     <select
                       {...register("offerType")}
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                       onChange={(e) => setOfferType(e.target.value)}
                     >
                       <option value="">Select offer type</option>
@@ -235,11 +235,11 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
                   <div className='mb-4 h-20'>
 
-                    <label className="block mb-2" htmlFor="playerType">
+                    <label className="block text-sm text-gray-100 font-bold mb-2">
                       Amount of players
                     </label>
                     <input
-                      className='shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                      className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                       type='number'
                       defaultValue={1}
                       min={1}
@@ -250,8 +250,6 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                   </div>
                 </div>
               </div>
-
-
 
               <input type="submit" value='Add offer' className='bg-blue-500 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
             </form>
