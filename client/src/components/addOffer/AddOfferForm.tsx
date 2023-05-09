@@ -4,6 +4,9 @@ import { gamesRanks } from './data';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { AxiosError } from 'axios';
+import CirclesLoader from '../utils/CirclesLoader';
+import ResponseError from '../utils/ResponseError';
 
 type FormData = {
   title: string;
@@ -27,206 +30,233 @@ const addOffferSchema = yup.object({
 });
 
 export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
+  const [responseError, setResponseError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [selectedGame, setSelectedGame] = useState<string>('');
   const [offerType, setOfferType] = useState<string>('');
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(addOffferSchema)
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
     // TODO add a error handling if error occur on backend
-    const response = await axios.post('/offers/new', {
-      _user: userId,
-      ...data
-    });
+    try {
+      setIsLoading(true);
+      setResponseError('');
+      const { status } = await axios.post('/offers/new', {
+        _user: userId,
+        ...formData
+      });
 
-    console.log(response);
+      if (status === 201) {
+        console.log('added');
+
+        // console.log(data);
+        // @TODO navigate to profile
+        setIsLoading(false);
+      }
+
+    } catch (e) {
+      const axiosError = e as AxiosError;
+      if (axiosError.response?.status === 500) {
+        setResponseError('Something went wrong, try again...');
+      }
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className='bg-slate-200 flex h-screen'>
       <div className='m-auto'>
-        <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
+        {
+          isLoading
+            ? <CirclesLoader />
+            : <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
 
-          <div className='grid grid-cols-2 gap-8'>
-            <div>
-              <div className='mb-6 h-20'>
-                <label className='block text-gray-700 text-sm font-bold mb-4'>Title</label>
-                <input
-                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                  type='text'
-                  defaultValue="Offer title eoeoeoeoeo"
-                  {...register('title')}
-                />
+              <ResponseError message={responseError} />
 
-                {errors.title?.message && (
-                  <span className="text-red-600">{errors.title.message}</span>
-                )}
-              </div>
+              <div className='grid grid-cols-2 gap-8'>
+                <div>
+                  <div className='mb-6 h-20'>
+                    <label className='block text-gray-700 text-sm font-bold mb-4'>Title</label>
+                    <input
+                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                      type='text'
+                      defaultValue="Offer title eoeoeoeoeo"
+                      {...register('title')}
+                    />
 
-              <div className='mb-4 h-20'>
-                <label className='block text-gray-700 text-sm font-bold mb-2'>Description</label>
+                    {errors.title?.message && (
+                      <span className="text-red-600">{errors.title.message}</span>
+                    )}
+                  </div>
 
-                <textarea
-                  className="resize-none h-56 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  defaultValue="Lorem Ibook. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in"
-                  {...register('description')}
-                />
+                  <div className='mb-4 h-20'>
+                    <label className='block text-gray-700 text-sm font-bold mb-2'>Description</label>
 
-                {errors.description?.message && (
-                  <span className="text-red-600">{errors.description.message}</span>
-                )}
+                    <textarea
+                      className="resize-none h-56 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      defaultValue="Lorem Ibook. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in"
+                      {...register('description')}
+                    />
 
-              </div>
-            </div>
+                    {errors.description?.message && (
+                      <span className="text-red-600">{errors.description.message}</span>
+                    )}
 
-            <div>
-              <div className='mb-4 h-20'>
-                <label className='block text-gray-700 text-sm font-bold mb-2'>Game</label>
+                  </div>
+                </div>
 
-                <select
-                  className="border border-gray-400 p-2 rounded w-full mt-2"
-                  {...register("game")}
-                  value={selectedGame}
-                  onChange={(e) => setSelectedGame(e.target.value)}
-                >
-                  <option value="">Select a game</option>
-                  <option value="lol">League of Legends</option>
-                  <option value="valorant">Valorant</option>
-                  <option value="csgo">CS:GO</option>
-                </select>
-                {errors.game?.message && (
-                  <span className="text-red-600">{errors.game.message}</span>
-                )}
-              </div>
+                <div>
+                  <div className='mb-4 h-20'>
+                    <label className='block text-gray-700 text-sm font-bold mb-2'>Game</label>
 
-              <div className='mb-4 h-20'>
-                {selectedGame === "" && (
-                  <label
-                    className="block text-gray-700 mb-2"
-                  >
-                    Rank:
                     <select
-                      defaultValue=""
                       className="border border-gray-400 p-2 rounded w-full mt-2"
+                      {...register("game")}
+                      value={selectedGame}
+                      onChange={(e) => setSelectedGame(e.target.value)}
                     >
-                      <option disabled value="">Select a game first</option>
+                      <option value="">Select a game</option>
+                      <option value="lol">League of Legends</option>
+                      <option value="valorant">Valorant</option>
+                      <option value="csgo">CS:GO</option>
                     </select>
                     {errors.game?.message && (
                       <span className="text-red-600">{errors.game.message}</span>
                     )}
-                  </label>
-                )}
+                  </div>
 
-                {selectedGame === "lol" && (
-                  <label
-                    className="block text-gray-700 mb-2"
-                  >
-                    Rank:
-                    <select
-                      className="border border-gray-400 p-2 rounded w-full mt-2"
-                      {...register("rank")}
-                    >
-                      <option value="" disabled>Select a rank</option>
-                      {gamesRanks.lolRanks.map((rank: string) => (
-                        <option key={rank} value={rank}>
-                          {rank}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.rank?.message && (
-                      <span className="text-red-600">{errors.rank.message}</span>
+                  <div className='mb-4 h-20'>
+                    {selectedGame === "" && (
+                      <label
+                        className="block text-gray-700 mb-2"
+                      >
+                        Rank:
+                        <select
+                          defaultValue=""
+                          className="border border-gray-400 p-2 rounded w-full mt-2"
+                        >
+                          <option disabled value="">Select a game first</option>
+                        </select>
+                        {errors.game?.message && (
+                          <span className="text-red-600">{errors.game.message}</span>
+                        )}
+                      </label>
                     )}
-                  </label>
-                )}
 
-                {selectedGame === "valorant" && (
-                  <label
-                    className="block text-gray-700 mb-2"
-                  >
-                    Rank:
-                    <select
-                      className="border border-gray-400 p-2 rounded w-full mt-2"
-                      {...register("rank")}
-                    >
-                      <option value="" disabled>Select a rank</option>
-                      {gamesRanks.valoRanks.map((rank: string) => (
-                        <option key={rank} value={rank}>
-                          {rank}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.game?.message && (
-                      <span className="text-red-600">{errors.game.message}</span>
+                    {selectedGame === "lol" && (
+                      <label
+                        className="block text-gray-700 mb-2"
+                      >
+                        Rank:
+                        <select
+                          className="border border-gray-400 p-2 rounded w-full mt-2"
+                          {...register("rank")}
+                        >
+                          <option value="" disabled>Select a rank</option>
+                          {gamesRanks.lolRanks.map((rank: string) => (
+                            <option key={rank} value={rank}>
+                              {rank}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.rank?.message && (
+                          <span className="text-red-600">{errors.rank.message}</span>
+                        )}
+                      </label>
                     )}
-                  </label>
-                )}
 
-                {selectedGame === "csgo" && (
-                  <label
-                    className="block text-gray-700 mb-2"
-                  >
-                    Rank:
-                    <select
-                      className="border border-gray-400 p-2 rounded w-full mt-2"
-                      {...register("rank")}
-                    >
-                      <option value="" disabled>Select a rank</option>
-                      {gamesRanks.csgoRanks.map((rank: string) => (
-                        <option key={rank} value={rank}>
-                          {rank}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.game?.message && (
-                      <span className="text-red-600">{errors.game.message}</span>
+                    {selectedGame === "valorant" && (
+                      <label
+                        className="block text-gray-700 mb-2"
+                      >
+                        Rank:
+                        <select
+                          className="border border-gray-400 p-2 rounded w-full mt-2"
+                          {...register("rank")}
+                        >
+                          <option value="" disabled>Select a rank</option>
+                          {gamesRanks.valoRanks.map((rank: string) => (
+                            <option key={rank} value={rank}>
+                              {rank}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.game?.message && (
+                          <span className="text-red-600">{errors.game.message}</span>
+                        )}
+                      </label>
                     )}
-                  </label>
-                )}
+
+                    {selectedGame === "csgo" && (
+                      <label
+                        className="block text-gray-700 mb-2"
+                      >
+                        Rank:
+                        <select
+                          className="border border-gray-400 p-2 rounded w-full mt-2"
+                          {...register("rank")}
+                        >
+                          <option value="" disabled>Select a rank</option>
+                          {gamesRanks.csgoRanks.map((rank: string) => (
+                            <option key={rank} value={rank}>
+                              {rank}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.game?.message && (
+                          <span className="text-red-600">{errors.game.message}</span>
+                        )}
+                      </label>
+                    )}
+                  </div>
+
+                  <div className='mb-4 h-20'>
+
+                    <label className="block mb-2" htmlFor="playerType">
+                      Offer type
+                    </label>
+                    <select
+                      {...register("offerType")}
+                      className="w-full p-2 rounded-lg border border-gray-400"
+                      onChange={(e) => setOfferType(e.target.value)}
+                    >
+                      <option value="">Select offer type</option>
+                      <option value="solo">I'm a solo player looking for team</option>
+                      <option value="team">I have a team and I am looking for players</option>
+                    </select>
+                    {errors.offerType?.message && (
+                      <span className="text-red-600">{errors.offerType.message}</span>
+                    )}
+                  </div>
+
+                  <div className='mb-4 h-20'>
+
+                    <label className="block mb-2" htmlFor="playerType">
+                      Amount of players
+                    </label>
+                    <input
+                      className='shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                      type='number'
+                      defaultValue={1}
+                      min={1}
+                      max={10}
+                      {...register("slots")}
+                    />
+                    {errors.slots?.message && <span className='text-red-600'>{errors.slots?.message}</span>}
+                  </div>
+                </div>
               </div>
 
-              <div className='mb-4 h-20'>
-
-                <label className="block mb-2" htmlFor="playerType">
-                  Offer type
-                </label>
-                <select
-                  {...register("offerType")}
-                  className="w-full p-2 rounded-lg border border-gray-400"
-                  onChange={(e) => setOfferType(e.target.value)}
-                >
-                  <option value="">Select offer type</option>
-                  <option value="solo">I'm a solo player looking for team</option>
-                  <option value="team">I have a team and I am looking for players</option>
-                </select>
-                {errors.offerType?.message && (
-                  <span className="text-red-600">{errors.offerType.message}</span>
-                )}
-              </div>
-
-              <div className='mb-4 h-20'>
-
-                <label className="block mb-2" htmlFor="playerType">
-                  Amount of players
-                </label>
-                <input
-                  className='shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                  type='number'
-                  defaultValue={1}
-                  min={1}
-                  max={10}
-                  {...register("slots")}
-                />
-                {errors.slots?.message && <span className='text-red-600'>{errors.slots?.message}</span>}
-              </div>
-            </div>
-          </div>
 
 
-
-          <input type="submit" value='Add offer' className='bg-blue-500 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
-        </form>
+              <input type="submit" value='Add offer' className='bg-blue-500 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+            </form>
+        }
       </div>
     </div>
-  )
+  );
 };

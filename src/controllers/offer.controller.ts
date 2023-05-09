@@ -6,8 +6,8 @@ export const handleAddOffer = async (req: Request, res: Response) => {
     const offer = await OfferModel.create(req.body);
 
     res.status(201).send(offer);
-  } catch (error: any) {
-    console.log(error);
+  } catch (error) {
+    res.status(500).send({ message: 'Failed to create offer' });
   }
 };
 
