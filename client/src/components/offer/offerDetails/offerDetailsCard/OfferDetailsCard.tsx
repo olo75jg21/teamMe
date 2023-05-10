@@ -8,12 +8,15 @@ import OfferDetailsCardContent from './OfferDetailsCardContent';
 import OfferDetailsCardBadges from './OfferDetailsCardBadges';
 import OfferDetailsCardFooter from './OfferDetailsCardFooter';
 import OfferDetailsCardApplicantsList from './OfferDetailsCardApplicantsList';
+import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 
 const OfferDetailsCard = (): JSX.Element => {
   const [offer, setOffer] = useState<IOffer>(null!);
+  // const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState<boolean>(false);
 
   let { id } = useParams();
 
+  const { userData } = useGetLoggedUserData();
 
   useEffect(() => {
     (async () => {
@@ -21,12 +24,20 @@ const OfferDetailsCard = (): JSX.Element => {
         const { data } = await axios.get(`/offers/${id}`);
 
         setOffer(data);
+        // isApplyButtonDisabledFunc()
       } catch (e) {
         console.log(e);
       }
     })();
   }, [])
 
+  const isApplyButtonDisabled = (): boolean => {
+    if (userData.user._id) {
+      return offer.applicants.some((obj => obj._user._id === userData.user._id))
+    }
+
+    return true
+  };
 
   // @TODO checks if this works after handling editing user profile
   const calculateUserRank = (): { game: string, rank: string } => {
@@ -75,6 +86,7 @@ const OfferDetailsCard = (): JSX.Element => {
         }
 
         <OfferDetailsCardFooter
+          isApplyButtonDisabled={isApplyButtonDisabled()}
           _id={offer._id}
         />
       </div>

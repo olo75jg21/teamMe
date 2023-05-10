@@ -3,13 +3,15 @@ import axios from '../../../../plugins/axios';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 
 interface OfferDetailsCardFooterProps {
+  isApplyButtonDisabled: boolean;
   _id: string;
 }
 
-const OfferDetailsCardFooter = ({ _id }: OfferDetailsCardFooterProps): JSX.Element => {
+const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled }: OfferDetailsCardFooterProps): JSX.Element => {
   const { userData } = useGetLoggedUserData();
 
   const userId = userData.user._id;
+  console.log(isApplyButtonDisabled);
 
   const handleApplyOnOffer = async () => {
     try {
@@ -34,8 +36,9 @@ const OfferDetailsCardFooter = ({ _id }: OfferDetailsCardFooterProps): JSX.Eleme
       </div>
       <div>
         <button
-          className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded"
+          className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900"
           onClick={handleApplyOnOffer}
+          disabled={isApplyButtonDisabled}
         >
           Apply
         </button>

@@ -74,14 +74,14 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
         <div>
           <form onSubmit={addGame}>
             <div className='flex justify-between'>
-              <div className='mb-4 h-20 w-1/2'>
+              <div className='mb-6 h-20 w-1/2'>
                 <label className="block text-gray-100 font-bold mb-2">Game</label>
                 <select
-                  className="border border-gray-400 p-2 rounded w-full"
+                  className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                   value={selectedGame}
                   onChange={(e) => setSelectedGame(e.target.value)}
                 >
-                  <option value="">Select a game</option>
+                  <option disabled value="">Select a game</option>
                   <option value="lol">League of Legends</option>
                   <option value="valorant">Valorant</option>
                   <option value="csgo">CS:GO</option>
@@ -93,7 +93,7 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
                 {selectedGame === "" && (
                   <select
                     defaultValue=""
-                    className="border border-gray-400 p-2 rounded w-full mt-2"
+                    className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                     onChange={(e) => setSelectedRank(e.target.value)}
                   >
                     <option disabled value="">Select a game first</option>
@@ -103,7 +103,7 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
                 {selectedGame === "lol" && (
                   <select
                     defaultValue=""
-                    className="border border-gray-400 p-2 rounded w-full mt-2"
+                    className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                     onChange={(e) => setSelectedRank(e.target.value)}
                   >
                     <option value="" disabled>Select a rank</option>
@@ -118,7 +118,7 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
                 {selectedGame === "valorant" && (
                   <select
                     defaultValue=""
-                    className="border border-gray-400 p-2 rounded w-full mt-2"
+                    className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                     onChange={(e) => setSelectedRank(e.target.value)}
                   >
                     <option value="" disabled>Select a rank</option>
@@ -133,7 +133,7 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
                 {selectedGame === "csgo" && (
                   <select
                     defaultValue=""
-                    className="border border-gray-400 p-2 rounded w-full mt-2"
+                    className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                     onChange={(e) => setSelectedRank(e.target.value)}
                   >
                     <option value="" disabled>Select a rank</option>
@@ -149,9 +149,10 @@ const AddGameModal = ({ handleAddEmptyGame }: IAddGameModalProps): JSX.Element =
 
             <div className='flex justify-end'>
               <button
-                className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
+                className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900'
                 type="submit"
                 onClick={openModal}
+                disabled={!(selectedGame && selectedRank)}
               >
                 Add New Game
               </button>
