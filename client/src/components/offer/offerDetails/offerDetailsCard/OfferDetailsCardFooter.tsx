@@ -3,11 +3,12 @@ import axios from '../../../../plugins/axios';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 
 interface OfferDetailsCardFooterProps {
+  applyButtonText: string;
   isApplyButtonDisabled: boolean;
   _id: string;
 }
 
-const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled }: OfferDetailsCardFooterProps): JSX.Element => {
+const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: OfferDetailsCardFooterProps): JSX.Element => {
   const { userData } = useGetLoggedUserData();
 
   const userId = userData.user._id;
@@ -40,7 +41,7 @@ const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled }: OfferDetailsCard
           onClick={handleApplyOnOffer}
           disabled={isApplyButtonDisabled}
         >
-          Apply
+          {applyButtonText}
         </button>
       </div>
     </div>

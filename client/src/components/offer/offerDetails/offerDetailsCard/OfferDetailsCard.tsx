@@ -33,10 +33,24 @@ const OfferDetailsCard = (): JSX.Element => {
 
   const isApplyButtonDisabled = (): boolean => {
     if (userData.user._id) {
+      if (userData.user._id === offer._user._id) {
+        return true;
+      }
       return offer.applicants.some((obj => obj._user._id === userData.user._id))
     }
 
     return true
+  };
+
+  const applyButtonText = (): string => {
+    if (userData.user._id) {
+      if (userData.user._id === offer._user._id) {
+        return 'Your offer';
+      }
+      return offer.applicants.some((obj => obj._user._id === userData.user._id)) ? 'Already applied' : 'Apply';
+    }
+
+    return 'Login to apply';
   };
 
   // @TODO checks if this works after handling editing user profile
@@ -87,6 +101,7 @@ const OfferDetailsCard = (): JSX.Element => {
 
         <OfferDetailsCardFooter
           isApplyButtonDisabled={isApplyButtonDisabled()}
+          applyButtonText={applyButtonText()}
           _id={offer._id}
         />
       </div>
