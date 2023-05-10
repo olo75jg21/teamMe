@@ -1,6 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from '../../../../plugins/axios';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
+import { AxiosError } from 'axios';
+import { useState } from 'react';
 
 interface OfferDetailsCardFooterProps {
   applyButtonText: string;
@@ -9,19 +11,31 @@ interface OfferDetailsCardFooterProps {
 }
 
 const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: OfferDetailsCardFooterProps): JSX.Element => {
+  const navigate = useNavigate()
+
   const { userData } = useGetLoggedUserData();
 
+  // @TODO handle this
+  const [responseError, setResponseError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const userId = userData.user._id;
-  console.log(isApplyButtonDisabled);
 
   const handleApplyOnOffer = async () => {
     try {
       if (userId) {
         // Get current logged user data
-        const response = await axios.post(`/offers/apply`, { userId, offerId: _id });
+        const { status } = await axios.post(`/offers/apply`, { userId, offerId: _id });
+
+        if (status === 200) {
+          navigate('/');
+        }
       }
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      const error = e as AxiosError;
+      if (error.response?.status !== 200)
+
+        console.log(e);
     }
   }
 
