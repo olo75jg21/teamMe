@@ -19,7 +19,6 @@ const OfferDetailsCard = (): JSX.Element => {
     (async () => {
       try {
         const { data } = await axios.get(`/offers/${id}`);
-        console.log(data);
 
         setOffer(data);
       } catch (e) {
@@ -33,7 +32,6 @@ const OfferDetailsCard = (): JSX.Element => {
   const calculateUserRank = (): { game: string, rank: string } => {
     offer._user.games.forEach((game) => {
       if (game.name === offer.game) {
-        console.log(game.rank)
         return {
           game: game.name,
           rank: game.rank

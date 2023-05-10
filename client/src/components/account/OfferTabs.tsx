@@ -37,14 +37,12 @@ export const OfferTabs = (): JSX.Element => {
 
 		const getUserApplications = async () => {
 			try {
-				console.log('tab2');
 				setTabData([]);
 				const { data } = await axios.get('/offers/applications', {
 					params: {
 						userId
 					}
 				});
-				console.log(data);
 				setTabData(data);
 			} catch (error) {
 				console.log(error);

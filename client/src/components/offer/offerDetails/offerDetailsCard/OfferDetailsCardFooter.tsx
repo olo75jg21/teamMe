@@ -16,7 +16,6 @@ const OfferDetailsCardFooter = ({ _id }: OfferDetailsCardFooterProps): JSX.Eleme
       if (userId) {
         // Get current logged user data
         const response = await axios.post(`/offers/apply`, { userId, offerId: _id });
-        console.log(response);
       }
     } catch (error) {
       console.log(error);

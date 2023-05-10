@@ -51,8 +51,6 @@ const LoginForm = (): JSX.Element => {
     }
   };
 
-  console.log(responseError);
-
   return (
     <div>
       <div className='bg-slate-200 flex h-screen'>

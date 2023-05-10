@@ -13,24 +13,33 @@ export const handleAddOffer = async (req: Request, res: Response) => {
 
 export const handleGetAllOffers = async (req: Request, res: Response) => {
   try {
-    const title = typeof req.query.title === 'string' ? req.query.title : '';
+    const { title, ageMin, ageMax, game, gender, userId } = req.query;
 
-    const userId = req.query?.userId; // or however you're getting the user ID
-    const applicantsQuery = userId ? { 'applicants._user': { $nin: [userId] } } : {};
+    const query = OfferModel.find({ isActive: true });
 
-    const offers = await OfferModel.find({
-      $and: [
-        { _user: { $ne: userId } },
-        applicantsQuery
-      ],
-      title: {
-        $regex: title,
-        $options: 'i'
-      },
-      ...(req.query.game !== '' && { game: req.query.game })
-    }).populate('_user');
+    if (title)
+      query.where('title', new RegExp(title.toString(), 'i'));
 
-    res.status(201).send(offers);
+    if (ageMin)
+      query.where('minAge').gte(parseInt(ageMin.toString()));
+
+    if (ageMax)
+      query.where('maxAge').lte(parseInt(ageMax.toString()));
+
+    if (game)
+      query.where('game', game);
+
+    if (gender)
+      query.where('gender', gender);
+
+    if (userId)
+      query.where({ _user: { $ne: userId }, 'applicants._user': { $ne: userId } });
+
+    query.populate('_user');
+
+    const offers = await query.exec();
+
+    res.status(200).json(offers);
   } catch (error: any) {
     console.log(error);
   }
@@ -44,7 +53,6 @@ export const handleGetOffer = async (req: Request, res: Response) => {
       .findOne({ _id: offerId })
       .populate('_user')
       .populate('applicants._user');
-    // console.log(offer);
 
     res.status(200).send(offer);
   } catch (error) {
