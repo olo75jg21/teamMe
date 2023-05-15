@@ -65,14 +65,26 @@ export const ProfileData = (): JSX.Element => {
     }
   };
 
+  const handleDelete = (index: number) => {
+    if (!user) return;
+
+    const updatedGames = [...user?.games];
+    updatedGames.splice(index, 1);
+
+    const newUser = { ...user, games: updatedGames };
+
+    setUser(newUser);
+  };
+
   const renderGames = () => {
-    return user?.games.map((game: IGame) => {
+    return user?.games.map((game: IGame, index) => {
       return (
         <li
-          key={crypto.randomUUID()}
+          key={index}
           className="text-md text-gray-100 font-bold px-4 py-2"
         >
           {renderProperGameName(game.name) + ' | ' + game.rank}
+          <button onClick={() => handleDelete(index)}>Delete</button>
         </li>
       );
     });
