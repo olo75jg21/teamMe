@@ -74,11 +74,11 @@ export const OfferTabs = (): JSX.Element => {
 	};
 
 	return (
-		<div className="bg-gray-700 border border-gray-500 rounded-lg w-3/4 mx-auto">
+		<div className={`bg-gray-700 border border-gray-500 rounded-lg w-3/4 mx-auto`}>
 			<div className="bg-gray-700 flex justify-center border-b border-gray-300">
 				{renderTabs()}
 			</div>
-			<div className="p-4 bg-gray-800 rounded-b-lg">
+			<div className="p-4 bg-gray-800 rounded-b-lg h-full">
 				{tabData && <OffersList offers={tabData} />}
 			</div>
 		</div>

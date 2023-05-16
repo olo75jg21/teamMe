@@ -4,7 +4,6 @@ import '../index.css';
 import { Account } from './account/Account';
 import { AddOfferPage } from './addOffer/AddOfferPage';
 
-import ContactPage from './ContactPage';
 import ErrorPage from "./ErrorPage";
 import LandingPage from './landing/LandingPage';
 import LoginPage from './login/LoginPage';
@@ -22,7 +21,6 @@ export const App = (): JSX.Element => {
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/newoffer' element={<AddOfferPage />} />
           <Route path='/offerDetails/:id' element={<OfferDetails />} />
-          <Route path='/contact' element={<ContactPage />} />
           <Route path='/account' element={<Account />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
