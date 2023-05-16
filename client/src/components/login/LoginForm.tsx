@@ -53,28 +53,36 @@ const LoginForm = (): JSX.Element => {
 
   return (
     <div>
-      <div className='bg-slate-200 flex h-screen'>
+      <div className='bg-gray-800 flex h-screen'>
         <div className='m-auto'>
           <div className='w-80'>
             {isLoading ? <CirclesLoader /> :
-              <form className='bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
+              <form className='bg-gray-700 shadow-lg rounded px-8 pt-6 pb-8 mb-4' onSubmit={handleSubmit(onSubmit)}>
 
                 <ResponseError message={responseError} />
 
                 <div className='mb-4 h-20'>
-                  <label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
+                  <label
+                    className="block text-sm text-gray-100 font-bold mb-2"
+                  >
+                    Email
+                  </label>
                   <input
                     defaultValue={'userTest1@op.pl'}
-                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                     {...register("email")}
                   />
                   {errors.email?.message && <span className='text-red-600'>{errors.email?.message}</span>}
                 </div>
 
                 <div className='mb-5 h-20'>
-                  <label className='block text-gray-700 text-sm font-bold mb-2'>Password</label>
+                  <label
+                    className="block text-sm text-gray-100 font-bold mb-2"
+                  >
+                    Password
+                  </label>
                   <input
-                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                     type='password'
                     defaultValue={123123123}
                     {...register("password")}
@@ -82,10 +90,14 @@ const LoginForm = (): JSX.Element => {
                   {errors.password?.message && <span className='text-red-600'>{errors.password?.message}</span>}
                 </div>
 
-                <input type="submit" value='Login' className='bg-blue-500 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+                <input
+                  type="submit"
+                  value='Login'
+                  className='bg-violet-600 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button'
+                />
 
                 <div className='mt-4'>
-                  <span className=''>
+                  <span className='text-gray-100'>
                     Don't have account?&nbsp;
                   </span>
 
@@ -97,7 +109,7 @@ const LoginForm = (): JSX.Element => {
 
                   </NavLink>
 
-                  <div className='flex mt-2'>
+                  <div className='flex mt-2 text-gray-100'>
                     <p>Go back to home page&nbsp;</p>
                     <NavLink
                       to='/'

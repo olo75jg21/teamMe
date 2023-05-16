@@ -62,9 +62,7 @@ export const ProfileData = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<IUserProfileData> = async formData => {
     if (!user) return;
-    // console.log({ ...user, ...formData, games: [...user.games] });
     try {
-      // console.log(formData);
       const updatedUser = { ...user, ...formData, games: [...user.games] };
       const { status } = await axios.put(`/users/${user._id}`, updatedUser);
 
