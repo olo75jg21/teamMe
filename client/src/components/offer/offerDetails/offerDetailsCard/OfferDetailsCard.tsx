@@ -42,6 +42,8 @@ const OfferDetailsCard = (): JSX.Element => {
     return true
   };
 
+  const isApplicantsListVisible = () => userData.user._id === offer._user._id;
+
   const applyButtonText = (): string => {
     if (userData.user._id) {
       if (userData.user._id === offer._user._id) {
@@ -93,7 +95,7 @@ const OfferDetailsCard = (): JSX.Element => {
         />
 
         {
-          offer.applicants.length !== 0 &&
+          isApplicantsListVisible() && offer.applicants.length !== 0 &&
           <OfferDetailsCardApplicantsList
             applicants={offer.applicants}
           />

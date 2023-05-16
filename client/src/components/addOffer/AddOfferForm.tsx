@@ -66,7 +66,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
   return (
     <div className='bg-gray-800 flex h-screen'>
-      <div className='mx-auto mt-40'>
+      <div className='mx-auto mt-20'>
         {
           isLoading
             ? <CirclesLoader />
