@@ -11,7 +11,7 @@ export const OfferTabs = (): JSX.Element => {
 		},
 		{
 			id: "applications",
-			label: "My Applications",
+			label: "My Teams",
 		}
 	];
 
