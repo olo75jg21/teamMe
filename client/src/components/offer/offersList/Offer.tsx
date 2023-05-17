@@ -56,6 +56,12 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
         <div>
           <NavLink
             className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
+            to={`/offerChat/${_id}`}
+          >
+            Chat
+          </NavLink>
+          <NavLink
+            className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
             to={`/offerDetails/${_id}`}
           >
             Details

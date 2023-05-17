@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ProfileData } from './ProfileData';
 import LoginPage from '../login/LoginPage';
 import Header from '../header/Header';
 import { OfferTabs } from './OfferTabs';
+import { io } from 'socket.io-client';
 
 export const Account = (): JSX.Element => {
   const [isLogged] = useState(!!(localStorage.getItem('accessToken')));

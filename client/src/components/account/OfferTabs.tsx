@@ -78,7 +78,7 @@ export const OfferTabs = (): JSX.Element => {
 			<div className="bg-gray-700 flex justify-center border-b border-gray-300">
 				{renderTabs()}
 			</div>
-			<div className="p-4 bg-gray-800 rounded-b-lg h-full">
+			<div className={`p-4 bg-gray-800 rounded-b-lg ${tabData.length <= 2 ? 'h-screen' : 'h-full'}`}>
 				{tabData && <OffersList offers={tabData} />}
 			</div>
 		</div>

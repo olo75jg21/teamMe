@@ -9,6 +9,7 @@ import LandingPage from './landing/LandingPage';
 import LoginPage from './login/LoginPage';
 import RegisterPage from './register/RegisterPage';
 import OfferDetails from './offer/offerDetails/OfferDetails';
+import TeamChat from './teamChat/TeamChat';
 
 export const App = (): JSX.Element => {
 
@@ -21,6 +22,7 @@ export const App = (): JSX.Element => {
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/newoffer' element={<AddOfferPage />} />
           <Route path='/offerDetails/:id' element={<OfferDetails />} />
+          <Route path='/offerChat/:id' element={<TeamChat />} />
           <Route path='/account' element={<Account />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
