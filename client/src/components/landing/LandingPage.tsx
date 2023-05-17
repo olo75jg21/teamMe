@@ -8,7 +8,7 @@ import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import AddNewOfferButton from './AddNewOfferButton';
 
 const LandingPage = (): JSX.Element => {
-  const [filters, setFilters] = useState({ title: '', ageMin: 0, ageMax: 100, game: '', rank: '' });
+  const [filters, setFilters] = useState({ title: '', ageMin: 16, ageMax: 100, game: '', gender: '' });
   const [offers, setOffers] = useState<IOffer[]>([]);
 
   const { userData } = useGetLoggedUserData();
@@ -16,7 +16,7 @@ const LandingPage = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       try {
-        const { title, ageMin, ageMax, game, rank } = filters;
+        const { title, ageMin, ageMax, game, gender } = filters;
 
         const res = await axios.get('/offers', {
           params: {
@@ -24,7 +24,7 @@ const LandingPage = (): JSX.Element => {
             ageMin,
             ageMax,
             game,
-            rank,
+            gender,
             userId: userData.user._id,
           }
         });

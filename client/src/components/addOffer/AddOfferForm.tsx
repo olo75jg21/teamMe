@@ -50,9 +50,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
       });
 
       if (status === 201) {
-        console.log('added');
 
-        // console.log(data);
         // @TODO navigate to profile
         setIsLoading(false);
       }
@@ -68,7 +66,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
 
   return (
     <div className='bg-gray-800 flex h-screen'>
-      <div className='m-auto'>
+      <div className='mx-auto mt-20'>
         {
           isLoading
             ? <CirclesLoader />

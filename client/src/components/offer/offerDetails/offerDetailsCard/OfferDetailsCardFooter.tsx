@@ -1,13 +1,23 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from '../../../../plugins/axios';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
+import { AxiosError } from 'axios';
+import { useState } from 'react';
 
 interface OfferDetailsCardFooterProps {
+  applyButtonText: string;
+  isApplyButtonDisabled: boolean;
   _id: string;
 }
 
-const OfferDetailsCardFooter = ({ _id }: OfferDetailsCardFooterProps): JSX.Element => {
+const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: OfferDetailsCardFooterProps): JSX.Element => {
+  const navigate = useNavigate()
+
   const { userData } = useGetLoggedUserData();
+
+  // @TODO handle this
+  const [responseError, setResponseError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const userId = userData.user._id;
 
@@ -15,11 +25,17 @@ const OfferDetailsCardFooter = ({ _id }: OfferDetailsCardFooterProps): JSX.Eleme
     try {
       if (userId) {
         // Get current logged user data
-        const response = await axios.post(`/offers/apply`, { userId, offerId: _id });
-        console.log(response);
+        const { status } = await axios.post(`/offers/apply`, { userId, offerId: _id });
+
+        if (status === 200) {
+          navigate('/');
+        }
       }
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      const error = e as AxiosError;
+      if (error.response?.status !== 200)
+
+        console.log(e);
     }
   }
 
@@ -35,10 +51,11 @@ const OfferDetailsCardFooter = ({ _id }: OfferDetailsCardFooterProps): JSX.Eleme
       </div>
       <div>
         <button
-          className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded"
+          className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900"
           onClick={handleApplyOnOffer}
+          disabled={isApplyButtonDisabled}
         >
-          Apply
+          {applyButtonText}
         </button>
       </div>
     </div>

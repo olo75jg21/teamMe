@@ -8,32 +8,57 @@ import OfferDetailsCardContent from './OfferDetailsCardContent';
 import OfferDetailsCardBadges from './OfferDetailsCardBadges';
 import OfferDetailsCardFooter from './OfferDetailsCardFooter';
 import OfferDetailsCardApplicantsList from './OfferDetailsCardApplicantsList';
+import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 
 const OfferDetailsCard = (): JSX.Element => {
   const [offer, setOffer] = useState<IOffer>(null!);
+  // const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState<boolean>(false);
 
   let { id } = useParams();
 
+  const { userData } = useGetLoggedUserData();
 
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axios.get(`/offers/${id}`);
-        console.log(data);
 
         setOffer(data);
+        // isApplyButtonDisabledFunc()
       } catch (e) {
         console.log(e);
       }
     })();
   }, [])
 
+  const isApplyButtonDisabled = (): boolean => {
+    if (userData.user._id) {
+      if (userData.user._id === offer._user._id) {
+        return true;
+      }
+      return offer.applicants.some((obj => obj._user._id === userData.user._id))
+    }
+
+    return true
+  };
+
+  const isApplicantsListVisible = () => userData.user._id === offer._user._id;
+
+  const applyButtonText = (): string => {
+    if (userData.user._id) {
+      if (userData.user._id === offer._user._id) {
+        return 'Your offer';
+      }
+      return offer.applicants.some((obj => obj._user._id === userData.user._id)) ? 'Already applied' : 'Apply';
+    }
+
+    return 'Login to apply';
+  };
 
   // @TODO checks if this works after handling editing user profile
   const calculateUserRank = (): { game: string, rank: string } => {
     offer._user.games.forEach((game) => {
       if (game.name === offer.game) {
-        console.log(game.rank)
         return {
           game: game.name,
           rank: game.rank
@@ -70,13 +95,15 @@ const OfferDetailsCard = (): JSX.Element => {
         />
 
         {
-          offer.applicants.length !== 0 &&
+          isApplicantsListVisible() && offer.applicants.length !== 0 &&
           <OfferDetailsCardApplicantsList
             applicants={offer.applicants}
           />
         }
 
         <OfferDetailsCardFooter
+          isApplyButtonDisabled={isApplyButtonDisabled()}
+          applyButtonText={applyButtonText()}
           _id={offer._id}
         />
       </div>

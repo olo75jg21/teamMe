@@ -49,9 +49,29 @@ export const ProfileData = (): JSX.Element => {
     setUser(newUser);
   };
 
+  const handleDelete = (index: number) => {
+    if (!user) return;
+
+    const updatedGames = [...user?.games];
+    updatedGames.splice(index, 1);
+
+    const newUser = { ...user, games: updatedGames };
+
+    setUser(newUser);
+  };
+
   const onSubmit: SubmitHandler<IUserProfileData> = async formData => {
     if (!user) return;
-    console.log({ ...user, ...formData, games: [...user.games] });
+    try {
+      const updatedUser = { ...user, ...formData, games: [...user.games] };
+      const { status } = await axios.put(`/users/${user._id}`, updatedUser);
+
+      if (status === 200) {
+        // console.log(data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const renderProperGameName = (gameName: string) => {
@@ -66,13 +86,14 @@ export const ProfileData = (): JSX.Element => {
   };
 
   const renderGames = () => {
-    return user?.games.map((game: IGame) => {
+    return user?.games.map((game: IGame, index) => {
       return (
         <li
-          key={crypto.randomUUID()}
+          key={index}
           className="text-md text-gray-100 font-bold px-4 py-2"
         >
           {renderProperGameName(game.name) + ' | ' + game.rank}
+          <button onClick={() => handleDelete(index)}>Delete</button>
         </li>
       );
     });
@@ -113,6 +134,7 @@ export const ProfileData = (): JSX.Element => {
           <input
             className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
             type="email"
+            disabled
             defaultValue={user.email}
             {...register("email")}
           />

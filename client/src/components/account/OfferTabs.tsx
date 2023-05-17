@@ -37,14 +37,12 @@ export const OfferTabs = (): JSX.Element => {
 
 		const getUserApplications = async () => {
 			try {
-				console.log('tab2');
 				setTabData([]);
 				const { data } = await axios.get('/offers/applications', {
 					params: {
 						userId
 					}
 				});
-				console.log(data);
 				setTabData(data);
 			} catch (error) {
 				console.log(error);
@@ -76,11 +74,11 @@ export const OfferTabs = (): JSX.Element => {
 	};
 
 	return (
-		<div className="bg-gray-700 border border-gray-500 rounded-lg w-3/4 mx-auto">
+		<div className={`bg-gray-700 border border-gray-500 rounded-lg w-3/4 mx-auto`}>
 			<div className="bg-gray-700 flex justify-center border-b border-gray-300">
 				{renderTabs()}
 			</div>
-			<div className="p-4 bg-gray-800 rounded-b-lg">
+			<div className={`p-4 bg-gray-800 rounded-b-lg ${tabData.length <= 2 ? 'h-screen' : 'h-full'}`}>
 				{tabData && <OffersList offers={tabData} />}
 			</div>
 		</div>
