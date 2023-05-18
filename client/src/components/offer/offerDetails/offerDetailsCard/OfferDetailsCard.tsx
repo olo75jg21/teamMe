@@ -73,7 +73,7 @@ const OfferDetailsCard = (): JSX.Element => {
   }
 
   return (offer &&
-    <div className='bg-gray-800 h-screen flex justify-center items-center pb-48' >
+    <div className='bg-gray-800 h-screen flex justify-center items-center' >
       <div className="bg-gray-700 rounded-lg shadow-md p-6 border border-gray-800 w-3/4">
         <OfferDetailsCardHeader
           username={offer._user.username}

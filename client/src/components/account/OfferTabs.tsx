@@ -7,11 +7,11 @@ export const OfferTabs = (): JSX.Element => {
 	const tabs = [
 		{
 			id: "offers",
-			label: "My offers",
+			label: "My Teams",
 		},
 		{
 			id: "applications",
-			label: "My Teams",
+			label: "My Applications",
 		}
 	];
 

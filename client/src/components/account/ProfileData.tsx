@@ -92,8 +92,10 @@ export const ProfileData = (): JSX.Element => {
           key={index}
           className="text-md text-gray-100 font-bold px-4 py-2"
         >
-          {renderProperGameName(game.name) + ' | ' + game.rank}
-          <button onClick={() => handleDelete(index)}>Delete</button>
+          <div className='flex justify-between'>
+            {renderProperGameName(game.name) + ' | ' + game.rank}
+            <button onClick={() => handleDelete(index)}>Delete</button>
+          </div>
         </li>
       );
     });
