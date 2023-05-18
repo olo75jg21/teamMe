@@ -3,10 +3,10 @@ import { Applicant } from '../../../../types/offer';
 
 interface OfferDetailsCardApplicantsListProps {
   applicants: Applicant[];
-  handleAcceptUserApplication: (applicantId: string) => any
+  handleUpdateStatusOfApplication: (applicantId: string, newStatus: string) => any
 };
 
-const OfferDetailsCardApplicantsList = ({ applicants, handleAcceptUserApplication }: OfferDetailsCardApplicantsListProps): JSX.Element => {
+const OfferDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplication }: OfferDetailsCardApplicantsListProps): JSX.Element => {
   const determineApplicationStatusColor = (status: string): string => {
     switch (status) {
       case 'accepted':
@@ -60,13 +60,14 @@ const OfferDetailsCardApplicantsList = ({ applicants, handleAcceptUserApplicatio
                       <div className="flex items-center text-base font-semibold text-gray-900 dark:text-white">
                         <div
                           className='bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-2 rounded-lg mr-2 duration-200'
+                          onClick={() => handleUpdateStatusOfApplication(applicant._id, 'accepted')}
                         >
                           <button
-                            onClick={() => handleAcceptUserApplication(applicant._user._id)}
                           >Accept</button>
                         </div>
                         <div
                           className='bg-red-800 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-lg mr-2 duration-200'
+                          onClick={() => handleUpdateStatusOfApplication(applicant._id, 'rejected')}
                         >
                           <button>Reject</button>
                         </div>

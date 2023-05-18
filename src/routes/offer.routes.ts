@@ -6,6 +6,7 @@ import {
   handleGetAllOffers,
   handleGetOffer,
   handleGetAllUserApplications,
+  handleUpdateOffer,
 } from '../controllers/offer.controller';
 import { authenticateJwt } from '../middlewares/authenticateJwt';
 import { schemaValidation } from '../middlewares/validation';
@@ -29,4 +30,7 @@ export const offerRoutes = (app: Express) => {
 
   // Get single offer
   app.get('/offers/:id', handleGetOffer);
+
+  // Update offer
+  app.put('/offers/:id', authenticateJwt, handleUpdateOffer);
 };

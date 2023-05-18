@@ -107,3 +107,21 @@ export const handleGetAllUserApplications = async (req: Request, res: Response) 
     console.log(error);
   }
 };
+
+export const handleUpdateOffer = async (req: Request, res: Response) => {
+  try {
+    const offerId = req.params.id;
+    const { newOffer } = req.body;
+
+    const offer = await OfferModel.findByIdAndUpdate(offerId, newOffer, { new: true });
+
+    if (!offer) {
+      return res.status(404).json({ error: 'Document not found' });
+    }
+
+    return res.json({ message: 'Document updated successfully', offer });
+  } catch (error) {
+    res.status(404).send(error);
+    console.log(error);
+  }
+};

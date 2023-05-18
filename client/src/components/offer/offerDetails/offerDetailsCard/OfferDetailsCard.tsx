@@ -31,8 +31,17 @@ const OfferDetailsCard = (): JSX.Element => {
     })();
   }, [])
 
-  const handleAcceptUserApplication = (applicantId: string) => {
-    console.log(applicantId);
+  const handleUpdateStatusOfApplication = (applicantId: string, newStatus: string) => {
+    const updatedApplicants = offer.applicants.map(applicant => {
+      if (applicant._id === applicantId) {
+        return { ...applicant, status: newStatus };
+      }
+      return applicant;
+    });
+
+    setOffer({ ...offer, applicants: updatedApplicants });
+
+    console.log({ ...offer, applicants: updatedApplicants });
   };
 
   const isApplyButtonDisabled = (): boolean => {
@@ -102,7 +111,7 @@ const OfferDetailsCard = (): JSX.Element => {
           isApplicantsListVisible() && offer.applicants.length !== 0 &&
           <OfferDetailsCardApplicantsList
             applicants={offer.applicants}
-            handleAcceptUserApplication={handleAcceptUserApplication}
+            handleUpdateStatusOfApplication={handleUpdateStatusOfApplication}
           />
         }
 
