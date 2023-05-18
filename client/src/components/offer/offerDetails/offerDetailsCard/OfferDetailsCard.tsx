@@ -9,6 +9,7 @@ import OfferDetailsCardBadges from './OfferDetailsCardBadges';
 import OfferDetailsCardFooter from './OfferDetailsCardFooter';
 import OfferDetailsCardApplicantsList from './OfferDetailsCardApplicantsList';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
+import axiosInstance from '../../../../plugins/axios';
 
 const OfferDetailsCard = (): JSX.Element => {
   const [offer, setOffer] = useState<IOffer>(null!);
@@ -31,7 +32,17 @@ const OfferDetailsCard = (): JSX.Element => {
     })();
   }, [])
 
-  const handleUpdateStatusOfApplication = (applicantId: string, newStatus: string) => {
+  const handleUpdateOffer = async (offer: IOffer) => {
+    try {
+      const { data, status } = await axiosInstance.put(`/offers/${offer._id}`, offer)
+      console.log(status);
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleUpdateStatusOfApplication = async (applicantId: string, newStatus: string) => {
     const updatedApplicants = offer.applicants.map(applicant => {
       if (applicant._id === applicantId) {
         return { ...applicant, status: newStatus };
@@ -42,6 +53,8 @@ const OfferDetailsCard = (): JSX.Element => {
     setOffer({ ...offer, applicants: updatedApplicants });
 
     console.log({ ...offer, applicants: updatedApplicants });
+
+    await handleUpdateOffer(offer);
   };
 
   const isApplyButtonDisabled = (): boolean => {
