@@ -1,10 +1,24 @@
+import { NavLink } from 'react-router-dom';
 import { Applicant } from '../../../../types/offer';
 
 interface OfferDetailsCardApplicantsListProps {
   applicants: Applicant[];
+  handleAcceptUserApplication: (applicantId: string) => any
 };
 
-const OfferDetailsCardApplicantsList = ({ applicants }: OfferDetailsCardApplicantsListProps): JSX.Element => {
+const OfferDetailsCardApplicantsList = ({ applicants, handleAcceptUserApplication }: OfferDetailsCardApplicantsListProps): JSX.Element => {
+  const determineApplicationStatusColor = (status: string): string => {
+    switch (status) {
+      case 'accepted':
+        return 'text-green-700'
+      case 'pending':
+        return 'text-yellow-300'
+      case 'rejected':
+        return 'text-redi-700'
+      default:
+        return 'text-gray-100'
+    }
+  };
 
   const renderApplicantsList = (): JSX.Element => {
     if (applicants.length !== 0) {
@@ -23,19 +37,39 @@ const OfferDetailsCardApplicantsList = ({ applicants }: OfferDetailsCardApplican
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className='flex justify-start'>
-                          <p className="text-sm font-medium text-gray-900 truncate dark:text-white mr-1">
-                            {applicant._user.username + ' -'}
+                          <NavLink
+                            to={`/applicantProfile/${applicant._user._id}`}
+                            className="text-sm font-medium truncate dark:text-white mr-1 hover:text-gray-300 hover:underline duration-200"
+                          >
+                            {applicant._user.username}
+                          </NavLink>
+                          <p
+                            className="text-sm font-medium truncate dark:text-white"
+                          >
+                            -
                           </p>
-                          <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                          <p className={`text-sm font-medium truncate ml-1 ${determineApplicationStatusColor('pending')}`}>
                             {applicant.status}
                           </p>
                         </div>
                         <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                          {/* @TODO Change it to user rank in particular game */}
                           {applicant._user.email}
                         </p>
                       </div>
-                      <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $320
+                      <div className="flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        <div
+                          className='bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-2 rounded-lg mr-2 duration-200'
+                        >
+                          <button
+                            onClick={() => handleAcceptUserApplication(applicant._user._id)}
+                          >Accept</button>
+                        </div>
+                        <div
+                          className='bg-red-800 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-lg mr-2 duration-200'
+                        >
+                          <button>Reject</button>
+                        </div>
                       </div>
                     </div>
                   </li>

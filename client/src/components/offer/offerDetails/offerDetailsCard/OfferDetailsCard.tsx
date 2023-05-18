@@ -31,6 +31,10 @@ const OfferDetailsCard = (): JSX.Element => {
     })();
   }, [])
 
+  const handleAcceptUserApplication = (applicantId: string) => {
+    console.log(applicantId);
+  };
+
   const isApplyButtonDisabled = (): boolean => {
     if (userData.user._id) {
       if (userData.user._id === offer._user._id) {
@@ -98,6 +102,7 @@ const OfferDetailsCard = (): JSX.Element => {
           isApplicantsListVisible() && offer.applicants.length !== 0 &&
           <OfferDetailsCardApplicantsList
             applicants={offer.applicants}
+            handleAcceptUserApplication={handleAcceptUserApplication}
           />
         }
 
