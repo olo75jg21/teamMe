@@ -35,7 +35,7 @@ const OfferDetailsCard = (): JSX.Element => {
 
   const handleUpdateOffer = async (updatedOffer: IOffer) => {
     try {
-      const { data, status } = await axiosInstance.put(`/offers/${offer._id}`, updatedOffer);
+      const { data, status } = await axiosInstance.put(`/offers/${offer._id}`, { updatedOffer });
       console.log(status);
       console.log(data);
     } catch (e) {

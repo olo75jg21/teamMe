@@ -111,9 +111,11 @@ export const handleGetAllUserApplications = async (req: Request, res: Response) 
 export const handleUpdateOffer = async (req: Request, res: Response) => {
   try {
     const offerId = req.params.id;
-    const { newOffer } = req.body;
+    const { updatedOffer } = req.body;
 
-    const offer = await OfferModel.findByIdAndUpdate(offerId, newOffer, { new: true });
+    console.log(updatedOffer);
+
+    const offer = await OfferModel.findByIdAndUpdate(offerId, updatedOffer, { new: true });
 
     if (!offer) {
       return res.status(404).json({ error: 'Document not found' });
