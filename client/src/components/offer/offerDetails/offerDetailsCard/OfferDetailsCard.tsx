@@ -10,6 +10,7 @@ import OfferDetailsCardFooter from './OfferDetailsCardFooter';
 import OfferDetailsCardApplicantsList from './OfferDetailsCardApplicantsList';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 import axiosInstance from '../../../../plugins/axios';
+import { update } from 'lodash';
 
 const OfferDetailsCard = (): JSX.Element => {
   const [offer, setOffer] = useState<IOffer>(null!);
@@ -32,9 +33,9 @@ const OfferDetailsCard = (): JSX.Element => {
     })();
   }, [])
 
-  const handleUpdateOffer = async (offer: IOffer) => {
+  const handleUpdateOffer = async (updatedOffer: IOffer) => {
     try {
-      const { data, status } = await axiosInstance.put(`/offers/${offer._id}`, offer)
+      const { data, status } = await axiosInstance.put(`/offers/${offer._id}`, updatedOffer);
       console.log(status);
       console.log(data);
     } catch (e) {
@@ -50,11 +51,14 @@ const OfferDetailsCard = (): JSX.Element => {
       return applicant;
     });
 
-    setOffer({ ...offer, applicants: updatedApplicants });
+    const updatedOffer = { ...offer, applicants: updatedApplicants };
 
-    console.log({ ...offer, applicants: updatedApplicants });
+    setOffer(updatedOffer);
 
-    await handleUpdateOffer(offer);
+    // console.log({ ...offer, applicants: updatedApplicants });
+    console.log(updatedOffer);
+
+    await handleUpdateOffer(updatedOffer);
   };
 
   const isApplyButtonDisabled = (): boolean => {
