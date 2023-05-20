@@ -67,10 +67,10 @@ export const ProfileData = (): JSX.Element => {
       const { status } = await axios.put(`/users/${user._id}`, updatedUser);
 
       if (status === 200) {
-        // console.log(data);
+        // @TODO do smth
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 

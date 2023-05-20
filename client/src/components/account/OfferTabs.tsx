@@ -31,7 +31,7 @@ export const OfferTabs = (): JSX.Element => {
 				});
 				setTabData(data);
 			} catch (error) {
-				console.log(error);
+				console.error(error);
 			}
 		};
 
@@ -45,7 +45,7 @@ export const OfferTabs = (): JSX.Element => {
 				});
 				setTabData(data);
 			} catch (error) {
-				console.log(error);
+				console.error(error);
 			}
 		};
 

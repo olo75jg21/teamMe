@@ -28,18 +28,18 @@ const OfferDetailsCard = (): JSX.Element => {
         setOffer(data);
         // isApplyButtonDisabledFunc()
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     })();
   }, [])
 
   const handleUpdateOffer = async (updatedOffer: IOffer) => {
     try {
-      const { data, status } = await axiosInstance.put(`/offers/${offer._id}`, { updatedOffer });
-      console.log(status);
-      console.log(data);
+      const { status } = await axiosInstance.put(`/offers/${offer._id}`, { updatedOffer });
+
+      // @TODO if status is ok do smth
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -54,9 +54,6 @@ const OfferDetailsCard = (): JSX.Element => {
     const updatedOffer = { ...offer, applicants: updatedApplicants };
 
     setOffer(updatedOffer);
-
-    // console.log({ ...offer, applicants: updatedApplicants });
-    console.log(updatedOffer);
 
     await handleUpdateOffer(updatedOffer);
   };

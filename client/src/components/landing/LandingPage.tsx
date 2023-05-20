@@ -30,7 +30,7 @@ const LandingPage = (): JSX.Element => {
         });
         setOffers(res.data);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     })();
   }, [filters]);
