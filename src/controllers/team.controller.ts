@@ -118,7 +118,19 @@ export const handleUpdateTeam = async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Document not found' });
     }
 
-    return res.json({ message: 'Document updated successfully', team });
+    return res.status(200).json({ message: 'Document updated successfully', team });
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
+
+export const handleDeleteTeam = async (req: Request, res: Response) => {
+  try {
+    const teamId = req.params.id;
+    const team = await TeamModel.findByIdAndDelete(teamId);
+
+
+    return res.status(200).json({ team });
   } catch (error) {
     res.status(404).send(error);
   }

@@ -7,6 +7,7 @@ import {
   handleGetTeam,
   handleGetAllUserApplications,
   handleUpdateTeam,
+  handleDeleteTeam,
 } from '../controllers/team.controller';
 import { authenticateJwt } from '../middlewares/authenticateJwt';
 import { schemaValidation } from '../middlewares/validation';
@@ -30,6 +31,9 @@ export const teamRoutes = (app: Express) => {
 
   // Get single team
   app.get('/team/:id', handleGetTeam);
+
+  // Delete team with given id
+  app.delete('/team/:id', authenticateJwt, handleDeleteTeam);
 
   // Update team
   app.put('/team/:id', authenticateJwt, handleUpdateTeam);

@@ -3,6 +3,7 @@ import axios from '../../../../plugins/axios';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
+import axiosInstance from '../../../../plugins/axios';
 
 interface TeamDetailsCardFooterProps {
   applyButtonText: string;
@@ -39,6 +40,16 @@ const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: 
     }
   }
 
+  const handleRemoveTeam = async () => {
+    try {
+      const { data, status } = await axiosInstance.delete(`/team/${_id}`);
+      console.log(status);
+      console.log(data);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <div className="mt-6 flex justify-between">
       <div>
@@ -49,14 +60,25 @@ const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: 
           Go Back
         </NavLink>
       </div>
-      <div>
-        <button
-          className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900"
-          onClick={handleApplyToTeam}
-          disabled={isApplyButtonDisabled}
+      <div className='flex flex-row'>
+        <div
+          className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900 ml-4"
         >
-          {applyButtonText}
-        </button>
+          <button
+            onClick={handleRemoveTeam}
+          >
+            Remove team
+          </button>
+        </div>
+        <div>
+          <button
+            className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900 ml-4"
+            onClick={handleApplyToTeam}
+            disabled={isApplyButtonDisabled}
+          >
+            {applyButtonText}
+          </button>
+        </div>
       </div>
     </div>
   );
