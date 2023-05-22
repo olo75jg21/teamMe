@@ -6,7 +6,7 @@ import TeamsList from '../teamsList/TeamsList';
 const TeamsTabs = (): JSX.Element => {
 	const tabs = [
 		{
-			id: "offers",
+			id: "teams",
 			label: "My Teams",
 		},
 		{
@@ -22,7 +22,7 @@ const TeamsTabs = (): JSX.Element => {
 	const userId = userData.user._id;
 
 	useEffect(() => {
-		const getUserOffers = async () => {
+		const getUserTeams = async () => {
 			try {
 				const { data } = await axios.get('/team/user', {
 					params: {
@@ -51,7 +51,7 @@ const TeamsTabs = (): JSX.Element => {
 
 		(async () => {
 			if (activeTab === tabs[0].id) {
-				await getUserOffers();
+				await getUserTeams();
 			} else {
 				await getUserApplications();
 			}
@@ -79,7 +79,7 @@ const TeamsTabs = (): JSX.Element => {
 				{renderTabs()}
 			</div>
 			<div className={`p-4 bg-gray-800 rounded-b-lg ${tabData.length <= 2 ? 'h-screen' : 'h-full'}`}>
-				{tabData && <TeamsList offers={tabData} />}
+				{tabData && <TeamsList teams={tabData} />}
 			</div>
 		</div>
 	);

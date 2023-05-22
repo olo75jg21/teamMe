@@ -1,16 +1,16 @@
 import { useState } from 'react';
 // import { renderPassedDays } from './landingUtils';
-import { IOffer } from '../../../types/offer';
+import { ITeam } from '../../../types/team';
 import { NavLink } from 'react-router-dom';
 
 export interface ITeamProps {
-  offer: IOffer
+  team: ITeam
 };
 
-const Team = ({ offer }: ITeamProps): JSX.Element => {
+const Team = ({ team }: ITeamProps): JSX.Element => {
   const [creator, setCreator] = useState<any>('');
 
-  const { _id, _user, game, rank, title, description, applicants, slots } = offer;
+  const { _id, _user, game, rank, title, description, applicants, slots } = team;
 
   const avilableSlots = applicants.reduce((count, applicant) => {
     if (applicant.status === 'accepted') {
@@ -54,13 +54,13 @@ const Team = ({ offer }: ITeamProps): JSX.Element => {
         <div>
           <NavLink
             className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 mr-2 rounded'
-            to={`/offerChat/${_id}`}
+            to={`/teamChat/${_id}`}
           >
             Chat
           </NavLink>
           <NavLink
             className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
-            to={`/offerDetails/${_id}`}
+            to={`/teamDetails/${_id}`}
           >
             Details
           </NavLink>

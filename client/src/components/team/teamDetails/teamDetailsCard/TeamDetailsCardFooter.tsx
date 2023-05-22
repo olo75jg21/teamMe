@@ -4,13 +4,13 @@ import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 
-interface OfferDetailsCardFooterProps {
+interface TeamDetailsCardFooterProps {
   applyButtonText: string;
   isApplyButtonDisabled: boolean;
   _id: string;
 }
 
-const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: OfferDetailsCardFooterProps): JSX.Element => {
+const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: TeamDetailsCardFooterProps): JSX.Element => {
   const navigate = useNavigate()
 
   const { userData } = useGetLoggedUserData();
@@ -21,11 +21,11 @@ const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: 
 
   const userId = userData.user._id;
 
-  const handleApplyOnOffer = async () => {
+  const handleApplyToTeam = async () => {
     try {
       if (userId) {
         // Get current logged user data
-        const { status } = await axios.post(`/team/apply`, { userId, offerId: _id });
+        const { status } = await axios.post(`/team/apply`, { userId, teamId: _id });
 
         if (status === 200) {
           navigate('/');
@@ -52,7 +52,7 @@ const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: 
       <div>
         <button
           className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900"
-          onClick={handleApplyOnOffer}
+          onClick={handleApplyToTeam}
           disabled={isApplyButtonDisabled}
         >
           {applyButtonText}

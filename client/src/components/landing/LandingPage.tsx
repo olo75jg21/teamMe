@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from '../../plugins/axios';
-import { IOffer } from '../../types/offer';
+import { ITeam } from '../../types/team';
 import Header from '../header/Header';
 import TeamsList from '../team/teamsList/TeamsList';
 import { AsidePanel } from './AsidePanel';
@@ -9,7 +9,7 @@ import AddNewTeamButton from './AddNewTeamButton';
 
 const LandingPage = (): JSX.Element => {
   const [filters, setFilters] = useState({ title: '', ageMin: 16, ageMax: 100, game: '', gender: '' });
-  const [offers, setOffers] = useState<IOffer[]>([]);
+  const [teams, setTeams] = useState<ITeam[]>([]);
 
   const { userData } = useGetLoggedUserData();
 
@@ -28,7 +28,7 @@ const LandingPage = (): JSX.Element => {
             userId: userData.user._id,
           }
         });
-        setOffers(res.data);
+        setTeams(res.data);
       } catch (e) {
         console.error(e);
       }
@@ -43,7 +43,7 @@ const LandingPage = (): JSX.Element => {
     <div>
       <Header />
       <div>
-        <div className={`flex flex-row bg-gray-800 ${offers.length <= 4 ? 'h-screen' : 'h-full'}`}>
+        <div className={`flex flex-row bg-gray-800 ${teams.length <= 4 ? 'h-screen' : 'h-full'}`}>
           <div className='basis-1/4'>
             <AddNewTeamButton />
             <AsidePanel onFilterChange={handleFilterChange} />
@@ -51,7 +51,7 @@ const LandingPage = (): JSX.Element => {
           <div className='basis-3/4'>
             <div className='p-5 mt-20'>
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6'>
-                {offers && <TeamsList offers={offers} />}
+                {teams && <TeamsList teams={teams} />}
               </div>
             </div>
           </div>

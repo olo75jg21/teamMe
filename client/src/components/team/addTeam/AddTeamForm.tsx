@@ -17,7 +17,7 @@ type FormData = {
   slots: number;
 };
 
-interface AddOfferFormProps {
+interface AddTeamFormProps {
   userId: string;
 };
 
@@ -26,10 +26,10 @@ const addOffferSchema = yup.object({
   description: yup.string().min(30, 'At least 30 characters long').max(256, 'Max length is 256').required('Description is required'),
   game: yup.string().required('Game is required'),
   rank: yup.string().required('Rank is required'),
-  teamType: yup.string().required('Offer type is required')
+  teamType: yup.string().required('Team type is required')
 });
 
-const AddTeamForm = ({ userId }: AddOfferFormProps): JSX.Element => {
+const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
   const [responseError, setResponseError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -81,7 +81,7 @@ const AddTeamForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                     <input
                       className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                       type='text'
-                      defaultValue="Offer title eoeoeoeoeo"
+                      defaultValue="Team title eoeoeoeoeo"
                       {...register('title')}
                     />
 
@@ -215,7 +215,7 @@ const AddTeamForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                   <div className='mb-4 h-20'>
 
                     <label className="block text-sm text-gray-100 font-bold mb-2">
-                      Offer type
+                      Team type
                     </label>
                     <select
                       {...register("teamType")}
@@ -249,7 +249,7 @@ const AddTeamForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                 </div>
               </div>
 
-              <input type="submit" value='Add offer' className='bg-violet-700 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
+              <input type="submit" value='Add team' className='bg-violet-700 cursor-pointer hover:bg-violet-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button' />
             </form>
         }
       </div>

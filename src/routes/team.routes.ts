@@ -13,24 +13,24 @@ import { schemaValidation } from '../middlewares/validation';
 import { yupTeamCreationSchema } from '../validation/teamValidationSchema';
 
 export const teamRoutes = (app: Express) => {
-  // Get all offers
+  // Get all teams
   app.get('/team', handleGetAllTeams);
 
-  // Get all given user offers, pass id of user as a Param
+  // Get all given user teams, pass id of user as a Param
   app.get('/team/user', authenticateJwt, handleGetAllUserTeams);
 
   // Get all of application for given user id
   app.get('/team/applications', handleGetAllUserApplications);
 
-  // Create new offer
+  // Create new team
   app.post('/team/new', [authenticateJwt, schemaValidation(yupTeamCreationSchema)], handleAddTeam);
 
-  // Apply for offer with given offer id
+  // Apply to team with given team id
   app.post('/team/apply', authenticateJwt, handleApplyOnTeam);
 
-  // Get single offer
+  // Get single team
   app.get('/team/:id', handleGetTeam);
 
-  // Update offer
+  // Update team
   app.put('/team/:id', authenticateJwt, handleUpdateTeam);
 };

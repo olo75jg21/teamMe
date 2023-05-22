@@ -5,7 +5,7 @@ import LoginPage from '../../auth/login/LoginPage';
 
 import AddTeamForm from './AddTeamForm';
 
-export const AddOfferPage = (): JSX.Element => {
+const AddTeamPage = (): JSX.Element => {
   const { userData } = useGetLoggedUserData();
   const [isLogged] = useState(!!(localStorage.getItem('accessToken')));
   const userId = userData.user._id;
@@ -19,3 +19,5 @@ export const AddOfferPage = (): JSX.Element => {
       </div>
     );
 };
+
+export default AddTeamPage;

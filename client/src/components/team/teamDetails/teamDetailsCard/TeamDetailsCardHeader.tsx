@@ -1,18 +1,18 @@
-import { Applicant } from '../../../../types/offer';
+import { Applicant } from '../../../../types/team';
 
 interface IUserGameDetails {
   game: string,
   rank: string
 }
 
-interface OfferDetailsCardHeaderProps {
+interface TeamDetailsCardHeaderProps {
   username: string;
   userGameDetails: IUserGameDetails;
   applicants: Applicant[];
   slots: number;
 }
 
-const TeamDetailsCardHeader = ({ username, userGameDetails, applicants, slots }: OfferDetailsCardHeaderProps): JSX.Element => {
+const TeamDetailsCardHeader = ({ username, userGameDetails, applicants, slots }: TeamDetailsCardHeaderProps): JSX.Element => {
   const avilableSlots = applicants.reduce((count, applicant) => {
     if (applicant.status === 'accepted') {
       return count + 1;

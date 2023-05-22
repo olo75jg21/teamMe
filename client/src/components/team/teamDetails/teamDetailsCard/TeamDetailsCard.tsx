@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../../../../plugins/axios';
-import { IOffer } from '../../../../types/offer';
+import { ITeam } from '../../../../types/team';
 
 import TeamDetailsCardHeader from './TeamDetailsCardHeader';
 import TeamDetailsCardContent from './TeamDetailsCardContent';
@@ -12,7 +12,7 @@ import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 import axiosInstance from '../../../../plugins/axios';
 
 const TeamDetailsCard = (): JSX.Element => {
-  const [offer, setOffer] = useState<IOffer>(null!);
+  const [team, setTeam] = useState<ITeam>(null!);
   // const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState<boolean>(false);
 
   let { id } = useParams();
@@ -24,7 +24,7 @@ const TeamDetailsCard = (): JSX.Element => {
       try {
         const { data } = await axios.get(`/team/${id}`);
 
-        setOffer(data);
+        setTeam(data);
         // isApplyButtonDisabledFunc()
       } catch (e) {
         console.error(e);
@@ -32,9 +32,9 @@ const TeamDetailsCard = (): JSX.Element => {
     })();
   }, [])
 
-  const handleUpdateOffer = async (updatedOffer: IOffer) => {
+  const handleUpdateTeam = async (updatedTeam: ITeam) => {
     try {
-      const { status } = await axiosInstance.put(`/team/${offer._id}`, { updatedOffer });
+      const { status } = await axiosInstance.put(`/team/${team._id}`, { updatedTeam });
 
       // @TODO if status is ok do smth
     } catch (e) {
@@ -43,39 +43,39 @@ const TeamDetailsCard = (): JSX.Element => {
   };
 
   const handleUpdateStatusOfApplication = async (applicantId: string, newStatus: string) => {
-    const updatedApplicants = offer.applicants.map(applicant => {
+    const updatedApplicants = team.applicants.map(applicant => {
       if (applicant._id === applicantId) {
         return { ...applicant, status: newStatus };
       }
       return applicant;
     });
 
-    const updatedOffer = { ...offer, applicants: updatedApplicants };
+    const updatedTeam = { ...team, applicants: updatedApplicants };
 
-    setOffer(updatedOffer);
+    setTeam(updatedTeam);
 
-    await handleUpdateOffer(updatedOffer);
+    await handleUpdateTeam(updatedTeam);
   };
 
   const isApplyButtonDisabled = (): boolean => {
     if (userData.user._id) {
-      if (userData.user._id === offer._user._id) {
+      if (userData.user._id === team._user._id) {
         return true;
       }
-      return offer.applicants.some((obj => obj._user._id === userData.user._id))
+      return team.applicants.some((obj => obj._user._id === userData.user._id))
     }
 
     return true
   };
 
-  const isApplicantsListVisible = () => userData.user._id === offer._user._id;
+  const isApplicantsListVisible = () => userData.user._id === team._user._id;
 
   const applyButtonText = (): string => {
     if (userData.user._id) {
-      if (userData.user._id === offer._user._id) {
-        return 'Your offer';
+      if (userData.user._id === team._user._id) {
+        return 'Your team';
       }
-      return offer.applicants.some((obj => obj._user._id === userData.user._id)) ? 'Already applied' : 'Apply';
+      return team.applicants.some((obj => obj._user._id === userData.user._id)) ? 'Already applied' : 'Apply';
     }
 
     return 'Login to apply';
@@ -83,8 +83,8 @@ const TeamDetailsCard = (): JSX.Element => {
 
   // @TODO checks if this works after handling editing user profile
   const calculateUserRank = (): { game: string, rank: string } => {
-    offer._user.games.forEach((game) => {
-      if (game.name === offer.game) {
+    team._user.games.forEach((game) => {
+      if (game.name === team.game) {
         return {
           game: game.name,
           rank: game.rank
@@ -98,32 +98,32 @@ const TeamDetailsCard = (): JSX.Element => {
     };
   }
 
-  return (offer &&
+  return (team &&
     <div className='bg-gray-800 h-screen flex justify-center items-center' >
       <div className="bg-gray-700 rounded-lg shadow-md p-6 border border-gray-800 w-3/4">
         <TeamDetailsCardHeader
-          username={offer._user.username}
-          applicants={offer.applicants}
-          slots={offer.slots}
+          username={team._user.username}
+          applicants={team.applicants}
+          slots={team.slots}
           userGameDetails={calculateUserRank()}
         />
 
         <TeamDetailsCardContent
-          title={offer.title}
-          description={offer.description}
+          title={team.title}
+          description={team.description}
         />
 
         <TeamDetailsCardBadges
-          minAge={offer.minAge}
-          maxAge={offer.maxAge}
-          teamType={offer.teamType}
-          isActive={offer.isActive}
+          minAge={team.minAge}
+          maxAge={team.maxAge}
+          teamType={team.teamType}
+          isActive={team.isActive}
         />
 
         {
-          isApplicantsListVisible() && offer.applicants.length !== 0 &&
+          isApplicantsListVisible() && team.applicants.length !== 0 &&
           <TeamDetailsCardApplicantsList
-            applicants={offer.applicants}
+            applicants={team.applicants}
             handleUpdateStatusOfApplication={handleUpdateStatusOfApplication}
           />
         }
@@ -131,7 +131,7 @@ const TeamDetailsCard = (): JSX.Element => {
         <TeamDetailsCardFooter
           isApplyButtonDisabled={isApplyButtonDisabled()}
           applyButtonText={applyButtonText()}
-          _id={offer._id}
+          _id={team._id}
         />
       </div>
     </div>

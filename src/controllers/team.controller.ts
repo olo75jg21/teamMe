@@ -61,8 +61,7 @@ export const handleGetTeam = async (req: Request, res: Response) => {
 
 export const handleApplyOnTeam = async (req: Request, res: Response) => {
   try {
-    // @TODO req.body.offerId to teamId
-    const teamId = req.body.offerId;
+    const teamId = req.body.teamId;
 
     const team = await TeamModel.findOneAndUpdate({
       _id: teamId
@@ -111,9 +110,9 @@ export const handleUpdateTeam = async (req: Request, res: Response) => {
   try {
     const teamId = req.params.id;
     // @TODO change to updatedTeam
-    const { updatedOffer } = req.body;
+    const { updatedTeam } = req.body;
 
-    const team = await TeamModel.findByIdAndUpdate(teamId, updatedOffer, { new: true });
+    const team = await TeamModel.findByIdAndUpdate(teamId, updatedTeam, { new: true });
 
     if (!team) {
       return res.status(404).json({ error: 'Document not found' });

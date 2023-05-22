@@ -1,9 +1,9 @@
-interface OfferDetailsCardContentProps {
+interface TeamDetailsCardContentProps {
   title: string;
   description: string;
 }
 
-const TeamDetailsCardContent = ({ title, description }: OfferDetailsCardContentProps): JSX.Element => {
+const TeamDetailsCardContent = ({ title, description }: TeamDetailsCardContentProps): JSX.Element => {
   return (
     <>
       <div className="mt-5">

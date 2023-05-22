@@ -1,5 +1,5 @@
 /**
- * Utils functions to calculate passed days since added offer
+ * Utils functions to calculate passed days since created team
  */
 
 const calculateTimePassed = (createdAt: string): number => {

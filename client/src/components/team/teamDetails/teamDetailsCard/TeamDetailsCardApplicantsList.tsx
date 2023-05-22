@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { Applicant } from '../../../../types/offer';
+import { Applicant } from '../../../../types/team';
 
-interface OfferDetailsCardApplicantsListProps {
+interface TeamDetailsCardApplicantsListProps {
   applicants: Applicant[];
   handleUpdateStatusOfApplication: (applicantId: string, newStatus: string) => any
 };
 
-const TeamDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplication }: OfferDetailsCardApplicantsListProps): JSX.Element => {
+const TeamDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplication }: TeamDetailsCardApplicantsListProps): JSX.Element => {
   const determineApplicationStatusColor = (status: string): string => {
     switch (status) {
       case 'accepted':

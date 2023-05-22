@@ -1,17 +1,17 @@
-import { IOffer } from '../../../types/offer';
+import { ITeam } from '../../../types/team';
 import Team from './Team';
 
 interface Props {
-  offers: IOffer[]
+  teams: ITeam[]
 }
 
-const TeamsList = ({ offers }: Props) => {
-  const renderOffers = (): JSX.Element[] => {
-    return offers.map((offer: IOffer) => {
+const TeamsList = ({ teams }: Props) => {
+  const renderTeams = (): JSX.Element[] => {
+    return teams.map((team: ITeam) => {
       return (
         <Team
-          key={offer._id}
-          offer={offer}
+          key={team._id}
+          team={team}
         />
       );
     });
@@ -19,7 +19,7 @@ const TeamsList = ({ offers }: Props) => {
 
   return (
     <>
-      {offers && renderOffers()}
+      {teams && renderTeams()}
     </>
   );
 };

@@ -6,7 +6,7 @@ export interface Applicant {
   status: string;
 };
 
-export interface IOffer {
+export interface ITeam {
   _id: string;
   _user: IUser;
   title: string;
