@@ -12,7 +12,7 @@ interface OfferDetailsCardHeaderProps {
   slots: number;
 }
 
-const OfferDetailsCardHeader = ({ username, userGameDetails, applicants, slots }: OfferDetailsCardHeaderProps): JSX.Element => {
+const TeamDetailsCardHeader = ({ username, userGameDetails, applicants, slots }: OfferDetailsCardHeaderProps): JSX.Element => {
   const avilableSlots = applicants.reduce((count, applicant) => {
     if (applicant.status === 'accepted') {
       return count + 1;
@@ -41,4 +41,4 @@ const OfferDetailsCardHeader = ({ username, userGameDetails, applicants, slots }
   );
 };
 
-export default OfferDetailsCardHeader;
+export default TeamDetailsCardHeader;

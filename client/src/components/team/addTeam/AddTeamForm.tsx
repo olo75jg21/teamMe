@@ -1,12 +1,12 @@
-import axios from '../../plugins/axios';
+import axios from '../../../plugins/axios';
 import * as yup from 'yup';
 import { gamesRanks } from './data';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AxiosError } from 'axios';
-import CirclesLoader from '../utils/CirclesLoader';
-import ResponseError from '../utils/ResponseError';
+import CirclesLoader from '../../utils/CirclesLoader';
+import ResponseError from '../../utils/ResponseError';
 
 type FormData = {
   title: string;
@@ -29,7 +29,7 @@ const addOffferSchema = yup.object({
   teamType: yup.string().required('Offer type is required')
 });
 
-export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
+const AddTeamForm = ({ userId }: AddOfferFormProps): JSX.Element => {
   const [responseError, setResponseError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -256,3 +256,5 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
     </div>
   );
 };
+
+export default AddTeamForm;

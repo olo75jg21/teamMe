@@ -3,7 +3,7 @@ interface OfferDetailsCardContentProps {
   description: string;
 }
 
-const OfferDetailsCardContent = ({ title, description }: OfferDetailsCardContentProps): JSX.Element => {
+const TeamDetailsCardContent = ({ title, description }: OfferDetailsCardContentProps): JSX.Element => {
   return (
     <>
       <div className="mt-5">
@@ -18,4 +18,4 @@ const OfferDetailsCardContent = ({ title, description }: OfferDetailsCardContent
   )
 };
 
-export default OfferDetailsCardContent;
+export default TeamDetailsCardContent;

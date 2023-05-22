@@ -2,13 +2,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import '../index.css';
 import { Account } from './account/Account';
-import { AddOfferPage } from './addOffer/AddOfferPage';
+import { AddOfferPage } from './team/addTeam/AddOfferPage';
 
 import ErrorPage from "./ErrorPage";
 import LandingPage from './landing/LandingPage';
 import LoginPage from './login/LoginPage';
 import RegisterPage from './register/RegisterPage';
-import OfferDetails from './offer/offerDetails/OfferDetails';
+import TeamDetails from './team/teamDetails/TeamDetails';
 import TeamChat from './teamChat/TeamChat';
 import ApplicantProfile from './applicantProfile/ApplicantProfile';
 
@@ -22,7 +22,7 @@ export const App = (): JSX.Element => {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/newoffer' element={<AddOfferPage />} />
-          <Route path='/offerDetails/:id' element={<OfferDetails />} />
+          <Route path='/offerDetails/:id' element={<TeamDetails />} />
           <Route path='/applicantProfile/:id' element={<ApplicantProfile />} />
           <Route path='/offerChat/:id' element={<TeamChat />} />
           <Route path='/account' element={<Account />} />

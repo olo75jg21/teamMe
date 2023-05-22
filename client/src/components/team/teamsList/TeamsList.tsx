@@ -1,15 +1,15 @@
 import { IOffer } from '../../../types/offer';
-import { Offer } from './Offer';
+import Team from './Team';
 
 interface Props {
   offers: IOffer[]
 }
 
-export const OffersList = ({ offers }: Props) => {
+const TeamsList = ({ offers }: Props) => {
   const renderOffers = (): JSX.Element[] => {
     return offers.map((offer: IOffer) => {
       return (
-        <Offer
+        <Team
           key={offer._id}
           offer={offer}
         />
@@ -23,3 +23,5 @@ export const OffersList = ({ offers }: Props) => {
     </>
   );
 };
+
+export default TeamsList;

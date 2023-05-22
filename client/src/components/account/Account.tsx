@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { ProfileData } from './ProfileData';
 import LoginPage from '../login/LoginPage';
 import Header from '../header/Header';
-import { OfferTabs } from './OfferTabs';
-import { io } from 'socket.io-client';
+import TeamsTabs from '../team/teamsTabs/TeamsTabs';
 
 export const Account = (): JSX.Element => {
   const [isLogged] = useState(!!(localStorage.getItem('accessToken')));
@@ -21,7 +20,7 @@ export const Account = (): JSX.Element => {
               <ProfileData />
             </div>
             <div className='col-span-2 md:col-span-2'>
-              <OfferTabs />
+              <TeamsTabs />
             </div>
           </div>
         </div>

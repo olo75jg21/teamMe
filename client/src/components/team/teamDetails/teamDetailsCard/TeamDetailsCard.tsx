@@ -3,16 +3,15 @@ import { useParams } from 'react-router-dom';
 import axios from '../../../../plugins/axios';
 import { IOffer } from '../../../../types/offer';
 
-import OfferDetailsCardHeader from './OfferDetailsCardHeader';
-import OfferDetailsCardContent from './OfferDetailsCardContent';
-import OfferDetailsCardBadges from './OfferDetailsCardBadges';
-import OfferDetailsCardFooter from './OfferDetailsCardFooter';
-import OfferDetailsCardApplicantsList from './OfferDetailsCardApplicantsList';
+import TeamDetailsCardHeader from './TeamDetailsCardHeader';
+import TeamDetailsCardContent from './TeamDetailsCardContent';
+import TeamDetailsCardBadges from './TeamDetailsCardBadges';
+import TeamDetailsCardFooter from './TeamDetailsCardFooter';
+import TeamDetailsCardApplicantsList from './TeamDetailsCardApplicantsList';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 import axiosInstance from '../../../../plugins/axios';
-import { update } from 'lodash';
 
-const OfferDetailsCard = (): JSX.Element => {
+const TeamDetailsCard = (): JSX.Element => {
   const [offer, setOffer] = useState<IOffer>(null!);
   // const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState<boolean>(false);
 
@@ -102,19 +101,19 @@ const OfferDetailsCard = (): JSX.Element => {
   return (offer &&
     <div className='bg-gray-800 h-screen flex justify-center items-center' >
       <div className="bg-gray-700 rounded-lg shadow-md p-6 border border-gray-800 w-3/4">
-        <OfferDetailsCardHeader
+        <TeamDetailsCardHeader
           username={offer._user.username}
           applicants={offer.applicants}
           slots={offer.slots}
           userGameDetails={calculateUserRank()}
         />
 
-        <OfferDetailsCardContent
+        <TeamDetailsCardContent
           title={offer.title}
           description={offer.description}
         />
 
-        <OfferDetailsCardBadges
+        <TeamDetailsCardBadges
           minAge={offer.minAge}
           maxAge={offer.maxAge}
           teamType={offer.teamType}
@@ -123,13 +122,13 @@ const OfferDetailsCard = (): JSX.Element => {
 
         {
           isApplicantsListVisible() && offer.applicants.length !== 0 &&
-          <OfferDetailsCardApplicantsList
+          <TeamDetailsCardApplicantsList
             applicants={offer.applicants}
             handleUpdateStatusOfApplication={handleUpdateStatusOfApplication}
           />
         }
 
-        <OfferDetailsCardFooter
+        <TeamDetailsCardFooter
           isApplyButtonDisabled={isApplyButtonDisabled()}
           applyButtonText={applyButtonText()}
           _id={offer._id}
@@ -139,4 +138,4 @@ const OfferDetailsCard = (): JSX.Element => {
   );
 }
 
-export default OfferDetailsCard;
+export default TeamDetailsCard;

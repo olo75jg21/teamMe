@@ -10,7 +10,7 @@ interface OfferDetailsCardFooterProps {
   _id: string;
 }
 
-const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: OfferDetailsCardFooterProps): JSX.Element => {
+const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: OfferDetailsCardFooterProps): JSX.Element => {
   const navigate = useNavigate()
 
   const { userData } = useGetLoggedUserData();
@@ -62,4 +62,4 @@ const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }:
   );
 };
 
-export default OfferDetailsCardFooter;
+export default TeamDetailsCardFooter;

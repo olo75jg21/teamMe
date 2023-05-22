@@ -5,7 +5,7 @@ interface OfferDetailsCardBadgesProps {
   isActive: boolean;
 }
 
-const OfferDetailsCardBadges = ({ minAge, maxAge, teamType, isActive }: OfferDetailsCardBadgesProps): JSX.Element => {
+const TeamDetailsCardBadges = ({ minAge, maxAge, teamType, isActive }: OfferDetailsCardBadgesProps): JSX.Element => {
   const renderIsAcitve = (): JSX.Element => {
     return (
       <span className={`mr-2 px-2 p-1 ${isActive ? 'bg-green-600' : 'bg-red-600'} text-gray-100 text-xs font-semibold rounded-md`}>
@@ -47,4 +47,4 @@ const OfferDetailsCardBadges = ({ minAge, maxAge, teamType, isActive }: OfferDet
   );
 };
 
-export default OfferDetailsCardBadges;
+export default TeamDetailsCardBadges;

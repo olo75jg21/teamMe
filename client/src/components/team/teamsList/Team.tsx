@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
-import axios from '../../../plugins/axios';
-import { renderPassedDays } from './landingUtils';
-import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
+import { useState } from 'react';
+// import { renderPassedDays } from './landingUtils';
 import { IOffer } from '../../../types/offer';
 import { NavLink } from 'react-router-dom';
 
-export interface IOfferProps {
+export interface ITeamProps {
   offer: IOffer
 };
 
-export const Offer = ({ offer }: IOfferProps): JSX.Element => {
+const Team = ({ offer }: ITeamProps): JSX.Element => {
   const [creator, setCreator] = useState<any>('');
 
   const { _id, _user, game, rank, title, description, applicants, slots } = offer;
@@ -55,7 +53,7 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
       <div className="mt-6 flex justify-end">
         <div>
           <NavLink
-            className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
+            className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 mr-2 rounded'
             to={`/offerChat/${_id}`}
           >
             Chat
@@ -71,3 +69,5 @@ export const Offer = ({ offer }: IOfferProps): JSX.Element => {
     </div>
   );
 };
+
+export default Team;

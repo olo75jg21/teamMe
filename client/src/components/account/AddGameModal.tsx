@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { gamesRanks } from '../addOffer/data';
+import { gamesRanks } from '../team/addTeam/data';
 import Modal from 'react-modal';
 
 const customStyles = {

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
-import Header from '../header/Header';
-import LoginPage from '../login/LoginPage';
+import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
+import Header from '../../header/Header';
+import LoginPage from '../../login/LoginPage';
 
-import { AddOfferForm } from './AddOfferForm';
+import AddTeamForm from './AddTeamForm';
 
 export const AddOfferPage = (): JSX.Element => {
   const { userData } = useGetLoggedUserData();
@@ -15,7 +15,7 @@ export const AddOfferPage = (): JSX.Element => {
     : (
       <div>
         <Header />
-        <AddOfferForm userId={userId} />
+        <AddTeamForm userId={userId} />
       </div>
     );
 };

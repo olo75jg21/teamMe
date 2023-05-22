@@ -6,7 +6,7 @@ interface OfferDetailsCardApplicantsListProps {
   handleUpdateStatusOfApplication: (applicantId: string, newStatus: string) => any
 };
 
-const OfferDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplication }: OfferDetailsCardApplicantsListProps): JSX.Element => {
+const TeamDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplication }: OfferDetailsCardApplicantsListProps): JSX.Element => {
   const determineApplicationStatusColor = (status: string): string => {
     switch (status) {
       case 'accepted':
@@ -95,4 +95,4 @@ const OfferDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplic
   );
 };
 
-export default OfferDetailsCardApplicantsList;
+export default TeamDetailsCardApplicantsList;

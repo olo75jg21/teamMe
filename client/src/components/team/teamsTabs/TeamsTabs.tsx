@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import axios from '../../plugins/axios';
-import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
-import { OffersList } from '../offer/offersList/OffersList';
+import axios from '../../../plugins/axios';
+import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
+import TeamsList from '../teamsList/TeamsList';
 
-export const OfferTabs = (): JSX.Element => {
+const TeamsTabs = (): JSX.Element => {
 	const tabs = [
 		{
 			id: "offers",
@@ -79,8 +79,10 @@ export const OfferTabs = (): JSX.Element => {
 				{renderTabs()}
 			</div>
 			<div className={`p-4 bg-gray-800 rounded-b-lg ${tabData.length <= 2 ? 'h-screen' : 'h-full'}`}>
-				{tabData && <OffersList offers={tabData} />}
+				{tabData && <TeamsList offers={tabData} />}
 			</div>
 		</div>
 	);
 };
+
+export default TeamsTabs;
