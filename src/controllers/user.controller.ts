@@ -30,7 +30,6 @@ export const handleUpdateUserProfile = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Username already exists. Cannot change data.' });
     }
 
-    console.log(req.body.username);
     // Find the user by ID and update the fields
     const updatedUser = await UserModel.findByIdAndUpdate(id, req.body, { new: true });
 

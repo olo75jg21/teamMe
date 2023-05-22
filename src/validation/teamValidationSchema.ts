@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const yupOfferCreationSchema = yup.object({
+export const yupTeamCreationSchema = yup.object({
   title: yup
     .string()
     .min(14)

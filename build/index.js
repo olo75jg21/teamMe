@@ -31,7 +31,7 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const connectDb_1 = require("./utils/connectDb");
 const user_routes_1 = require("./routes/user.routes");
-const offer_routes_1 = require("./routes/offer.routes");
+const team_routes_1 = require("./routes/team.routes");
 const auth_routes_1 = require("./routes/auth.routes");
 const socketIO = __importStar(require("socket.io"));
 const chat_controller_1 = __importDefault(require("./controllers/chat.controller"));
@@ -43,7 +43,7 @@ app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 (0, auth_routes_1.authRoutes)(app);
 (0, user_routes_1.userRoutes)(app);
-(0, offer_routes_1.offerRoutes)(app);
+(0, team_routes_1.teamRoutes)(app);
 const server = app.listen(config_1.SERVER_PORT, () => {
     console.log('Server is running on port ' + config_1.SERVER_PORT);
 });

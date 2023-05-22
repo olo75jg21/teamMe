@@ -5,7 +5,7 @@ interface IApplicant {
   status: string;
 }
 
-export interface IOffer extends Document {
+export interface ITeam extends Document {
   _user: Types.ObjectId;
   isActive: boolean;
   offerType: string;
@@ -19,7 +19,7 @@ export interface IOffer extends Document {
   slots: number;
 };
 
-const OffertSchema: Schema = new Schema({
+const TeamSchema: Schema = new Schema({
   _user: {
     type: Types.ObjectId,
     ref: 'User'
@@ -28,6 +28,7 @@ const OffertSchema: Schema = new Schema({
     type: Boolean,
     default: true
   },
+  // @TODO change this
   offerType: {
     type: String,
     required: true,
@@ -53,6 +54,7 @@ const OffertSchema: Schema = new Schema({
     type: Number,
     default: 100
   },
+  // @TODO add rank range
   rank: {
     type: String,
     required: true
@@ -77,4 +79,4 @@ const OffertSchema: Schema = new Schema({
   timestamps: true
 });
 
-export const OfferModel = mongoose.model<IOffer>('Offer', OffertSchema);
+export const TeamModel = mongoose.model<ITeam>('Team', TeamSchema);

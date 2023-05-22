@@ -3,7 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { connect } from './utils/connectDb';
 import { userRoutes } from './routes/user.routes';
-import { offerRoutes } from './routes/offer.routes';
+import { teamRoutes } from './routes/team.routes';
 import { authRoutes } from './routes/auth.routes';
 import * as socketIO from 'socket.io';
 import initializeChat from './controllers/chat.controller';
@@ -19,7 +19,7 @@ app.use(express.json());
 
 authRoutes(app);
 userRoutes(app);
-offerRoutes(app);
+teamRoutes(app);
 
 const server = app.listen(SERVER_PORT, () => {
   console.log('Server is running on port ' + SERVER_PORT);
