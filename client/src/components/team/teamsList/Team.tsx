@@ -2,6 +2,7 @@ import { useState } from 'react';
 // import { renderPassedDays } from './landingUtils';
 import { ITeam } from '../../../types/team';
 import { NavLink } from 'react-router-dom';
+import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
 
 export interface ITeamProps {
   team: ITeam
@@ -9,6 +10,7 @@ export interface ITeamProps {
 
 const Team = ({ team }: ITeamProps): JSX.Element => {
   const [creator, setCreator] = useState<any>('');
+  const { userData } = useGetLoggedUserData();
 
   const { _id, _user, game, rank, title, description, applicants, slots } = team;
 
@@ -19,6 +21,11 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
       return count;
     }
   }, 0);
+
+  const isChatButtonVisible = () => {
+    // @TODO check why we have to check for _user, not for _user._id
+    return (team.applicants.some((obj => obj._user.toString() === userData.user._id)) || _user.toString() === userData.user._id);
+  };
 
   return (
     <div className="bg-gray-700 rounded-lg shadow-md p-6 border-1 border-gray-900 mb-4">
@@ -52,12 +59,14 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
       </div>
       <div className="mt-6 flex justify-end">
         <div>
-          <NavLink
-            className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 mr-2 rounded'
-            to={`/teamChat/${_id}`}
-          >
-            Chat
-          </NavLink>
+          {
+            isChatButtonVisible() && <NavLink
+              className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 mr-2 rounded'
+              to={`/teamChat/${_id}`}
+            >
+              Chat
+            </NavLink>
+          }
           <NavLink
             className='bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded'
             to={`/teamDetails/${_id}`}
