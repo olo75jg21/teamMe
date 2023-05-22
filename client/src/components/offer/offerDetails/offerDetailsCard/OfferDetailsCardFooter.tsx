@@ -25,7 +25,7 @@ const OfferDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }:
     try {
       if (userId) {
         // Get current logged user data
-        const { status } = await axios.post(`/offers/apply`, { userId, offerId: _id });
+        const { status } = await axios.post(`/team/apply`, { userId, offerId: _id });
 
         if (status === 200) {
           navigate('/');

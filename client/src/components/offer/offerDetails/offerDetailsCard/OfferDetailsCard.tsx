@@ -23,7 +23,7 @@ const OfferDetailsCard = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`/offers/${id}`);
+        const { data } = await axios.get(`/team/${id}`);
 
         setOffer(data);
         // isApplyButtonDisabledFunc()
@@ -35,7 +35,7 @@ const OfferDetailsCard = (): JSX.Element => {
 
   const handleUpdateOffer = async (updatedOffer: IOffer) => {
     try {
-      const { status } = await axiosInstance.put(`/offers/${offer._id}`, { updatedOffer });
+      const { status } = await axiosInstance.put(`/team/${offer._id}`, { updatedOffer });
 
       // @TODO if status is ok do smth
     } catch (e) {

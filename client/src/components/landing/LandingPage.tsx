@@ -18,7 +18,7 @@ const LandingPage = (): JSX.Element => {
       try {
         const { title, ageMin, ageMax, game, gender } = filters;
 
-        const res = await axios.get('/offers', {
+        const res = await axios.get('/team', {
           params: {
             title,
             ageMin,

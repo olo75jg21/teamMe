@@ -44,7 +44,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
     try {
       setIsLoading(true);
       setResponseError('');
-      const { status } = await axios.post('/offers/new', {
+      const { status } = await axios.post('/team/new', {
         _user: userId,
         ...formData
       });
