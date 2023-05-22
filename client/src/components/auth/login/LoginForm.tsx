@@ -6,8 +6,8 @@ import axios, { AxiosError } from 'axios';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import CirclesLoader from '../utils/CirclesLoader';
-import ResponseError from '../utils/ResponseError';
+import CirclesLoader from '../../utils/CirclesLoader';
+import ResponseError from '../../utils/ResponseError';
 
 interface FormValues {
   email: string;

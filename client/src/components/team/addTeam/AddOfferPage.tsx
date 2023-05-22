@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
 import Header from '../../header/Header';
-import LoginPage from '../../login/LoginPage';
+import LoginPage from '../../auth/login/LoginPage';
 
 import AddTeamForm from './AddTeamForm';
 

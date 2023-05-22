@@ -6,8 +6,8 @@ import { AddOfferPage } from './team/addTeam/AddOfferPage';
 
 import ErrorPage from "./ErrorPage";
 import LandingPage from './landing/LandingPage';
-import LoginPage from './login/LoginPage';
-import RegisterPage from './register/RegisterPage';
+import LoginPage from './auth/login/LoginPage';
+import RegisterPage from './auth/register/RegisterPage';
 import TeamDetails from './team/teamDetails/TeamDetails';
 import TeamChat from './teamChat/TeamChat';
 import ApplicantProfile from './applicantProfile/ApplicantProfile';

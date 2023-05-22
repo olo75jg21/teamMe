@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LandingPage from '../landing/LandingPage';
+import LandingPage from '../../landing/LandingPage';
 import LoginForm from './LoginForm';
 
 const LoginPage = (): JSX.Element => {

@@ -3,12 +3,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { NavLink } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from '../../plugins/axios';
-import { RegisterFormValues } from '../../types/types';
+import axios from '../../../plugins/axios';
+import { RegisterFormValues } from '../../../types/types';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
-import CirclesLoader from '../utils/CirclesLoader';
-import ResponseError from '../utils/ResponseError';
+import CirclesLoader from '../../utils/CirclesLoader';
+import ResponseError from '../../utils/ResponseError';
 
 const registrationSchema = yup.object({
   username: yup.string().min(5, 'At least 5 characters long').max(14, 'Max length is 14').required('Username is required'),

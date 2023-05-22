@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { ProfileData } from './ProfileData';
-import LoginPage from '../login/LoginPage';
+import LoginPage from '../auth/login/LoginPage';
 import Header from '../header/Header';
 import TeamsTabs from '../team/teamsTabs/TeamsTabs';
 
