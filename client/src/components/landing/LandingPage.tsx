@@ -6,6 +6,7 @@ import TeamsList from '../team/teamsList/TeamsList';
 import { AsidePanel } from './AsidePanel';
 import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import AddNewTeamButton from './AddNewTeamButton';
+import NoDataCard from '../utils/NoDataCard';
 
 const LandingPage = (): JSX.Element => {
   const [filters, setFilters] = useState({ title: '', ageMin: 16, ageMax: 100, game: '', gender: '' });
@@ -48,13 +49,18 @@ const LandingPage = (): JSX.Element => {
             <AddNewTeamButton />
             <AsidePanel onFilterChange={handleFilterChange} />
           </div>
-          <div className='basis-3/4'>
-            <div className='p-5 mt-20'>
-              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6'>
-                {teams && <TeamsList teams={teams} />}
+          {
+            teams.length === 0
+              ? <NoDataCard />
+              :
+              <div className='basis-3/4'>
+                <div className='p-5 mt-20'>
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6'>
+                    {teams && <TeamsList teams={teams} />}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+          }
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from '../../../plugins/axios';
 import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
 import TeamsList from '../teamsList/TeamsList';
+import NoDataCard from '../../utils/NoDataCard';
 
 const TeamsTabs = (): JSX.Element => {
 	const tabs = [
@@ -79,7 +80,7 @@ const TeamsTabs = (): JSX.Element => {
 				{renderTabs()}
 			</div>
 			<div className={`p-4 bg-gray-800 rounded-b-lg ${tabData.length <= 2 ? 'h-screen' : 'h-full'}`}>
-				{tabData && <TeamsList teams={tabData} />}
+				{tabData.length === 0 ? <NoDataCard /> : <TeamsList teams={tabData} />}
 			</div>
 		</div>
 	);
