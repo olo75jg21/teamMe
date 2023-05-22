@@ -8,7 +8,7 @@ interface IApplicant {
 export interface ITeam extends Document {
   _user: Types.ObjectId;
   isActive: boolean;
-  offerType: string;
+  teamType: string;
   title: string;
   game: string;
   minAge: number;
@@ -28,8 +28,7 @@ const TeamSchema: Schema = new Schema({
     type: Boolean,
     default: true
   },
-  // @TODO change this
-  offerType: {
+  teamType: {
     type: String,
     required: true,
     enum: ['solo', 'team'] // Solo means Im solo player and I am looking for a team/ team otherwise

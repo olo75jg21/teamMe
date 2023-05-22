@@ -17,7 +17,7 @@ export const yupTeamCreationSchema = yup.object({
   rank: yup
     .string()
     .required(),
-  offerType: yup
+  teamType: yup
     .string()
     .required(),
 });

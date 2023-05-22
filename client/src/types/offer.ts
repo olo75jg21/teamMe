@@ -14,7 +14,7 @@ export interface IOffer {
   applicants: Applicant[];
   description: string;
   rank: string;
-  offerType: string;
+  teamType: string;
   slots: number;
   minAge: number;
   maxAge: number;

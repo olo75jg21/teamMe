@@ -117,7 +117,7 @@ const OfferDetailsCard = (): JSX.Element => {
         <OfferDetailsCardBadges
           minAge={offer.minAge}
           maxAge={offer.maxAge}
-          offerType={offer.offerType}
+          teamType={offer.teamType}
           isActive={offer.isActive}
         />
 

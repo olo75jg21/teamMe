@@ -13,7 +13,7 @@ type FormData = {
   description: string;
   game: string;
   rank: string;
-  offerType: string;
+  teamType: string;
   slots: number;
 };
 
@@ -26,7 +26,7 @@ const addOffferSchema = yup.object({
   description: yup.string().min(30, 'At least 30 characters long').max(256, 'Max length is 256').required('Description is required'),
   game: yup.string().required('Game is required'),
   rank: yup.string().required('Rank is required'),
-  offerType: yup.string().required('Offer type is required')
+  teamType: yup.string().required('Offer type is required')
 });
 
 export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
@@ -34,7 +34,7 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [selectedGame, setSelectedGame] = useState<string>('');
-  const [offerType, setOfferType] = useState<string>('');
+  const [teamType, setTeamType] = useState<string>('');
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(addOffferSchema)
@@ -218,16 +218,16 @@ export const AddOfferForm = ({ userId }: AddOfferFormProps): JSX.Element => {
                       Offer type
                     </label>
                     <select
-                      {...register("offerType")}
+                      {...register("teamType")}
                       className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                      onChange={(e) => setOfferType(e.target.value)}
+                      onChange={(e) => setTeamType(e.target.value)}
                     >
-                      <option value="">Select offer type</option>
+                      <option value="">Select team type</option>
                       <option value="solo">I'm a solo player looking for team</option>
                       <option value="team">I have a team and I am looking for players</option>
                     </select>
-                    {errors.offerType?.message && (
-                      <span className="text-red-600">{errors.offerType.message}</span>
+                    {errors.teamType?.message && (
+                      <span className="text-red-600">{errors.teamType.message}</span>
                     )}
                   </div>
 
