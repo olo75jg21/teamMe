@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { ITeam } from '../../../types/team';
 import { NavLink } from 'react-router-dom';
 import useGetLoggedUserData from '../../../hooks/useGetLoggedUserData';
+import { renderProperGameName } from '../../../utils/renderProperGameName';
+import { calculateUserRank } from '../../../utils/calculateUserRank';
 
 export interface ITeamProps {
   team: ITeam
@@ -27,6 +29,8 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
     return (team.applicants.some((obj => obj._user.toString() === userData.user._id && obj.status === 'accepted')) || _user.toString() === userData.user._id);
   };
 
+  const userGameRank = calculateUserRank(team);
+
   return (
     <div className="bg-gray-700 rounded-lg shadow-md p-6 border-1 border-gray-900 mb-4">
       <div className="flex flex-row justify-between items-center">
@@ -38,7 +42,7 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
           />
           <div>
             <p className="text-gray-100 font-bold">{_user.username}</p>
-            <p className="text-gray-300 text-sm font-semibold">{`${game} ${rank}`}</p>
+            <p className="text-gray-300 text-sm font-semibold">{`${renderProperGameName(userGameRank.game)} ${userGameRank.rank}`}</p>
           </div>
         </div>
         <div className="bg-violet-600 text-white font-semibold py-2 px-4 rounded">
