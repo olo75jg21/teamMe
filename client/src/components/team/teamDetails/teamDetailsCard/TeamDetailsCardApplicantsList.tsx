@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { Applicant } from '../../../../types/team';
+import ApplicantDetailsModal from './applicantDetailsModal/ApplicantDetailsModal';
 
 interface TeamDetailsCardApplicantsListProps {
   applicants: Applicant[];
@@ -37,12 +38,10 @@ const TeamDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplica
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className='flex justify-start'>
-                          <NavLink
-                            to={`/applicantProfile/${applicant._user._id}`}
-                            className="text-sm font-medium truncate dark:text-white mr-1 hover:text-gray-300 hover:underline duration-200"
-                          >
-                            {applicant._user.username}
-                          </NavLink>
+                          <ApplicantDetailsModal
+                            username={applicant._user.username}
+                            applicantId={applicant._user._id}
+                          />
                           <p
                             className="text-sm font-medium truncate dark:text-white"
                           >

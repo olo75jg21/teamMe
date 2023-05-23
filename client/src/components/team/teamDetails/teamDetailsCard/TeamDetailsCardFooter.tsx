@@ -8,10 +8,11 @@ import axiosInstance from '../../../../plugins/axios';
 interface TeamDetailsCardFooterProps {
   applyButtonText: string;
   isApplyButtonDisabled: boolean;
+  isRemoveTeamBtnVisible: boolean;
   _id: string;
 }
 
-const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: TeamDetailsCardFooterProps): JSX.Element => {
+const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText, isRemoveTeamBtnVisible }: TeamDetailsCardFooterProps): JSX.Element => {
   const navigate = useNavigate()
 
   const { userData } = useGetLoggedUserData();
@@ -29,26 +30,26 @@ const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: 
         const { status } = await axios.post(`/team/apply`, { userId, teamId: _id });
 
         if (status === 200) {
-          navigate('/');
+          navigate('/account');
         }
       }
     } catch (e) {
       const error = e as AxiosError;
       if (error.response?.status !== 200)
-
         console.log(e);
     }
-  }
+  };
 
   const handleRemoveTeam = async () => {
     try {
-      const { data, status } = await axiosInstance.delete(`/team/${_id}`);
-      console.log(status);
-      console.log(data);
+      const { status } = await axiosInstance.delete(`/team/${_id}`);
+      if (status === 200) {
+        navigate('/');
+      }
     } catch (e) {
       console.log(e)
     }
-  }
+  };
 
   return (
     <div className="mt-6 flex justify-between">
@@ -61,15 +62,18 @@ const TeamDetailsCardFooter = ({ _id, isApplyButtonDisabled, applyButtonText }: 
         </NavLink>
       </div>
       <div className='flex flex-row'>
-        <div
-          className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900 ml-4"
-        >
-          <button
-            onClick={handleRemoveTeam}
+        {
+          isRemoveTeamBtnVisible &&
+          <div
+            className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900 ml-4"
           >
-            Remove team
-          </button>
-        </div>
+            <button
+              onClick={handleRemoveTeam}
+            >
+              Remove team
+            </button>
+          </div>
+        }
         <div>
           <button
             className="bg-violet-600 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded disabled:bg-violet-900 ml-4"

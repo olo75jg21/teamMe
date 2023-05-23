@@ -81,6 +81,10 @@ const TeamDetailsCard = (): JSX.Element => {
     return 'Login to apply';
   };
 
+  const isRemoveTeamBtnVisible = () => {
+    return team._user._id.toString() === userData.user._id;
+  };
+
   // @TODO checks if this works after handling editing user profile
   const calculateUserRank = (): { game: string, rank: string } => {
     team._user.games.forEach((game) => {
@@ -93,8 +97,8 @@ const TeamDetailsCard = (): JSX.Element => {
     });
 
     return {
-      game: 'Valorant',
-      rank: 'Bronze 3'
+      game: 'Unranked',
+      rank: ''
     };
   }
 
@@ -109,6 +113,7 @@ const TeamDetailsCard = (): JSX.Element => {
         />
 
         <TeamDetailsCardContent
+          game={team.game}
           title={team.title}
           description={team.description}
         />
@@ -130,6 +135,7 @@ const TeamDetailsCard = (): JSX.Element => {
 
         <TeamDetailsCardFooter
           isApplyButtonDisabled={isApplyButtonDisabled()}
+          isRemoveTeamBtnVisible={isRemoveTeamBtnVisible()}
           applyButtonText={applyButtonText()}
           _id={team._id}
         />

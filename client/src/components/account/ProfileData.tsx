@@ -9,6 +9,7 @@ import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
 import { IUser } from '../../types/user';
 import { IGame } from '../../types/game';
 import AddGameModal from './AddGameModal';
+import { renderProperGameName } from '../../utils/renderProperGameName';
 
 interface IUserProfileData extends IUser { }
 
@@ -74,17 +75,6 @@ export const ProfileData = (): JSX.Element => {
     }
   }
 
-  const renderProperGameName = (gameName: string) => {
-    switch (gameName) {
-      case 'lol':
-        return 'League Of Legends'
-      case 'valorant':
-        return 'Valorant'
-      case 'csgo':
-        return 'Counter-Strike Global Offensive'
-    }
-  };
-
   const renderGames = () => {
     return user?.games.map((game: IGame, index) => {
       return (
@@ -117,7 +107,7 @@ export const ProfileData = (): JSX.Element => {
 
       <form className="w-4/5" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <label className="block text-sm text-gray-100 font-bold mb-2" htmlFor="username">
+          <label className="block text-sm text-gray-100 font-bold mb-2">
             Username
           </label>
           <input
@@ -130,7 +120,20 @@ export const ProfileData = (): JSX.Element => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm text-gray-100 font-bold mb-2" htmlFor="username">
+          <label className="block text-sm text-gray-100 font-bold mb-2">
+            Description
+          </label>
+          <input
+            className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            defaultValue={user.description}
+            {...register("description")}
+          />
+          {errors.username && <span className="text-red-500">This field is required</span>}
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm text-gray-100 font-bold mb-2">
             Email
           </label>
           <input

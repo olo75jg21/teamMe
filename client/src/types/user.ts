@@ -6,8 +6,8 @@ export interface IUser {
     username: string;
     gender: string;
     games: IGame[],
-    createdAt: string;
-    updatedAt: string;
     age: number;
     description: string;
+    createdAt: string;
+    updatedAt: string;
 };
