@@ -98,7 +98,7 @@ export const handleGetAllUserApplications = async (req: Request, res: Response) 
 
     const teams = await TeamModel.find({
       'applicants._user': userId
-    });
+    }).populate('_user');
 
     res.status(200).send(teams);
   } catch (error) {
@@ -128,7 +128,6 @@ export const handleDeleteTeam = async (req: Request, res: Response) => {
   try {
     const teamId = req.params.id;
     const team = await TeamModel.findByIdAndDelete(teamId);
-
 
     return res.status(200).json({ team });
   } catch (error) {
