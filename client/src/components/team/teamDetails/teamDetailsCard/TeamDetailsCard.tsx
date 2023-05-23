@@ -10,6 +10,7 @@ import TeamDetailsCardFooter from './TeamDetailsCardFooter';
 import TeamDetailsCardApplicantsList from './TeamDetailsCardApplicantsList';
 import useGetLoggedUserData from '../../../../hooks/useGetLoggedUserData';
 import axiosInstance from '../../../../plugins/axios';
+import { calculateUserRank } from '../../../../utils/calculateUserRank';
 
 const TeamDetailsCard = (): JSX.Element => {
   const [team, setTeam] = useState<ITeam>(null!);
@@ -85,31 +86,13 @@ const TeamDetailsCard = (): JSX.Element => {
     return team._user._id.toString() === userData.user._id;
   };
 
-  // @TODO checks if this works after handling editing user profile
-  const calculateUserRank = (): { game: string, rank: string } => {
-    team._user.games.forEach((game) => {
-      if (game.name === team.game) {
-        return {
-          game: game.name,
-          rank: game.rank
-        };
-      }
-    });
 
-    return {
-      game: 'Unranked',
-      rank: ''
-    };
-  }
 
   return (team &&
     <div className='bg-gray-800 h-screen flex justify-center items-center' >
       <div className="bg-gray-700 rounded-lg shadow-md p-6 border border-gray-800 w-3/4">
         <TeamDetailsCardHeader
-          username={team._user.username}
-          applicants={team.applicants}
-          slots={team.slots}
-          userGameDetails={calculateUserRank()}
+          team={team}
         />
 
         <TeamDetailsCardContent

@@ -1,19 +1,13 @@
-import { Applicant } from '../../../../types/team';
-
-interface IUserGameDetails {
-  game: string,
-  rank: string
-}
+import { Applicant, ITeam } from '../../../../types/team';
+import { calculateUserRank } from '../../../../utils/calculateUserRank';
+import { renderProperGameName } from '../../../../utils/renderProperGameName';
 
 interface TeamDetailsCardHeaderProps {
-  username: string;
-  userGameDetails: IUserGameDetails;
-  applicants: Applicant[];
-  slots: number;
+  team: ITeam;
 }
 
-const TeamDetailsCardHeader = ({ username, userGameDetails, applicants, slots }: TeamDetailsCardHeaderProps): JSX.Element => {
-  const avilableSlots = applicants.reduce((count, applicant) => {
+const TeamDetailsCardHeader = ({ team }: TeamDetailsCardHeaderProps): JSX.Element => {
+  const avilableSlots = team.applicants.reduce((count, applicant) => {
     if (applicant.status === 'accepted') {
       return count + 1;
     } else {
@@ -21,7 +15,10 @@ const TeamDetailsCardHeader = ({ username, userGameDetails, applicants, slots }:
     }
   }, 0);
 
+  const userGameRank = calculateUserRank(team);
+
   return (
+    team &&
     <div className="flex flex-row justify-between items-center">
       <div className="flex flex-row items-center">
         <img
@@ -30,12 +27,12 @@ const TeamDetailsCardHeader = ({ username, userGameDetails, applicants, slots }:
           alt="Profile picture"
         />
         <div>
-          <p className="text-gray-100 font-bold">{username}</p>
-          <p className="text-gray-300 text-sm font-semibold">{`${userGameDetails.game.charAt(0).toUpperCase() + userGameDetails.game.slice(1)} ${userGameDetails.rank}`}</p>
+          <p className="text-gray-100 font-bold">{team._user.username}</p>
+          <p className="text-gray-300 text-sm font-semibold">{`${renderProperGameName(userGameRank.game)} ${userGameRank.rank}`}</p>
         </div>
       </div>
       <div className="bg-violet-600 text-white font-semibold py-2 px-4 rounded">
-        {`Available slots: ${avilableSlots} / ${slots}`}
+        {`Available slots: ${avilableSlots} / ${team.slots}`}
       </div>
     </div>
   );
