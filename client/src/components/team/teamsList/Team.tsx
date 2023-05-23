@@ -31,6 +31,11 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
     <div className="bg-gray-700 rounded-lg shadow-md p-6 border-1 border-gray-900 mb-4">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row items-center">
+          <img
+            className="h-16 w-16 rounded-full object-cover mr-4 border-2 border-violet-500"
+            src="https://via.placeholder.com/150"
+            alt="Profile picture"
+          />
           <div>
             <p className="text-gray-100 font-bold">{_user.username}</p>
             <p className="text-gray-300 text-sm font-semibold">{`${game} ${rank}`}</p>

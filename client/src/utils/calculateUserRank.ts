@@ -13,8 +13,6 @@ export const calculateUserRank = (team: ITeam): { game: string, rank: string } =
     }
   }
 
-  console.log('EP');
-
   return {
     game: 'Unranked',
     rank: ''

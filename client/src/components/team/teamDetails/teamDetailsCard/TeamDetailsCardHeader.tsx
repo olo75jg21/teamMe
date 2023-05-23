@@ -1,4 +1,4 @@
-import { Applicant, ITeam } from '../../../../types/team';
+import { ITeam } from '../../../../types/team';
 import { calculateUserRank } from '../../../../utils/calculateUserRank';
 import { renderProperGameName } from '../../../../utils/renderProperGameName';
 

@@ -84,7 +84,7 @@ export const handleGetAllUserTeams = async (req: Request, res: Response) => {
   try {
     const userId = req.query?.userId;
 
-    const teams = await TeamModel.find({ _user: userId })
+    const teams = await TeamModel.find({ _user: userId }).populate('_user');
 
     res.status(200).send(teams);
   } catch (error) {
