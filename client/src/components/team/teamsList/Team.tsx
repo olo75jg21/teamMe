@@ -24,18 +24,13 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
 
   const isChatButtonVisible = () => {
     // @TODO check why we have to check for _user, not for _user._id
-    return (team.applicants.some((obj => obj._user.toString() === userData.user._id)) || _user.toString() === userData.user._id);
+    return (team.applicants.some((obj => obj._user.toString() === userData.user._id && obj.status === 'accepted')) || _user.toString() === userData.user._id);
   };
 
   return (
     <div className="bg-gray-700 rounded-lg shadow-md p-6 border-1 border-gray-900 mb-4">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row items-center">
-          <img
-            className="h-14 w-14 rounded-full object-cover mr-4"
-            src="https://via.placeholder.com/150"
-            alt="Profile picture"
-          />
           <div>
             <p className="text-gray-100 font-bold">{_user.username}</p>
             <p className="text-gray-300 text-sm font-semibold">{`${game} ${rank}`}</p>
