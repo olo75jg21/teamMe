@@ -1,4 +1,5 @@
 import { Server as SocketIOServer, Socket } from 'socket.io';
+import { TeamModel } from '../models/team.model';
 
 const initializeChat = (server: SocketIOServer): void => {
   const io: SocketIOServer = server;
@@ -11,11 +12,36 @@ const initializeChat = (server: SocketIOServer): void => {
       console.log(`User joined room ${room}`);
     });
 
-    socket.on('message', (room: string, message: string) => {
-      console.log('message:', message);
-      console.log('room:', room);
-      // console.log(room);
-      io.to(room).emit('message', room, message);
+    socket.on('message', async (room: string, message: string, senderId: string) => {
+      console.log(room);
+      console.log(message);
+      console.log(senderId);
+
+      // Save the chat message to the database
+      try {
+        const team = await TeamModel.findOneAndUpdate(
+          { _id: room },
+          {
+            $push: {
+              chat: {
+                sender: senderId,
+                message: message,
+              },
+            },
+          },
+          { new: true }
+        );
+
+        if (!team) {
+          console.log('Team not found');
+          return;
+        }
+
+        // Emit the message to all clients in the room, including the updated chat data
+        io.to(room).emit('message', room, team.chat);
+      } catch (error) {
+        console.log('Error saving chat message:', error);
+      }
     });
 
     socket.on('disconnect', () => {
