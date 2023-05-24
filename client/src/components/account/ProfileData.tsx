@@ -1,17 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 // import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
+import { BsTrash } from "react-icons/bs";
 
 // import Select from "react-tailwindcss-select";
-import axios from '../../plugins/axios';
-import useGetLoggedUserData from '../../hooks/useGetLoggedUserData';
-import { IUser } from '../../types/user';
-import { IGame } from '../../types/game';
-import AddGameModal from './AddGameModal';
-import { renderProperGameName } from '../../utils/renderProperGameName';
+import axios from "../../plugins/axios";
+import useGetLoggedUserData from "../../hooks/useGetLoggedUserData";
+import { IUser } from "../../types/user";
+import { IGame } from "../../types/game";
+import AddGameModal from "./AddGameModal";
+import { renderProperGameName } from "../../utils/renderProperGameName";
+import { gamesRanks } from "../team/addTeam/data";
 
-interface IUserProfileData extends IUser { }
+interface IUserProfileData extends IUser {}
 
 const schema = yup.object().shape({
   age: yup
@@ -19,14 +21,19 @@ const schema = yup.object().shape({
     .positive("Age must be a positive number")
     .integer("Age must be a whole number"),
   email: yup.string().email("Email must be a valid email address"),
-  gender: yup.string().oneOf(["male", "female", "other"], "Gender must be male, female, or other"),
+  gender: yup
+    .string()
+    .oneOf(
+      ["male", "female", "other"],
+      "Gender must be male, female, or other"
+    ),
   username: yup.string(),
 });
 
 export const ProfileData = (): JSX.Element => {
   const [user, setUser] = useState<IUserProfileData>();
 
-  const { userData } = useGetLoggedUserData()
+  const { userData } = useGetLoggedUserData();
 
   const userId = userData.user._id;
 
@@ -37,7 +44,11 @@ export const ProfileData = (): JSX.Element => {
     })();
   }, [userId]);
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     // resolver: yupResolver(schema),
     defaultValues: user,
   });
@@ -61,7 +72,7 @@ export const ProfileData = (): JSX.Element => {
     setUser(newUser);
   };
 
-  const onSubmit: SubmitHandler<IUserProfileData> = async formData => {
+  const onSubmit: SubmitHandler<IUserProfileData> = async (formData) => {
     if (!user) return;
     try {
       const updatedUser = { ...user, ...formData, games: [...user.games] };
@@ -73,18 +84,21 @@ export const ProfileData = (): JSX.Element => {
     } catch (e) {
       console.error(e);
     }
-  }
+  };
+
+  const isAddGameButtonDisabled = () => {
+    return user?.games.length === 3;
+  };
 
   const renderGames = () => {
     return user?.games.map((game: IGame, index) => {
       return (
-        <li
-          key={index}
-          className="text-md text-gray-100 font-bold px-4 py-2"
-        >
-          <div className='flex justify-between'>
-            {renderProperGameName(game.name) + ' | ' + game.rank}
-            <button onClick={() => handleDelete(index)}>Delete</button>
+        <li key={index} className="text-md py-2 font-bold text-gray-100">
+          <div className="flex justify-between">
+            {renderProperGameName(game.name) + " | " + game.rank}
+            <button onClick={() => handleDelete(index)}>
+              <BsTrash className="text-lg duration-500  hover:text-xl" />
+            </button>
           </div>
         </li>
       );
@@ -93,79 +107,97 @@ export const ProfileData = (): JSX.Element => {
 
   const renderNoGames = () => {
     return (
-      <div className='mb-4'>
-        <p className="text-gray-200 font-semibold text-xl">There are no games added...</p>
+      <div className="mb-4">
+        <p className="text-xl font-semibold text-gray-200">
+          There are no games added...
+        </p>
       </div>
     );
   };
 
   return user ? (
     <div className="flex flex-col items-center">
-      <div className='my-4 bg-violet-600 rounded'>
-        <p className="text-xl text-gray-100 font-bold px-4 py-2">User Profile</p>
+      <div className="mb-4 w-full rounded-t border border-gray-700 bg-gray-900 text-center">
+        <p className="px-4 py-2 text-xl font-bold text-gray-100">
+          User Profile
+        </p>
       </div>
 
       <form className="w-4/5" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <label className="block text-sm text-gray-100 font-bold mb-2">
+          <label className="mb-2 block text-sm font-bold text-gray-100">
             Username
           </label>
           <input
-            className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
             type="text"
             defaultValue={user.username}
             {...register("username")}
           />
-          {errors.username && <span className="text-red-500">This field is required</span>}
+          {errors.username && (
+            <span className="text-red-500">This field is required</span>
+          )}
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm text-gray-100 font-bold mb-2">
+          <label className="mb-2 block text-sm font-bold text-gray-100">
             Description
           </label>
           <input
-            className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
             type="text"
             defaultValue={user.description}
             {...register("description")}
           />
-          {errors.username && <span className="text-red-500">This field is required</span>}
+          {errors.username && (
+            <span className="text-red-500">This field is required</span>
+          )}
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm text-gray-100 font-bold mb-2">
+          <label className="mb-2 block text-sm font-bold text-gray-100">
             Email
           </label>
           <input
-            className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
             type="email"
             disabled
             defaultValue={user.email}
             {...register("email")}
           />
-          {errors.email && <span className="text-red-500">This field is required</span>}
+          {errors.email && (
+            <span className="text-red-500">This field is required</span>
+          )}
         </div>
 
-        <div className='flex justify-between'>
+        <div className="flex justify-between">
           <div className="mb-4 w-1/3">
-            <label className="block text-sm text-gray-100 font-bold mb-2" htmlFor="username">
+            <label
+              className="mb-2 block text-sm font-bold text-gray-100"
+              htmlFor="username"
+            >
               Age
             </label>
             <input
-              className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+              className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
               type="number"
               defaultValue={user.age}
               {...register("age")}
             />
-            {errors.age && <span className="text-red-500">This field is required</span>}
+            {errors.age && (
+              <span className="text-red-500">This field is required</span>
+            )}
           </div>
 
           <div className="mb-4 w-1/2">
-            <label className="block text-sm text-gray-100 font-bold mb-2" htmlFor="username">
+            <label
+              className="mb-2 block text-sm font-bold text-gray-100"
+              htmlFor="username"
+            >
               Gender
             </label>
             <select
-              className="bg-gray-600 w-full py-2 px-3 border-2 border-gray-400 duration-200 text-md font-semibold selection:bg-gray-700 focus:border-violet-500 rounded text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+              className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
               defaultValue={user.gender}
               {...register("gender")}
             >
@@ -174,21 +206,30 @@ export const ProfileData = (): JSX.Element => {
               <option value="female">Female</option>
               <option value="other">Other</option>
             </select>
-            {errors.gender && <span className="text-red-500">This field is required</span>}
+            {errors.gender && (
+              <span className="text-red-500">This field is required</span>
+            )}
           </div>
         </div>
 
-        <label className="block text-sm text-gray-100 font-bold mb-2" htmlFor="username">
+        <label
+          className="mb-2 block text-sm font-bold text-gray-100"
+          htmlFor="username"
+        >
           Games:
         </label>
 
-        {user.games.length !== 0 ? renderGames() : renderNoGames()}
+        <ul>{user.games.length !== 0 ? renderGames() : renderNoGames()}</ul>
 
-        <AddGameModal handleAddEmptyGame={handleAddEmptyGame} />
+        <AddGameModal
+          handleAddEmptyGame={handleAddEmptyGame}
+          isAddGameButtonDisabled={isAddGameButtonDisabled()}
+          userGames={user.games}
+        />
 
-        <div className="flex items-center justify-center">
+        <div className="mt-4 flex items-center justify-center">
           <button
-            className="bg-violet-600 hover:bg-violet-800 w-48 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800 focus:outline-none"
             type="submit"
           >
             Save changes
@@ -196,5 +237,7 @@ export const ProfileData = (): JSX.Element => {
         </div>
       </form>
     </div>
-  ) : <></>;
+  ) : (
+    <></>
+  );
 };

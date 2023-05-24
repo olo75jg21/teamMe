@@ -25,45 +25,50 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-;
-;
 const UserSchema = new mongoose_1.Schema({
     age: {
         type: Number,
-        required: true
+        required: true,
     },
     description: {
-        type: String
+        type: String,
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     games: {
-        type: [{
+        type: [
+            {
                 name: {
-                    type: String
+                    type: String,
+                    unique: true,
                 },
                 rank: {
-                    type: String
-                }
-            }]
+                    type: String,
+                },
+            },
+        ],
+        validate: [validateGameCount, "{PATH} exceeds the limit of 3"],
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     username: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     gender: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
 }, {
-    timestamps: true
+    timestamps: true,
 });
-exports.UserModel = mongoose_1.default.model('User', UserSchema);
+function validateGameCount(value) {
+    return value.length <= 3;
+}
+exports.UserModel = mongoose_1.default.model("User", UserSchema);
