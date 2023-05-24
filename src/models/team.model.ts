@@ -5,6 +5,12 @@ interface IApplicant {
   status: string;
 }
 
+interface IChat {
+  _sender: Types.ObjectId;
+  message: string;
+  createdAt: Date;
+}
+
 export interface ITeam extends Document {
   _user: Types.ObjectId;
   isActive: boolean;
@@ -16,6 +22,7 @@ export interface ITeam extends Document {
   description: string;
   rank: string;
   applicants: IApplicant[];
+  chat: IChat[];
   slots: number;
 };
 
@@ -69,6 +76,25 @@ const TeamSchema: Schema = new Schema({
         enum: ['pending', 'rejected', 'accepted'],
       }
     }],
+  },
+  chat: {
+    type: [
+      {
+        sender: {
+          type: Types.ObjectId,
+          ref: 'User',
+        },
+        message: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    default: [],
   },
   slots: {
     type: Number,

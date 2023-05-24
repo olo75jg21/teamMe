@@ -12,8 +12,10 @@ const initializeChat = (server: SocketIOServer): void => {
     });
 
     socket.on('message', (room: string, message: string) => {
-      console.log(message);
-      io.to(room).emit('message', message);
+      console.log('message:', message);
+      console.log('room:', room);
+      // console.log(room);
+      io.to(room).emit('message', room, message);
     });
 
     socket.on('disconnect', () => {

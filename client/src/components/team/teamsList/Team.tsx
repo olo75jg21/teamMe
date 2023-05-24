@@ -26,7 +26,7 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
 
   const isChatButtonVisible = () => {
     // @TODO check why we have to check for _user, not for _user._id
-    return (team.applicants.some((obj => obj._user.toString() === userData.user._id && obj.status === 'accepted')) || _user.toString() === userData.user._id);
+    return (team.applicants.some((obj => obj._user.toString() === userData.user._id || obj.status === 'accepted')) || _user.toString() === userData.user._id);
   };
 
   const userGameRank = calculateUserRank(team);
