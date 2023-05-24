@@ -37,13 +37,13 @@ const _ = __importStar(require("lodash"));
 const user_model_1 = require("../models/user.model");
 const handleGetOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_model_1.UserModel.findOne({ _id: req.params.id });
-    res.send(_.omit(user === null || user === void 0 ? void 0 : user.toObject(), ['password']));
+    res.send(_.omit(user === null || user === void 0 ? void 0 : user.toObject(), ["password"]));
 });
 exports.handleGetOneUser = handleGetOneUser;
 const handleGetUserProfileData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield user_model_1.UserModel.findOne({ _id: req.params.id });
-        res.status(200).send(_.omit(user === null || user === void 0 ? void 0 : user.toObject(), ['password', 'updatedAt']));
+        res.status(200).send(_.omit(user === null || user === void 0 ? void 0 : user.toObject(), ["password", "updatedAt"]));
     }
     catch (error) {
         res.status(404).send(error);
@@ -58,18 +58,22 @@ const handleUpdateUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, 
         // Check if a user with the same username already exists
         const existingUser = yield user_model_1.UserModel.findOne({ username });
         if (existingUser && existingUser._id.toString() !== id) {
-            return res.status(400).json({ error: 'Username already exists. Cannot change data.' });
+            return res
+                .status(400)
+                .json({ error: "Username already exists. Cannot change data." });
         }
         // Find the user by ID and update the fields
-        const updatedUser = yield user_model_1.UserModel.findByIdAndUpdate(id, req.body, { new: true });
+        const updatedUser = yield user_model_1.UserModel.findByIdAndUpdate(id, req.body, {
+            new: true,
+        });
         if (!updatedUser) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: "User not found" });
         }
         return res.status(200).json(updatedUser);
     }
     catch (error) {
         console.error(error);
-        return res.status(500).json({ error: 'Server error' });
+        return res.status(500).json({ error: "Server error" });
     }
 });
 exports.handleUpdateUserProfile = handleUpdateUserProfile;

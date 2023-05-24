@@ -1,4 +1,4 @@
-import { renderProperGameName } from '../../../../utils/renderProperGameName';
+import { renderProperGameName } from "../../../../utils/renderProperGameName";
 
 interface TeamDetailsCardContentProps {
   game: string;
@@ -6,23 +6,27 @@ interface TeamDetailsCardContentProps {
   description: string;
 }
 
-const TeamDetailsCardContent = ({ game, title, description }: TeamDetailsCardContentProps): JSX.Element => {
+const TeamDetailsCardContent = ({
+  game,
+  title,
+  description,
+}: TeamDetailsCardContentProps): JSX.Element => {
   return (
     <>
       <div className="mt-5">
-        <p className="text-gray-200 text-xl font-bold">Game:</p>
-        <p className="text-gray-300 text-md">{renderProperGameName(game)}</p>
+        <p className="text-xl font-bold text-gray-200">Game:</p>
+        <p className="text-md text-gray-300">{renderProperGameName(game)}</p>
       </div>
       <div className="my-3">
-        <p className="text-gray-200 text-xl font-bold">Title:</p>
-        <p className="text-gray-300 text-md">{title}</p>
+        <p className="text-xl font-bold text-gray-200">Title:</p>
+        <p className="text-md text-gray-300">{title}</p>
       </div>
       <div className="my-3">
-        <p className="text-gray-200 text-xl font-bold">Description:</p>
-        <p className="text-gray-300 text-md">{description}</p>
+        <p className="text-xl font-bold text-gray-200">Description:</p>
+        <p className="text-md text-gray-300">{description}</p>
       </div>
     </>
-  )
+  );
 };
 
 export default TeamDetailsCardContent;

@@ -1,23 +1,28 @@
-import { NavLink } from 'react-router-dom';
-import { Applicant } from '../../../../types/team';
-import ApplicantDetailsModal from './applicantDetailsModal/ApplicantDetailsModal';
+import { Applicant } from "../../../../types/team";
+import ApplicantDetailsModal from "./applicantDetailsModal/ApplicantDetailsModal";
 
 interface TeamDetailsCardApplicantsListProps {
   applicants: Applicant[];
-  handleUpdateStatusOfApplication: (applicantId: string, newStatus: string) => any
-};
+  handleUpdateStatusOfApplication: (
+    applicantId: string,
+    newStatus: string
+  ) => any;
+}
 
-const TeamDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplication }: TeamDetailsCardApplicantsListProps): JSX.Element => {
+const TeamDetailsCardApplicantsList = ({
+  applicants,
+  handleUpdateStatusOfApplication,
+}: TeamDetailsCardApplicantsListProps): JSX.Element => {
   const determineApplicationStatusColor = (status: string): string => {
     switch (status) {
-      case 'accepted':
-        return 'text-green-700'
-      case 'pending':
-        return 'text-yellow-300'
-      case 'rejected':
-        return 'text-redi-700'
+      case "accepted":
+        return "text-green-700";
+      case "pending":
+        return "text-yellow-300";
+      case "rejected":
+        return "text-redi-700";
       default:
-        return 'text-gray-100'
+        return "text-gray-100";
     }
   };
 
@@ -27,46 +32,55 @@ const TeamDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplica
         <>
           {applicants.map((applicant: Applicant) => {
             return (
-              <div
-                key={applicant._id}
-              >
-                <div className='text-gray-100 bg-gray-800 w-1/2 px-4 py-2 mb-2 rounded-xl'>
+              <div key={applicant._id}>
+                <div className="mb-2 w-1/2 rounded-xl bg-gray-800 px-4 py-2 text-gray-100">
                   <li className="pb-3 sm:pb-4">
                     <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0">
-                        img
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className='flex justify-start'>
+                      <div className="flex-shrink-0">img</div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex justify-start">
                           <ApplicantDetailsModal
                             username={applicant._user.username}
                             applicantId={applicant._user._id}
                           />
-                          <p
-                            className="text-sm font-medium truncate dark:text-white"
-                          >
+                          <p className="truncate text-sm font-medium dark:text-white">
                             -
                           </p>
-                          <p className={`text-sm font-medium truncate ml-1 ${determineApplicationStatusColor('pending')}`}>
+                          <p
+                            className={`ml-1 truncate text-sm font-medium ${determineApplicationStatusColor(
+                              "pending"
+                            )}`}
+                          >
                             {applicant.status}
                           </p>
                         </div>
-                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                        <p className="truncate text-sm text-gray-500 dark:text-gray-400">
                           {/* @TODO Change it to user rank in particular game */}
                           {applicant._user.email}
                         </p>
                       </div>
                       <div className="flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        <div
-                          className='bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-2 rounded-lg mr-2 duration-200'
-                          onClick={() => handleUpdateStatusOfApplication(applicant._id, 'accepted')}
-                        >
+                        <div>
                           <button
-                          >Accept</button>
+                            className="mr-2 rounded-lg bg-green-700 px-2 py-1 font-bold text-white duration-200 hover:bg-green-600 disabled:bg-green-900"
+                            onClick={() =>
+                              handleUpdateStatusOfApplication(
+                                applicant._id,
+                                "accepted"
+                              )
+                            }
+                          >
+                            Accept
+                          </button>
                         </div>
                         <div
-                          className='bg-red-800 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-lg mr-2 duration-200'
-                          onClick={() => handleUpdateStatusOfApplication(applicant._id, 'rejected')}
+                          className="mr-2 rounded-lg bg-red-800 px-2 py-1 font-bold text-white duration-200 hover:bg-red-700"
+                          onClick={() =>
+                            handleUpdateStatusOfApplication(
+                              applicant._id,
+                              "rejected"
+                            )
+                          }
                         >
                           <button>Reject</button>
                         </div>
@@ -86,10 +100,8 @@ const TeamDetailsCardApplicantsList = ({ applicants, handleUpdateStatusOfApplica
 
   return (
     <div>
-      <p className="text-gray-200 text-xl font-bold mb-2 mt-4">Applicants:</p>
-      <ul>
-        {renderApplicantsList()}
-      </ul>
+      <p className="mb-2 mt-4 text-xl font-bold text-gray-200">Applicants:</p>
+      <ul>{renderApplicantsList()}</ul>
     </div>
   );
 };
