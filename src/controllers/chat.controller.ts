@@ -14,7 +14,6 @@ const initializeChat = (server: SocketIOServer): void => {
     });
 
     socket.on('message', async (room: string, message: string, senderId: string) => {
-
       // Save the chat message to the database
       try {
         const team = await TeamModel.findOne({ _id: room }).populate('chat.sender');
@@ -39,6 +38,8 @@ const initializeChat = (server: SocketIOServer): void => {
         };
 
         team.chat.push(newChatMessage);
+
+        team.chat = team.chat.slice(-200);
 
         await team.populate('chat.sender');
 
