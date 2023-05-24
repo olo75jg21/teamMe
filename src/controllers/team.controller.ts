@@ -51,7 +51,8 @@ export const handleGetTeam = async (req: Request, res: Response) => {
     const team = await TeamModel
       .findOne({ _id: teamId })
       .populate('_user')
-      .populate('applicants._user');
+      .populate('applicants._user')
+      .populate('chat.sender');
 
     res.status(200).send(team);
   } catch (error) {

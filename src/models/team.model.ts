@@ -6,7 +6,7 @@ interface IApplicant {
 }
 
 interface IChat {
-  _sender: Types.ObjectId;
+  sender: Types.ObjectId;
   message: string;
   createdAt: Date;
 }
