@@ -1,10 +1,13 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const AddNewTeamButton = (): JSX.Element => {
   return (
     <NavLink
-      className='cursor-pointer text-gray-100 text-xl font-bold rounded rounded-md bg-violet-700 hover:bg-violet-800 mx-5 mt-6 mb-7 h-12 flex justify-center items-center'
-      to={'/newteam'}>Add new team</NavLink>
+      className="mx-5 mb-7 mt-6 flex h-12 cursor-pointer items-center justify-center rounded rounded-md bg-violet-700 text-xl font-bold text-gray-100 hover:bg-violet-800"
+      to={"/newteam"}
+    >
+      Add new team
+    </NavLink>
   );
 };
 

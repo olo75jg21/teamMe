@@ -13,8 +13,17 @@ export interface ITeamProps {
 const Team = ({ team }: ITeamProps): JSX.Element => {
   const { userData } = useGetLoggedUserData();
 
-  const { _id, _user, game, rank, title, description, applicants, slots } =
-    team;
+  const {
+    _id,
+    _user,
+    game,
+    name,
+    rank,
+    title,
+    description,
+    applicants,
+    slots,
+  } = team;
 
   const userGameRank = calculateUserRank(team);
 
@@ -106,7 +115,10 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
   };
 
   return (
-    <div className="border-1 mb-4 rounded-lg border-gray-900 bg-gray-700 p-6 shadow-md">
+    <div className="border-1 mb-2 rounded-lg border-gray-900 bg-gray-700 p-6 pt-3 shadow-md">
+      <div className="mb-3">
+        <p className="truncate text-2xl font-bold text-gray-300">{name}</p>
+      </div>
       <div className="flex flex-row items-center justify-between">
         <div className="flex flex-row items-center">
           <img

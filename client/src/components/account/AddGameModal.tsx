@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { gamesRanks } from "../team/addTeam/data";
 import Modal from "react-modal";
+import { renderProperGameName } from "../../utils/renderProperGameName";
 
 const customStyles = {
   content: {
@@ -68,7 +69,7 @@ const AddGameModal = ({
 
     return availableGames.map((gameObj) => (
       <option key={gameObj.game} value={gameObj.game}>
-        {gameObj.game}
+        {renderProperGameName(gameObj.game)}
       </option>
     ));
   };
