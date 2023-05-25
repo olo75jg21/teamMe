@@ -101,8 +101,8 @@ const TeamDetailsCard = (): JSX.Element => {
 
   return (
     team && (
-      <div className="flex h-screen items-center justify-center bg-gray-800">
-        <div className="w-3/4 rounded-lg border border-gray-800 bg-gray-700 p-6 shadow-md">
+      <div className="flex h-auto justify-center bg-gray-800">
+        <div className="mb-96 mt-12 w-3/4 rounded-lg border border-gray-800 bg-gray-700 p-6 shadow-md">
           <TeamDetailsCardHeader team={team} />
 
           <TeamDetailsCardContent
@@ -129,7 +129,7 @@ const TeamDetailsCard = (): JSX.Element => {
             isApplyButtonDisabled={isApplyButtonDisabled()}
             isRemoveTeamBtnVisible={isRemoveTeamBtnVisible()}
             applyButtonText={applyButtonText()}
-            _id={team._id}
+            team={team}
           />
         </div>
       </div>
