@@ -114,6 +114,10 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
     );
   };
 
+  const isApplicationStatusVisible = () => {
+    return team.applicants.some((obj) => obj._user._id === userData.user._id);
+  };
+
   return (
     <div className="border-1 mb-2 rounded-lg border-gray-900 bg-gray-700 p-6 pt-3 shadow-md">
       <div className="mb-3">
@@ -129,7 +133,7 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
           {renderOwnerData()}
         </div>
         <div className="flex flex-row">
-          {userData.user._id !== _user._id && renderApplicationStatus()}
+          {isApplicationStatusVisible() && renderApplicationStatus()}
           {renderAvilableSlots()}
         </div>
       </div>

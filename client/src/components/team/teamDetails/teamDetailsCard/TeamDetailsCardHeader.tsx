@@ -59,6 +59,10 @@ const TeamDetailsCardHeader = ({
     );
   };
 
+  const isApplicationStatusVisible = () => {
+    return team.applicants.some((obj) => obj._user._id === userData.user._id);
+  };
+
   return (
     team && (
       <div className="flex flex-row items-center justify-between">
@@ -76,7 +80,7 @@ const TeamDetailsCardHeader = ({
           </div>
         </div>
         <div className="flex flex-row">
-          {userData.user._id !== team._user._id && renderApplicationStatus()}
+          {isApplicationStatusVisible() && renderApplicationStatus()}
           {renderAvilableSlots()}
         </div>
       </div>

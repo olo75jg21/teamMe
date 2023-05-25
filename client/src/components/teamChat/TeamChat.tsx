@@ -114,7 +114,7 @@ const TeamChat: React.FC = () => {
             <div className="relative flex items-center space-x-4">
               <div className="flex flex-col leading-tight">
                 <div className="mt-1 flex items-center text-2xl">
-                  <span className="mr-3 text-gray-200">Team name</span>
+                  <span className="mr-3 text-gray-200">{team?.name}</span>
                 </div>
               </div>
             </div>
