@@ -76,5 +76,5 @@ export const gamesRanks = {
     "Legendary Eagle Master",
     "Supreme Master First Class",
     "Global Elite",
-  ]
+  ],
 };

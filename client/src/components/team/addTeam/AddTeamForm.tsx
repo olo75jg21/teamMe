@@ -2,13 +2,13 @@ import axios from "../../../plugins/axios";
 import * as yup from "yup";
 import { gamesRanks } from "./data";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AxiosError } from "axios";
 import CirclesLoader from "../../utils/CirclesLoader";
 import ResponseError from "../../utils/ResponseError";
 
-type FormData = {
+interface FormData {
   name: string;
   title: string;
   description: string;
@@ -16,7 +16,7 @@ type FormData = {
   rank: string;
   teamType: string;
   slots: number;
-};
+}
 
 interface AddTeamFormProps {
   userId: string;
@@ -44,6 +44,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [selectedGame, setSelectedGame] = useState<string>("");
+  const [selectedRank, setSelectedRank] = useState<string>("");
   const [teamType, setTeamType] = useState<string>("");
 
   const {
@@ -58,7 +59,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
     try {
       setIsLoading(true);
       setResponseError("");
-      const { data, status } = await axios.post("/team/new", {
+      const { data, status } = await axios.post("/team", {
         _user: userId,
         ...formData,
       });
@@ -75,6 +76,24 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
       }
       setIsLoading(false);
     }
+  };
+
+  const getRanksByGame = (game: string): string[] => {
+    switch (game) {
+      case "lol":
+        return gamesRanks.lolRanks;
+      case "valorant":
+        return gamesRanks.valoRanks;
+      case "csgo":
+        return gamesRanks.csgoRanks;
+      default:
+        return [];
+    }
+  };
+
+  const handleGameChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedGame(e.target.value);
+    setSelectedRank("");
   };
 
   return (
@@ -148,59 +167,45 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
               </div>
 
               <div>
-                <div className="mb-4 h-20">
-                  <label className="mb-2 block text-sm font-bold text-gray-100">
-                    Game
-                  </label>
-
-                  <select
-                    className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
-                    // className="border border-gray-400 p-2 rounded w-full"
-                    {...register("game")}
-                    value={selectedGame}
-                    onChange={(e) => setSelectedGame(e.target.value)}
-                  >
-                    <option value="">Select a game</option>
-                    <option value="lol">League of Legends</option>
-                    <option value="valorant">Valorant</option>
-                    <option value="csgo">CS:GO</option>
-                  </select>
-                  {errors.game?.message && (
-                    <span className="text-red-600">{errors.game.message}</span>
-                  )}
-                </div>
-
-                <div className="mb-4 h-20">
-                  {selectedGame === "" && (
+                <div>
+                  <div className="mb-4 h-20">
                     <label className="mb-2 block text-sm font-bold text-gray-100">
-                      Rank:
-                      <select
-                        defaultValue=""
-                        className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
-                      >
-                        <option disabled value="">
-                          Select a game first
-                        </option>
-                      </select>
-                      {errors.game?.message && (
-                        <span className="text-red-600">
-                          {errors.game.message}
-                        </span>
-                      )}
+                      Game
                     </label>
-                  )}
 
-                  {selectedGame === "lol" && (
-                    <label className="mb-2 block text-sm font-bold text-gray-100">
-                      Rank:
+                    <select
+                      className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
+                      {...register("game")}
+                      value={selectedGame}
+                      onChange={handleGameChange}
+                    >
+                      <option value="">Select a game</option>
+                      <option value="lol">League of Legends</option>
+                      <option value="valorant">Valorant</option>
+                      <option value="csgo">CS:GO</option>
+                    </select>
+                    {errors.game && (
+                      <span className="text-red-600">
+                        {errors.game.message}
+                      </span>
+                    )}
+                  </div>
+
+                  {selectedGame && (
+                    <div className="mb-4 h-20">
+                      <label className="mb-4 block text-sm font-bold text-gray-100">
+                        Rank:
+                      </label>
                       <select
                         className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
                         {...register("rank")}
+                        value={selectedRank}
+                        onChange={(e) => setSelectedRank(e.target.value)}
                       >
                         <option value="" disabled>
                           Select a rank
                         </option>
-                        {gamesRanks.lolRanks.map((rank: string) => (
+                        {getRanksByGame(selectedGame).map((rank) => (
                           <option key={rank} value={rank}>
                             {rank}
                           </option>
@@ -211,55 +216,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                           {errors.rank.message}
                         </span>
                       )}
-                    </label>
-                  )}
-
-                  {selectedGame === "valorant" && (
-                    <label className="mb-2 block text-gray-700">
-                      Rank:
-                      <select
-                        className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
-                        {...register("rank")}
-                      >
-                        <option value="" disabled>
-                          Select a rank
-                        </option>
-                        {gamesRanks.valoRanks.map((rank: string) => (
-                          <option key={rank} value={rank}>
-                            {rank}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.game?.message && (
-                        <span className="text-red-600">
-                          {errors.game.message}
-                        </span>
-                      )}
-                    </label>
-                  )}
-
-                  {selectedGame === "csgo" && (
-                    <label className="mb-2 block text-sm font-bold text-gray-100">
-                      Rank:
-                      <select
-                        className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
-                        {...register("rank")}
-                      >
-                        <option value="" disabled>
-                          Select a rank
-                        </option>
-                        {gamesRanks.csgoRanks.map((rank: string) => (
-                          <option key={rank} value={rank}>
-                            {rank}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.game?.message && (
-                        <span className="text-red-600">
-                          {errors.game.message}
-                        </span>
-                      )}
-                    </label>
+                    </div>
                   )}
                 </div>
 
