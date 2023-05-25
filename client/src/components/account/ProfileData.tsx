@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { BsTrash } from "react-icons/bs";
-
-// import Select from "react-tailwindcss-select";
 import axios from "../../plugins/axios";
 import useGetLoggedUserData from "../../hooks/useGetLoggedUserData";
 import { IUser } from "../../types/user";
@@ -117,7 +115,7 @@ export const ProfileData = (): JSX.Element => {
 
   return user ? (
     <div className="flex flex-col items-center">
-      <div className="mb-4 w-full rounded-t border border-gray-700 bg-gray-900 text-center">
+      <div className="mb-4 w-full rounded-t border border-gray-700 bg-violet-800 text-center">
         <p className="px-4 py-2 text-xl font-bold text-gray-100">
           User Profile
         </p>
@@ -229,7 +227,7 @@ export const ProfileData = (): JSX.Element => {
 
         <div className="mt-4 flex items-center justify-center">
           <button
-            className="focus:shadow-outline w-full rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800 focus:outline-none"
+            className="focus:shadow-outline w-full rounded bg-violet-600 px-4 py-2 font-bold text-white duration-200 hover:bg-violet-800 focus:outline-none"
             type="submit"
           >
             Save changes

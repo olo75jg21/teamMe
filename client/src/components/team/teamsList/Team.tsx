@@ -106,7 +106,7 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
           </NavLink>
         )}
         <NavLink
-          className="rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800"
+          className="rounded bg-violet-600 px-4 py-2 font-bold text-white duration-200 hover:bg-violet-800"
           to={`/teamDetails/${_id}`}
         >
           Details
@@ -154,7 +154,7 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
           <p className="truncate text-2xl text-gray-300">{title}</p>
         </div>
         <div className="mt-3 flex items-center">
-          <p className="truncate text-lg text-gray-300">{description}</p>
+          <p className="line-clamp-2 text-lg text-gray-300">{description}</p>
         </div>
         <div className="mb-3 mt-6 flex justify-end">
           {renderActionButtons()}

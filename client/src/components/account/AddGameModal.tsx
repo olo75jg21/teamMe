@@ -77,7 +77,7 @@ const AddGameModal = ({
   return (
     <div className="mb-4 mt-4 flex items-center justify-center">
       <button
-        className="w-full rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800 disabled:bg-gray-400"
+        className="w-full rounded bg-violet-600 px-4 py-2 font-bold text-white duration-200 hover:bg-violet-800 disabled:bg-gray-400"
         type="button"
         onClick={openModal}
         disabled={isAddGameButtonDisabled}
@@ -198,7 +198,7 @@ const AddGameModal = ({
 
             <div className="flex justify-end">
               <button
-                className="mt-4 w-48 rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800 disabled:bg-violet-900"
+                className="mt-4 w-48 rounded bg-violet-600 px-4 py-2 font-bold text-white duration-200 hover:bg-violet-800 disabled:bg-violet-900"
                 type="submit"
                 onClick={addGame}
                 disabled={!(selectedGame && selectedRank)}

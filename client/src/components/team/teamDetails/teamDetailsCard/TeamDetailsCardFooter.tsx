@@ -75,7 +75,7 @@ const TeamDetailsCardFooter = ({
     <div className="mt-6 flex justify-between">
       <div>
         <NavLink
-          className="rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800"
+          className="rounded bg-violet-600 px-4 py-2 font-bold text-white duration-200 hover:bg-violet-800"
           to={`/`}
         >
           Go Back
@@ -84,20 +84,20 @@ const TeamDetailsCardFooter = ({
       <div className="flex flex-row">
         {isChatButtonVisible() && (
           <NavLink
-            className="mr-2 rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800"
+            className="mr-2 rounded bg-violet-600 px-4 py-2 font-bold text-white duration-200 hover:bg-violet-800"
             to={`/teamChat/${team._id}`}
           >
             Chat
           </NavLink>
         )}
         {isRemoveTeamBtnVisible && (
-          <div className="ml-4 rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800 disabled:bg-violet-900">
+          <div className="ml-4 rounded bg-violet-600 px-4 py-2 font-bold text-white duration-200 hover:bg-violet-800 disabled:bg-gray-900">
             <button onClick={handleRemoveTeam}>Remove team</button>
           </div>
         )}
         <div>
           <button
-            className="ml-4 rounded bg-violet-600 px-4 py-2 font-bold text-white hover:bg-violet-800 disabled:bg-violet-900"
+            className="ml-4 rounded bg-violet-600 px-4 py-2 font-bold text-white duration-200 hover:bg-violet-800 disabled:bg-gray-800"
             onClick={handleApplyToTeam}
             disabled={isApplyButtonDisabled}
           >
