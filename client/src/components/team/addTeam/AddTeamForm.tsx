@@ -117,7 +117,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                   <input
                     className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
                     type="text"
-                    defaultValue="CmonBrugowie2115"
+                    defaultValue="Nazwa 123"
                     {...register("name")}
                   />
 
@@ -132,7 +132,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                   <input
                     className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
                     type="text"
-                    defaultValue="Team title eoeoeoeoeo"
+                    defaultValue="Team title example"
                     {...register("title")}
                   />
 
