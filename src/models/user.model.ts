@@ -39,14 +39,13 @@ const UserSchema: Schema = new Schema(
         {
           name: {
             type: String,
-            unique: true,
           },
           rank: {
             type: String,
           },
         },
       ],
-      validate: [validateGameCount, "{PATH} exceeds the limit of 3"],
+      // validate: [validateGameCount, "{PATH} exceeds the limit of 3"],
     },
     password: {
       type: String,
@@ -67,8 +66,8 @@ const UserSchema: Schema = new Schema(
   }
 );
 
-function validateGameCount(value: Array<any>) {
-  return value.length <= 3;
-}
+// function validateGameCount(value: Array<any>) {
+//   return value.length <= 3;
+// }
 
 export const UserModel = mongoose.model<IUser>("User", UserSchema);

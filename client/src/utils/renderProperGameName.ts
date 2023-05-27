@@ -1,7 +1,7 @@
 export const renderProperGameName = (gameName: string) => {
   switch (gameName) {
     case "lol":
-      return "League Of Legends";
+      return "LOL";
     case "valorant":
       return "Valorant";
     case "csgo":
