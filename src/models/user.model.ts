@@ -12,6 +12,7 @@ export interface IUser extends Document {
   gender: string;
   games: IGame[];
   age: number;
+  role: string;
   description: string;
   password: string;
 }
@@ -21,6 +22,9 @@ const UserSchema: Schema = new Schema(
     age: {
       type: Number,
       required: true,
+    },
+    role: {
+      type: String,
     },
     description: {
       type: String,

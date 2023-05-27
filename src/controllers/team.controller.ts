@@ -7,7 +7,7 @@ export const handleAddTeam = async (req: Request, res: Response) => {
 
     res.status(201).send(team);
   } catch (error) {
-    res.status(500).send({ message: "Failed to create team" });
+    res.status(500).send({ message: error });
   }
 };
 
