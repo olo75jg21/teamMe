@@ -30,6 +30,9 @@ const UserSchema = new mongoose_1.Schema({
         type: Number,
         required: true,
     },
+    role: {
+        type: String,
+    },
     description: {
         type: String,
     },

@@ -10,6 +10,7 @@ import LoginPage from "./auth/login/LoginPage";
 import RegisterPage from "./auth/register/RegisterPage";
 import TeamDetails from "./team/teamDetails/TeamDetails";
 import TeamChat from "./teamChat/TeamChat";
+import AdminDashboard from "./adminDashboard/AdminDashboard";
 
 export const App = (): JSX.Element => {
   return (
@@ -23,6 +24,7 @@ export const App = (): JSX.Element => {
           <Route path="/teamDetails/:id" element={<TeamDetails />} />
           <Route path="/teamChat/:id" element={<TeamChat />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
