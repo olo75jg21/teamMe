@@ -24,7 +24,7 @@ export const App = (): JSX.Element => {
           <Route path="/teamDetails/:id" element={<TeamDetails />} />
           <Route path="/teamChat/:id" element={<TeamChat />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

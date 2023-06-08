@@ -32,6 +32,8 @@ const UserSchema = new mongoose_1.Schema({
     },
     role: {
         type: String,
+        default: "user",
+        enum: ["admin", "user"],
     },
     description: {
         type: String,
@@ -52,7 +54,6 @@ const UserSchema = new mongoose_1.Schema({
                 },
             },
         ],
-        // validate: [validateGameCount, "{PATH} exceeds the limit of 3"],
     },
     password: {
         type: String,
@@ -70,7 +71,4 @@ const UserSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-// function validateGameCount(value: Array<any>) {
-//   return value.length <= 3;
-// }
 exports.UserModel = mongoose_1.default.model("User", UserSchema);

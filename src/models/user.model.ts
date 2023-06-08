@@ -25,6 +25,8 @@ const UserSchema: Schema = new Schema(
     },
     role: {
       type: String,
+      default: "user",
+      enum: ["admin", "user"],
     },
     description: {
       type: String,
@@ -45,7 +47,6 @@ const UserSchema: Schema = new Schema(
           },
         },
       ],
-      // validate: [validateGameCount, "{PATH} exceeds the limit of 3"],
     },
     password: {
       type: String,
@@ -65,9 +66,5 @@ const UserSchema: Schema = new Schema(
     timestamps: true,
   }
 );
-
-// function validateGameCount(value: Array<any>) {
-//   return value.length <= 3;
-// }
 
 export const UserModel = mongoose.model<IUser>("User", UserSchema);

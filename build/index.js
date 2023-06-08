@@ -36,21 +36,23 @@ const auth_routes_1 = require("./routes/auth.routes");
 const socketIO = __importStar(require("socket.io"));
 const chat_controller_1 = __importDefault(require("./controllers/chat.controller"));
 const config_1 = require("./config/config");
+const admin_routes_1 = require("./routes/admin.routes");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 (0, connectDb_1.connect)();
 app.use(express_1.default.json());
 (0, auth_routes_1.authRoutes)(app);
+(0, admin_routes_1.adminRoutes)(app);
 (0, user_routes_1.userRoutes)(app);
 (0, team_routes_1.teamRoutes)(app);
 const server = app.listen(config_1.SERVER_PORT, () => {
-    console.log('Server is running on port ' + config_1.SERVER_PORT);
+    console.log("Server is running on port " + config_1.SERVER_PORT);
 });
 const io = new socketIO.Server(server, {
     cors: {
-        origin: '*',
-        methods: ['GET', 'POST'],
+        origin: "*",
+        methods: ["GET", "POST"],
     },
 });
 // Initialize chat functionality

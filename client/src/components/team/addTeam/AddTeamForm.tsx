@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AxiosError } from "axios";
 import CirclesLoader from "../../utils/CirclesLoader";
 import ResponseError from "../../utils/ResponseError";
+import { useNavigate } from "react-router";
 
 interface FormData {
   name: string;
@@ -47,6 +48,8 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
   const [selectedRank, setSelectedRank] = useState<string>("");
   const [teamType, setTeamType] = useState<string>("");
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -67,7 +70,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
       if (status === 201) {
         // @TODO navigate to profile
         setIsLoading(false);
-        console.log(data);
+        navigate("/account");
       }
     } catch (e) {
       const axiosError = e as AxiosError;
