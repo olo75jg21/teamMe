@@ -10,8 +10,8 @@ const UsersList: React.FC<UsersListProps> = ({ users }) => {
     if (!users) return [];
     return users.map((user: IUser) => {
       return (
-        <div>
-          <UsersListItem key={user._id} />
+        <div className="w-100">
+          <UsersListItem key={user._id} user={user} />
         </div>
       );
     });

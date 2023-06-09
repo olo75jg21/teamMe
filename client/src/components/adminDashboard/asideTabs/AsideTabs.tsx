@@ -8,8 +8,8 @@ const AsideTabs: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   return (
-    <div className="ml-6 flex w-screen">
-      <div className="mt-56 flex flex-col rounded-lg border-gray-500">
+    <div className="flex w-screen flex-col">
+      <div className="mx-auto my-8 flex rounded-lg border-gray-500">
         <Tab currentTab={currentTab} setCurrentTab={setCurrentTab} index={0}>
           Manage users
         </Tab>
@@ -20,7 +20,7 @@ const AsideTabs: React.FC = () => {
           Manage offers
         </Tab>
       </div>
-      <div className="p-4">
+      <div className="mx-36">
         {currentTab === 0 ? <UsersTab /> : null}
         {currentTab === 1 ? <Tab2Content /> : null}
         {currentTab === 2 ? <UsersTab /> : null}
