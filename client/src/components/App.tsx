@@ -20,11 +20,11 @@ export const App = (): JSX.Element => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/management/dashboard" element={<AdminDashboard />} />
           <Route path="/newteam" element={<AddTeamPage />} />
           <Route path="/teamDetails/:id" element={<TeamDetails />} />
           <Route path="/teamChat/:id" element={<TeamChat />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

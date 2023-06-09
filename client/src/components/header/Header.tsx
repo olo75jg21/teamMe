@@ -21,7 +21,7 @@ const Header = (): JSX.Element => {
   const renderAdminHeaderNavigation = (): JSX.Element => {
     return userData.user.role === "admin" ? (
       <>
-        <HeaderItem route={"/admin/dashboard"} text={"Admin"} />
+        <HeaderItem route={"/management/dashboard"} text={"Admin"} />
       </>
     ) : (
       <></>
