@@ -25,7 +25,7 @@ export const teamRoutes = (app: Express) => {
 
   // Create new team
   app.post(
-    "/team/",
+    "/team",
     [authenticateJwt, schemaValidation(yupTeamCreationSchema)],
     handleAddTeam
   );
