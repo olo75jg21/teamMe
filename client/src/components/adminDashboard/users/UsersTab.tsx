@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import UsersList from "./UsersList";
+import UsersTable from "./UsersTable";
 import { IUser } from "../../../types/user";
 import axios from "../../../plugins/axios";
 import useGetLoggedUserData from "../../../hooks/useGetLoggedUserData";
@@ -27,7 +27,7 @@ const Users: React.FC = () => {
     <div className="">
       {users && (
         <div>
-          <UsersList users={users} />
+          <UsersTable users={users} />
         </div>
       )}
     </div>
