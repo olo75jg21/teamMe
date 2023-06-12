@@ -8,7 +8,7 @@ import { IUser } from "../../types/user";
 import Chat from "./Chat";
 import Header from "../header/Header";
 
-const socket: Socket = io("http://localhost:5000"); // Replace 'http://your-server-url' with your Socket.IO server URL
+const socket: Socket = io("http://localhost:5000"); 
 
 const TeamChat: React.FC = () => {
   const { userData } = useGetLoggedUserData();

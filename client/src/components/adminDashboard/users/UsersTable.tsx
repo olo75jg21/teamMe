@@ -1,4 +1,5 @@
 import { IUser } from "../../../types/user";
+import UsersTableHeader from "./UsersTableHeader";
 import UsersTableRow from "./UsersTableRow";
 
 interface UsersListProps {
@@ -6,6 +7,8 @@ interface UsersListProps {
 }
 
 const UsersTable: React.FC<UsersListProps> = ({ users }) => {
+  const headerItems = ["Username", "Email", "Gender", "Age", "Role", ""];
+
   const renderUsersTableBody = (): JSX.Element[] => {
     if (!users) return [];
     return users.map((user: IUser) => {
@@ -17,28 +20,7 @@ const UsersTable: React.FC<UsersListProps> = ({ users }) => {
     <div>
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-          <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-4 py-3">
-                Product name
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Category
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Brand
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Description
-              </th>
-              <th scope="col" className="px-4 py-3">
-                Price
-              </th>
-              <th scope="col" className="px-4 py-3">
-                <span className="sr-only">Actions</span>
-              </th>
-            </tr>
-          </thead>
+          <UsersTableHeader headerItems={headerItems} />
           <tbody>{renderUsersTableBody()}</tbody>
         </table>
       </div>
