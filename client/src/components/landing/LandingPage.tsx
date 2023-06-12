@@ -8,6 +8,7 @@ import useGetLoggedUserData from "../../hooks/useGetLoggedUserData";
 import AddNewTeamButton from "./AddNewTeamButton";
 import NoDataCard from "../utils/NoDataCard";
 import SortSelect from "./SortSelect";
+import Pagination from "./Pagination";
 
 const LandingPage = (): JSX.Element => {
   const { userData } = useGetLoggedUserData();
@@ -21,8 +22,14 @@ const LandingPage = (): JSX.Element => {
   });
   const [teams, setTeams] = useState<ITeam[]>([]);
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [sortBy, setSortBy] = useState<string>("");
   const [order, setOrder] = useState<string>("");
+
+  const [page, setPage] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(10);
+  const [totalTeams, setTotalTeams] = useState<number>(0);
 
   const handleSortChange = (newSortBy: string, newOrder: string) => {
     setSortBy(newSortBy);
@@ -34,6 +41,8 @@ const LandingPage = (): JSX.Element => {
       try {
         const { title, ageMin, ageMax, game, gender } = filters;
 
+        setLoading(true);
+
         const res = await axios.get("/team", {
           params: {
             title,
@@ -44,14 +53,19 @@ const LandingPage = (): JSX.Element => {
             userId: userData.user._id,
             sortBy,
             order,
+            page,
+            limit,
           },
         });
-        setTeams(res.data);
+        console.log(res.data.total);
+        setTeams(res.data.data);
+        setTotalTeams(res.data.total);
+        setLoading(false);
       } catch (e) {
         console.error(e);
       }
     })();
-  }, [filters, sortBy, order]);
+  }, [filters, sortBy, order, page, limit]);
 
   const handleFilterChange = (newFilters: any) => {
     setFilters(newFilters);
@@ -63,11 +77,19 @@ const LandingPage = (): JSX.Element => {
     ) : (
       <div className="basis-3/4">
         <SortSelect onSortChange={handleSortChange} />
-        <div className="mt-14 p-5">
+        <div className="mt-2 p-5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 md:gap-6 lg:grid-cols-2">
             {teams && <TeamsList teams={teams} />}
           </div>
         </div>
+        <Pagination
+          page={page}
+          onPageChange={setPage}
+          limit={limit}
+          onLimitChange={setLimit}
+          totalItems={totalTeams}
+          loading={loading}
+        />
       </div>
     );
   };

@@ -13,36 +13,75 @@ export const handleAddTeam = async (req: Request, res: Response) => {
 
 export const handleGetAllTeams = async (req: Request, res: Response) => {
   try {
-    const { title, ageMin, ageMax, game, gender, userId, sortBy, order } =
-      req.query;
+    const {
+      title,
+      ageMin,
+      ageMax,
+      game,
+      gender,
+      userId,
+      sortBy,
+      order,
+      page,
+      limit,
+    } = req.query;
+
     const query = TeamModel.find({ isActive: true });
+    let countQuery = TeamModel.countDocuments({ isActive: true });
 
-    if (title) query.where("title", new RegExp(title.toString(), "i"));
+    if (title) {
+      query.where("title", new RegExp(title.toString(), "i"));
+      countQuery.where("title", new RegExp(title.toString(), "i"));
+    }
 
-    if (ageMin) query.where("minAge").gte(parseInt(ageMin.toString()));
+    if (ageMin) {
+      query.where("minAge").gte(parseInt(ageMin.toString()));
+      countQuery.where("minAge").gte(parseInt(ageMin.toString()));
+    }
 
-    if (ageMax) query.where("maxAge").lte(parseInt(ageMax.toString()));
+    if (ageMax) {
+      query.where("maxAge").lte(parseInt(ageMax.toString()));
+      countQuery.where("maxAge").lte(parseInt(ageMax.toString()));
+    }
 
-    if (game) query.where("game", game);
+    if (game) {
+      query.where("game", game);
+      countQuery.where("game", game);
+    }
 
-    if (gender) query.where("gender", gender);
+    if (gender) {
+      query.where("gender", gender);
+      countQuery.where("gender", gender);
+    }
 
-    if (userId)
-      query.where({
+    if (userId) {
+      const userIdCondition = {
         _user: { $ne: userId },
         "applicants._user": { $ne: userId },
-      });
+      };
 
+      query.where(userIdCondition);
+      countQuery = countQuery.where(userIdCondition);
+    }
+
+    // Add sorting condition
     if (sortBy) {
       const sortOrder = order === "desc" ? -1 : 1;
       query.sort({ [sortBy.toString()]: sortOrder });
     }
 
+    // Add pagination
+    if (page && limit) {
+      query.skip((parseInt(page.toString()) - 1) * parseInt(limit.toString()));
+      query.limit(parseInt(limit.toString()));
+    }
+
     query.populate("_user");
 
     const teams = await query.exec();
+    const totalTeams = await countQuery.exec(); // execute count query
 
-    res.status(200).json(teams);
+    res.status(200).json({ data: teams, total: totalTeams });
   } catch (error: any) {
     res.status(404).send(error);
   }

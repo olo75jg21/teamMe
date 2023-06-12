@@ -70,7 +70,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
       if (status === 201) {
         // @TODO navigate to profile
         setIsLoading(false);
-        navigate("/account");
+        // navigate("/account");
       }
     } catch (e) {
       const axiosError = e as AxiosError;
@@ -124,8 +124,8 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                     {...register("name")}
                   />
 
-                  {errors.title?.message && (
-                    <span className="text-red-600">{errors.title.message}</span>
+                  {errors.name?.message && (
+                    <span className="text-red-600">{errors.name.message}</span>
                   )}
                 </div>
                 <div className="mb-6 h-20">
