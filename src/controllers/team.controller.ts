@@ -13,7 +13,8 @@ export const handleAddTeam = async (req: Request, res: Response) => {
 
 export const handleGetAllTeams = async (req: Request, res: Response) => {
   try {
-    const { title, ageMin, ageMax, game, gender, userId } = req.query;
+    const { title, ageMin, ageMax, game, gender, userId, sortBy, order } =
+      req.query;
     const query = TeamModel.find({ isActive: true });
 
     if (title) query.where("title", new RegExp(title.toString(), "i"));
@@ -31,6 +32,11 @@ export const handleGetAllTeams = async (req: Request, res: Response) => {
         _user: { $ne: userId },
         "applicants._user": { $ne: userId },
       });
+
+    if (sortBy) {
+      const sortOrder = order === "desc" ? -1 : 1;
+      query.sort({ [sortBy.toString()]: sortOrder });
+    }
 
     query.populate("_user");
 
