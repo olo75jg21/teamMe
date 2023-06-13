@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { useNavigate } from 'react-router';
 import useGetLoggedUserData from '../hooks/useGetLoggedUserData';
 import useIsUserLoggedIn from '../hooks/useGetLoggedUserData';
 

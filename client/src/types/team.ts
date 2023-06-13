@@ -11,9 +11,10 @@ export interface ITeam {
   _user: IUser;
   title: string;
   game: string;
+  minRank: string;
+  maxRank: string;
   applicants: Applicant[];
   description: string;
-  rank: string;
   name: string;
   teamType: string;
   slots: number;

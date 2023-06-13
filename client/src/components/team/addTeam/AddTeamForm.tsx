@@ -14,7 +14,8 @@ interface FormData {
   title: string;
   description: string;
   game: string;
-  rank: string;
+  minRank: string;
+  maxRank: string;
   teamType: string;
   slots: number;
 }
@@ -36,7 +37,8 @@ const addOffferSchema = yup.object({
     .max(256, "Max length is 256")
     .required("Description is required"),
   game: yup.string().required("Game is required"),
-  rank: yup.string().required("Rank is required"),
+  minRank: yup.string().required("Rank is required"),
+  maxRank: yup.string().required("Rank is required"),
   teamType: yup.string().required("Team type is required"),
 });
 
@@ -45,7 +47,8 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [selectedGame, setSelectedGame] = useState<string>("");
-  const [selectedRank, setSelectedRank] = useState<string>("");
+  const [selectedLowestRank, setSelectedLowestRank] = useState<string>("");
+  const [selectedHighestRank, setSelectedHighestRank] = useState<string>("");
   const [teamType, setTeamType] = useState<string>("");
 
   const navigate = useNavigate();
@@ -96,7 +99,8 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
 
   const handleGameChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedGame(e.target.value);
-    setSelectedRank("");
+    setSelectedLowestRank("");
+    setSelectedHighestRank("");
   };
 
   return (
@@ -171,7 +175,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
 
               <div>
                 <div>
-                  <div className="mb-4 h-20">
+                  <div className="mb-6 h-20">
                     <label className="mb-2 block text-sm font-bold text-gray-100">
                       Game
                     </label>
@@ -195,30 +199,62 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                   </div>
 
                   {selectedGame && (
-                    <div className="mb-4 h-20">
-                      <label className="mb-4 block text-sm font-bold text-gray-100">
-                        Rank:
-                      </label>
-                      <select
-                        className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
-                        {...register("rank")}
-                        value={selectedRank}
-                        onChange={(e) => setSelectedRank(e.target.value)}
-                      >
-                        <option value="" disabled>
-                          Select a rank
-                        </option>
-                        {getRanksByGame(selectedGame).map((rank) => (
-                          <option key={rank} value={rank}>
-                            {rank}
+                    <div>
+                      <div className="mb-6 h-20">
+                        <label className="mb-2 block text-sm font-bold text-gray-100">
+                          Lowest rank:
+                        </label>
+                        <select
+                          className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
+                          {...register("minRank")}
+                          value={selectedLowestRank}
+                          onChange={(e) =>
+                            setSelectedLowestRank(e.target.value)
+                          }
+                        >
+                          <option value="" disabled>
+                            Select a rank
                           </option>
-                        ))}
-                      </select>
-                      {errors.rank?.message && (
-                        <span className="text-red-600">
-                          {errors.rank.message}
-                        </span>
-                      )}
+                          {getRanksByGame(selectedGame).map((rank) => (
+                            <option key={rank} value={rank}>
+                              {rank}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.minRank?.message && (
+                          <span className="text-red-600">
+                            {errors.minRank.message}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="mb-4 h-20">
+                        <label className="mb-2 block text-sm font-bold text-gray-100">
+                          Highest rank:
+                        </label>
+                        <select
+                          className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
+                          {...register("maxRank")}
+                          value={selectedHighestRank}
+                          onChange={(e) =>
+                            setSelectedHighestRank(e.target.value)
+                          }
+                        >
+                          <option value="" disabled>
+                            Select a rank
+                          </option>
+                          {getRanksByGame(selectedGame).map((rank) => (
+                            <option key={rank} value={rank}>
+                              {rank}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.maxRank?.message && (
+                          <span className="text-red-600">
+                            {errors.maxRank.message}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>

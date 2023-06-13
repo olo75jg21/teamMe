@@ -57,7 +57,6 @@ const LandingPage = (): JSX.Element => {
             limit,
           },
         });
-        console.log(res.data.total);
         setTeams(res.data.data);
         setTotalTeams(res.data.total);
         setLoading(false);

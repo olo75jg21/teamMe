@@ -17,10 +17,11 @@ export interface ITeam extends Document {
   teamType: string;
   title: string;
   game: string;
+  minRank: string;
+  maxRank: string;
   minAge: number;
   maxAge: number;
   description: string;
-  rank: string;
   applicants: IApplicant[];
   chat: IChat[];
   slots: number;
@@ -62,8 +63,11 @@ const TeamSchema: Schema = new Schema(
       type: Number,
       default: 100,
     },
-    // @TODO add rank range
-    rank: {
+    minRank: {
+      type: String,
+      required: true,
+    },
+    maxRank: {
       type: String,
       required: true,
     },
