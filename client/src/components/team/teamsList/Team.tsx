@@ -37,6 +37,14 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
     }
   }, 0);
 
+  const pendingUsers = applicants.reduce((count, applicant) => {
+    if (applicant.status === "pending") {
+      return count + 1;
+    } else {
+      return count;
+    }
+  }, 0);
+
   const availableSlots = slots - takenSlots;
 
   const isChatButtonVisible = () => {
@@ -68,6 +76,16 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
           bg-violet-600 px-4 py-2 font-semibold text-white`}
       >
         {getApplicationStatus()}
+      </div>
+    );
+  };
+
+  const renderPendingUsers = () => {
+    return (
+      <div
+        className={`mr-4 rounded bg-violet-600 px-4 py-2 font-semibold text-white`}
+      >
+        {`Pending requests: ${pendingUsers}`}
       </div>
     );
   };
@@ -120,6 +138,8 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
     return team.applicants.some((obj) => obj._user._id === userData.user._id);
   };
 
+  const isUserTheCreator = team._user._id === userData.user._id;
+
   return (
     <div className="border-1 mb-6 scale-95 rounded-lg border-gray-900 bg-gray-700 shadow-md duration-200 hover:scale-100">
       <div className="flex w-full justify-between rounded-t rounded-t bg-violet-700 px-4 pt-2">
@@ -147,6 +167,7 @@ const Team = ({ team }: ITeamProps): JSX.Element => {
           </div>
           <div className="flex flex-row">
             {isApplicationStatusVisible() && renderApplicationStatus()}
+            {isUserTheCreator && renderPendingUsers()}
             {renderAvilableSlots()}
           </div>
         </div>

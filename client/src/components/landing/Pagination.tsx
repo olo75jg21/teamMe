@@ -46,24 +46,35 @@ const Pagination: React.FC<Props> = ({
 
   return (
     <div>
-      <button onClick={handleFirstPage} disabled={page === 1}>
+      <button
+        className="ml-0 rounded-l-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        onClick={handleFirstPage}
+        disabled={page === 1}
+      >
         First
       </button>
-      <button onClick={handlePrevPage} disabled={page === 1}>
+      <button
+        onClick={handlePrevPage}
+        disabled={page === 1}
+        className="border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
         Previous
       </button>
-      <span>{` ${page} / ${totalPages} `}</span>
-      <button onClick={handleNextPage} disabled={page === totalPages}>
+      <span className="e border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">{` ${page} / ${totalPages} `}</span>
+      <button
+        className="border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        onClick={handleNextPage}
+        disabled={page === totalPages}
+      >
         Next
       </button>
-      <button onClick={handleLastPage} disabled={page === totalPages}>
+      <button
+        className="rounded-r-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        onClick={handleLastPage}
+        disabled={page === totalPages}
+      >
         Last
       </button>
-      <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-      </select>
       {loading && <span>Loading...</span>}
     </div>
   );

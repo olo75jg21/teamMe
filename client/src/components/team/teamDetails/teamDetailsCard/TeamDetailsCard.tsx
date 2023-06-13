@@ -116,6 +116,8 @@ const TeamDetailsCard = (): JSX.Element => {
             maxAge={team.maxAge}
             teamType={team.teamType}
             isActive={team.isActive}
+            minRank={team.minRank}
+            maxRank={team.maxRank}
           />
 
           {isApplicantsListVisible() && team.applicants.length !== 0 && (

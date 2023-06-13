@@ -22,7 +22,17 @@ const TeamDetailsCardHeader = ({
     }
   }, 0);
 
+  const pendingUsers = team.applicants.reduce((count, applicant) => {
+    if (applicant.status === "pending") {
+      return count + 1;
+    } else {
+      return count;
+    }
+  }, 0);
+
   const availableSlots = team.slots - takenSlots;
+
+  const isUserTheCreator = team._user._id === userData.user._id;
 
   const getApplicationStatus = (): JSX.Element | null => {
     const applicant = team.applicants.find(
@@ -43,6 +53,16 @@ const TeamDetailsCardHeader = ({
           bg-violet-600 px-4 py-2 font-semibold text-white`}
       >
         {getApplicationStatus()}
+      </div>
+    );
+  };
+
+  const renderPendingUsers = () => {
+    return (
+      <div
+        className={`mr-4 rounded bg-violet-600 px-4 py-2 font-semibold text-white`}
+      >
+        {`Pending requests: ${pendingUsers}`}
       </div>
     );
   };
@@ -81,6 +101,7 @@ const TeamDetailsCardHeader = ({
         </div>
         <div className="flex flex-row">
           {isApplicationStatusVisible() && renderApplicationStatus()}
+          {isUserTheCreator && renderPendingUsers()}
           {renderAvilableSlots()}
         </div>
       </div>
