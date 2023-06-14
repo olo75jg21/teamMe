@@ -8,7 +8,7 @@ import useGetLoggedUserData from "../../hooks/useGetLoggedUserData";
 import AddNewTeamButton from "./AddNewTeamButton";
 import NoDataCard from "../utils/NoDataCard";
 import SortSelect from "./SortSelect";
-import Pagination from "./Pagination";
+import Pagination from "../utils/Pagination";
 
 const LandingPage = (): JSX.Element => {
   const { userData } = useGetLoggedUserData();
@@ -81,14 +81,16 @@ const LandingPage = (): JSX.Element => {
             {teams && <TeamsList teams={teams} />}
           </div>
         </div>
-        <Pagination
-          page={page}
-          onPageChange={setPage}
-          limit={limit}
-          onLimitChange={setLimit}
-          totalItems={totalTeams}
-          loading={loading}
-        />
+        <div className="ml-8">
+          <Pagination
+            page={page}
+            onPageChange={setPage}
+            limit={limit}
+            onLimitChange={setLimit}
+            totalItems={totalTeams}
+            loading={loading}
+          />
+        </div>
       </div>
     );
   };

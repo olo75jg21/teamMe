@@ -1,21 +1,18 @@
-import { IUser } from "../../../types/user";
+import { ITeam } from "../../../types/team";
 import TableHeader from "../header/TableHeader";
-import UsersTableRow from "./UsersTableRow";
+import UsersTableRow from "./PendingTeamsRow";
 
 interface UsersListProps {
-  users: IUser[];
-  removeUser: (userId: string) => void;
+  teams: ITeam[];
 }
 
-const UsersTable: React.FC<UsersListProps> = ({ users, removeUser }) => {
-  const headerItems = ["Username", "Email", "Gender", "Age", "Role", "", ""];
+const UsersTable: React.FC<UsersListProps> = ({ teams }) => {
+  const headerItems = ["Username", "Email", "Gender", "Age", "Role", ""];
 
   const renderUsersTableBody = (): JSX.Element[] => {
-    if (!users) return [];
-    return users.map((user: IUser) => {
-      return (
-        <UsersTableRow key={user._id} user={user} removeUser={removeUser} />
-      );
+    if (!teams) return [];
+    return teams.map((team: ITeam) => {
+      return <UsersTableRow key={team._id} team={team} />;
     });
   };
 

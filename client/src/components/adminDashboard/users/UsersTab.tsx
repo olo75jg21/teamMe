@@ -23,11 +23,30 @@ const Users: React.FC = () => {
     })();
   }, []);
 
+  const handleRemoveUser = async (userId: string) => {
+    try {
+      const { status } = await axios.delete(`/admin/users/${userId}`, {
+        params: { role: userData.user.role },
+      });
+
+      if (status === 200) {
+        const filteredUsers = users.filter((user: IUser) => {
+          if (user._id !== userId) return user;
+        });
+
+        console.log(filteredUsers);
+        setUsers(filteredUsers);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="">
       {users && (
         <div>
-          <UsersTable users={users} />
+          <UsersTable users={users} removeUser={handleRemoveUser} />
         </div>
       )}
     </div>

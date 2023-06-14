@@ -38,11 +38,13 @@ const TeamSchema: Schema = new Schema(
       type: Boolean,
       default: true,
     },
+    // @TODO change to false
     teamType: {
       type: String,
       required: true,
       enum: ["solo", "team"], // Solo means Im solo player and I am looking for a team/ team otherwise
     },
+    // @TODO add flag isVisible, admin of team can change the visibility
     title: {
       type: String,
       required: true,

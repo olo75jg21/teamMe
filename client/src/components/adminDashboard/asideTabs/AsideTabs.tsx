@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Tab from "./Tab";
 import UsersTab from "../users/UsersTab";
+import PendingTab from "../pendingTeams/PendingTeamsTab";
+import TeamsTabs from "../../team/teamsTabs/TeamsTabs";
+import TeamsTab from "../teams/TeamsTab";
 
 const Tab2Content = () => <div>Tab 2 Content</div>;
 
@@ -14,16 +17,16 @@ const AsideTabs: React.FC = () => {
           Manage users
         </Tab>
         <Tab currentTab={currentTab} setCurrentTab={setCurrentTab} index={1}>
-          Pending offers
+          Manage teams
         </Tab>
         <Tab currentTab={currentTab} setCurrentTab={setCurrentTab} index={2}>
-          Manage offers
+          Pending teams
         </Tab>
       </div>
       <div className="mx-36">
         {currentTab === 0 ? <UsersTab /> : null}
-        {currentTab === 1 ? <Tab2Content /> : null}
-        {currentTab === 2 ? <UsersTab /> : null}
+        {currentTab === 1 ? <TeamsTab /> : null}
+        {currentTab === 2 ? <PendingTab /> : null}
       </div>
     </div>
   );

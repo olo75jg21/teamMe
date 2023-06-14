@@ -1,8 +1,8 @@
-interface UsersTableHeaderProps {
+interface Props {
   headerItems: string[];
 }
 
-const UsersTableHeader: React.FC<UsersTableHeaderProps> = ({ headerItems }) => {
+const TableHeader: React.FC<Props> = ({ headerItems }) => {
   const renderTableHeaders = (): JSX.Element[] => {
     return headerItems.map((headerItem: string, index: number) => {
       return (
@@ -20,4 +20,4 @@ const UsersTableHeader: React.FC<UsersTableHeaderProps> = ({ headerItems }) => {
   );
 };
 
-export default UsersTableHeader;
+export default TableHeader;
