@@ -3,7 +3,7 @@ import PentingTeamsTable from "./TeamsTable";
 import axios from "../../../plugins/axios";
 import useGetLoggedUserData from "../../../hooks/useGetLoggedUserData";
 import { ITeam } from "../../../types/team";
-import SortSelect from "../../landing/SortSelect";
+import SortSelect from "../../utils/SortSelect";
 import Pagination from "../../utils/Pagination";
 
 const PendingTab: React.FC = () => {
@@ -34,6 +34,7 @@ const PendingTab: React.FC = () => {
             onSortChange={function (sortBy: string, order: string): void {
               throw new Error("Function not implemented.");
             }}
+            sortingOptions={[]}
           />
           <PentingTeamsTable teams={teams} />
           <div className="mt-4 flex justify-end">

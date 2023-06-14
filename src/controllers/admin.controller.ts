@@ -6,8 +6,21 @@ import { RefreshTokenModel } from "../models/refreshToken.model";
 
 export const handleGetAllUsers = async (req: Request, res: Response) => {
   try {
-    const users = await UserModel.find();
-    res.status(200).send(users);
+    const { sortBy, order, page, limit } = req.query;
+
+    const query = UserModel.find();
+    let countQuery = UserModel.countDocuments();
+
+    // Add pagination
+    if (page && limit) {
+      query.skip((parseInt(page.toString()) - 1) * parseInt(limit.toString()));
+      query.limit(parseInt(limit.toString()));
+    }
+
+    const users = await query.exec();
+    const totalTeams = await countQuery.exec();
+
+    res.status(200).json({ data: users, total: totalTeams });
   } catch (e) {
     res.status(404).send(e);
   }
@@ -16,6 +29,7 @@ export const handleGetAllUsers = async (req: Request, res: Response) => {
 export const handleDeleteUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
+
     const user = await UserModel.findOneAndDelete({ _id: userId });
     await RefreshTokenModel.findOneAndDelete({ _id: userId });
 

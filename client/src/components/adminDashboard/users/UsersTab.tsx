@@ -3,27 +3,37 @@ import UsersTable from "./UsersTable";
 import { IUser } from "../../../types/user";
 import axios from "../../../plugins/axios";
 import useGetLoggedUserData from "../../../hooks/useGetLoggedUserData";
-import SortSelect from "../../landing/SortSelect";
+import SortSelect from "../../utils/SortSelect";
 import Pagination from "../../utils/Pagination";
 
 const Users: React.FC = () => {
   const { userData } = useGetLoggedUserData();
+
   const [users, setUsers] = useState<IUser[]>([]);
+
+  const [sortBy, setSortBy] = useState<string>("");
+  const [order, setOrder] = useState<string>("");
+
+  // Pagination
+  const [page, setPage] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(20);
+  const [totalUsers, setTotalUsers] = useState<number>(0);
 
   useEffect(() => {
     (async () => {
       try {
         const { data, status } = await axios.get("/admin/users", {
-          params: { role: userData.user.role },
+          params: { role: userData.user.role, page, limit },
         });
         if (status === 200) {
-          setUsers(data);
+          setUsers(data.data);
+          setTotalUsers(data.total);
         }
       } catch (e) {
         console.log(e);
       }
     })();
-  }, []);
+  }, [page, limit]);
 
   const handleRemoveUser = async (userId: string) => {
     try {
@@ -51,19 +61,16 @@ const Users: React.FC = () => {
             onSortChange={function (sortBy: string, order: string): void {
               throw new Error("Function not implemented.");
             }}
+            sortingOptions={[]}
           />
           <UsersTable users={users} removeUser={handleRemoveUser} />
           <div className="mt-4 flex justify-end">
             <Pagination
-              page={0}
-              onPageChange={function (newPage: number): void {
-                throw new Error("Function not implemented.");
-              }}
-              limit={10}
-              onLimitChange={function (newLimit: number): void {
-                throw new Error("Function not implemented.");
-              }}
-              totalItems={10}
+              page={page}
+              onPageChange={setPage}
+              limit={limit}
+              onLimitChange={setLimit}
+              totalItems={totalUsers}
               loading={false}
             />
           </div>

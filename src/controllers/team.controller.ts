@@ -79,7 +79,7 @@ export const handleGetAllTeams = async (req: Request, res: Response) => {
     query.populate("_user");
 
     const teams = await query.exec();
-    const totalTeams = await countQuery.exec(); // execute count query
+    const totalTeams = await countQuery.exec();
 
     res.status(200).json({ data: teams, total: totalTeams });
   } catch (error: any) {

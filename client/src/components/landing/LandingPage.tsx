@@ -7,7 +7,7 @@ import { AsidePanel } from "./AsidePanel";
 import useGetLoggedUserData from "../../hooks/useGetLoggedUserData";
 import AddNewTeamButton from "./AddNewTeamButton";
 import NoDataCard from "../utils/NoDataCard";
-import SortSelect from "./SortSelect";
+import SortSelect from "../utils/SortSelect";
 import Pagination from "../utils/Pagination";
 
 const LandingPage = (): JSX.Element => {
@@ -22,14 +22,14 @@ const LandingPage = (): JSX.Element => {
   });
   const [teams, setTeams] = useState<ITeam[]>([]);
 
-  const [loading, setLoading] = useState<boolean>(false);
-
   const [sortBy, setSortBy] = useState<string>("");
   const [order, setOrder] = useState<string>("");
 
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [totalTeams, setTotalTeams] = useState<number>(0);
+
+  const sortingOptions = ["Name", "Creation Time", "Slots"];
 
   const handleSortChange = (newSortBy: string, newOrder: string) => {
     setSortBy(newSortBy);
@@ -40,8 +40,6 @@ const LandingPage = (): JSX.Element => {
     (async () => {
       try {
         const { title, ageMin, ageMax, game, gender } = filters;
-
-        setLoading(true);
 
         const res = await axios.get("/team", {
           params: {
@@ -59,7 +57,6 @@ const LandingPage = (): JSX.Element => {
         });
         setTeams(res.data.data);
         setTotalTeams(res.data.total);
-        setLoading(false);
       } catch (e) {
         console.error(e);
       }
@@ -75,8 +72,11 @@ const LandingPage = (): JSX.Element => {
       <NoDataCard />
     ) : (
       <div className="basis-3/4">
-        <div className="ml-8">
-          <SortSelect onSortChange={handleSortChange} />
+        <div className="ml-8 mt-6">
+          <SortSelect
+            onSortChange={handleSortChange}
+            sortingOptions={sortingOptions}
+          />
         </div>
         <div className="mt-2 p-5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 md:gap-6 lg:grid-cols-2">
@@ -90,7 +90,7 @@ const LandingPage = (): JSX.Element => {
             limit={limit}
             onLimitChange={setLimit}
             totalItems={totalTeams}
-            loading={loading}
+            loading={false}
           />
         </div>
       </div>
