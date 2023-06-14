@@ -176,7 +176,7 @@ const Chat: React.FC = (): JSX.Element => {
               <input
                 type="text"
                 placeholder="Write your message!"
-                className="w-full rounded-md bg-gray-200 py-3 pl-12 text-gray-600 placeholder-gray-600 focus:placeholder-gray-400 focus:outline-none"
+                className="w-full rounded-lg bg-gray-200 py-3 pl-12 text-gray-600 placeholder-gray-600 focus:placeholder-gray-400 focus:outline-none"
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
                 onKeyDown={(e) => {
@@ -189,7 +189,7 @@ const Chat: React.FC = (): JSX.Element => {
               <div className="absolute inset-y-0 right-0 hidden items-center sm:flex ">
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center rounded-sm bg-violet-800 px-4 py-3 text-white transition duration-500 ease-in-out hover:bg-violet-900 focus:outline-none"
+                  className="inline-flex items-center justify-center rounded-lg bg-violet-800 px-4 py-3 text-white transition duration-500 ease-in-out hover:bg-violet-900 focus:outline-none"
                   onClick={handleSendMessage}
                 >
                   <span className="font-bold">Send</span>

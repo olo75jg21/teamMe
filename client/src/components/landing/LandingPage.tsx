@@ -75,7 +75,9 @@ const LandingPage = (): JSX.Element => {
       <NoDataCard />
     ) : (
       <div className="basis-3/4">
-        <SortSelect onSortChange={handleSortChange} />
+        <div className="ml-8">
+          <SortSelect onSortChange={handleSortChange} />
+        </div>
         <div className="mt-2 p-5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 md:gap-6 lg:grid-cols-2">
             {teams && <TeamsList teams={teams} />}

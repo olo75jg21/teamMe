@@ -3,6 +3,8 @@ import UsersTable from "./UsersTable";
 import { IUser } from "../../../types/user";
 import axios from "../../../plugins/axios";
 import useGetLoggedUserData from "../../../hooks/useGetLoggedUserData";
+import SortSelect from "../../landing/SortSelect";
+import Pagination from "../../utils/Pagination";
 
 const Users: React.FC = () => {
   const { userData } = useGetLoggedUserData();
@@ -34,19 +36,37 @@ const Users: React.FC = () => {
           if (user._id !== userId) return user;
         });
 
-        console.log(filteredUsers);
         setUsers(filteredUsers);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
   return (
     <div className="">
       {users && (
-        <div>
+        <div className="mb-4">
+          <SortSelect
+            onSortChange={function (sortBy: string, order: string): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
           <UsersTable users={users} removeUser={handleRemoveUser} />
+          <div className="mt-4 flex justify-end">
+            <Pagination
+              page={0}
+              onPageChange={function (newPage: number): void {
+                throw new Error("Function not implemented.");
+              }}
+              limit={10}
+              onLimitChange={function (newLimit: number): void {
+                throw new Error("Function not implemented.");
+              }}
+              totalItems={10}
+              loading={false}
+            />
+          </div>
         </div>
       )}
     </div>

@@ -17,7 +17,15 @@ export const handleDeleteUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
     const user = await UserModel.findOneAndDelete({ _id: userId });
-    await RefreshTokenModel.findOneAndDelete({ _user: userId });
+    await RefreshTokenModel.findOneAndDelete({ _id: userId });
+
+    await TeamModel.deleteMany({ _user: userId });
+
+    await TeamModel.updateMany(
+      { "applicants._user": userId },
+      { $pull: { applicants: { _user: userId } } }
+    );
+
     res.status(200).send(user);
   } catch (e) {
     res.status(404).send(e);
