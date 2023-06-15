@@ -18,6 +18,8 @@ interface FormData {
   maxRank: string;
   teamType: string;
   slots: number;
+  minAge: number;
+  maxAge: number;
 }
 
 interface AddTeamFormProps {
@@ -105,19 +107,19 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
 
   return (
     <div className="flex h-screen bg-gray-800">
-      <div className="mx-auto mt-20">
+      <div className="mx-auto mt-12">
         {isLoading ? (
           <CirclesLoader />
         ) : (
           <form
-            className="mb-4 h-addOfferForm rounded bg-gray-700 px-8 pb-8 pt-6 shadow-lg"
+            className="mb-4 h-addOfferForm rounded-lg bg-gray-700 px-8 pt-6 shadow-lg"
             onSubmit={handleSubmit(onSubmit)}
           >
             <ResponseError message={responseError} />
 
             <div className="grid grid-cols-2 gap-8">
               <div>
-                <div className="mb-6 h-20">
+                <div className="mb-5 h-20">
                   <label className="mb-2 block text-sm font-bold text-gray-100">
                     Name
                   </label>
@@ -132,7 +134,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                     <span className="text-red-600">{errors.name.message}</span>
                   )}
                 </div>
-                <div className="mb-6 h-20">
+                <div className="mb-5 h-20">
                   <label className="mb-2 block text-sm font-bold text-gray-100">
                     Title
                   </label>
@@ -148,13 +150,13 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                   )}
                 </div>
 
-                <div className="mb-4 h-20">
+                <div className="mb-12 h-20">
                   <label className="mb-2 block text-sm font-bold text-gray-100">
                     Description
                   </label>
 
                   <textarea
-                    className="text-md focus:shadow-outline h-56 w-full resize-none rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
+                    className="text-md focus:shadow-outline h-48 w-full resize-none rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
                     defaultValue="Lorem Ibook. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in"
                     {...register("description")}
                   />
@@ -175,7 +177,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
 
               <div>
                 <div>
-                  <div className="mb-6 h-20">
+                  <div className="mb-5 h-20">
                     <label className="mb-2 block text-sm font-bold text-gray-100">
                       Game
                     </label>
@@ -200,7 +202,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
 
                   {selectedGame && (
                     <div>
-                      <div className="mb-6 h-20">
+                      <div className="mb-5 h-20">
                         <label className="mb-2 block text-sm font-bold text-gray-100">
                           Lowest rank:
                         </label>
@@ -228,7 +230,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                         )}
                       </div>
 
-                      <div className="mb-4 h-20">
+                      <div className="mb-5 h-20">
                         <label className="mb-2 block text-sm font-bold text-gray-100">
                           Highest rank:
                         </label>
@@ -259,7 +261,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                   )}
                 </div>
 
-                <div className="mb-4 h-20">
+                <div className="mb-5 h-20">
                   <label className="mb-2 block text-sm font-bold text-gray-100">
                     Team type
                   </label>
@@ -283,7 +285,7 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                   )}
                 </div>
 
-                <div className="mb-4 h-20">
+                <div className="h-20">
                   <label className="mb-2 block text-sm font-bold text-gray-100">
                     Amount of players
                   </label>
@@ -300,6 +302,42 @@ const AddTeamForm = ({ userId }: AddTeamFormProps): JSX.Element => {
                       {errors.slots?.message}
                     </span>
                   )}
+                </div>
+
+                <div className="flex justify-between">
+                  <div className="w-2/5">
+                    <label className="mb-2 block text-sm font-bold text-gray-100">
+                      Minimum age:
+                    </label>
+                    <input
+                      className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
+                      type="number"
+                      defaultValue={16}
+                      {...register("minAge")}
+                    />
+                    {errors.minAge?.message && (
+                      <span className="text-red-600">
+                        {errors.minAge?.message}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="w-2/5">
+                    <label className="mb-2 block text-sm font-bold text-gray-100">
+                      Maximum age:
+                    </label>
+                    <input
+                      className="text-md focus:shadow-outline w-full rounded border-2 border-gray-400 bg-gray-600 px-3 py-2 font-semibold leading-tight text-gray-200 duration-200 selection:bg-gray-700 focus:border-violet-500 focus:outline-none"
+                      type="number"
+                      defaultValue={16}
+                      {...register("maxAge")}
+                    />
+                    {errors.minAge?.message && (
+                      <span className="text-red-600">
+                        {errors.maxAge?.message}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

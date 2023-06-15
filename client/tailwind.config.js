@@ -26,7 +26,7 @@ module.exports = {
       },
       spacing: {
         '144': '46rem',
-        'addOfferForm': '36rem',
+        'addOfferForm': '38rem',
       }
     },
   },
