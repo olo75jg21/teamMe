@@ -9,6 +9,7 @@ import AddNewTeamButton from "./AddNewTeamButton";
 import NoDataCard from "../utils/NoDataCard";
 import SortSelect from "../utils/SortSelect";
 import Pagination from "../utils/Pagination";
+import NotificationModal from "./notifications/NotificationModal";
 
 const LandingPage = (): JSX.Element => {
   const { userData } = useGetLoggedUserData();
@@ -71,7 +72,7 @@ const LandingPage = (): JSX.Element => {
       <NoDataCard />
     ) : (
       <div className="basis-3/4">
-        <div className="ml-8 mt-6">
+        <div className="ml-8 mt-6 flex justify-between">
           <SortSelect
             onSortChange={handleSortChange}
             sortingOptions={sortingOptions}
@@ -107,6 +108,7 @@ const LandingPage = (): JSX.Element => {
         >
           <div className="basis-1/4">
             <AddNewTeamButton />
+            <NotificationModal />
             <AsidePanel onFilterChange={handleFilterChange} />
           </div>
           {renderTeamsList()}

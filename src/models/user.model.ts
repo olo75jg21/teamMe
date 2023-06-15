@@ -6,6 +6,13 @@ export interface IGame {
   position?: string;
 }
 
+export interface IInterests {
+  game: string;
+  minAge: number;
+  maxAge: number;
+  slots: number;
+}
+
 export interface IUser extends Document {
   email: string;
   username: string;
@@ -15,6 +22,7 @@ export interface IUser extends Document {
   role: string;
   description: string;
   password: string;
+  interests: IInterests[];
 }
 
 const UserSchema: Schema = new Schema(
@@ -61,6 +69,26 @@ const UserSchema: Schema = new Schema(
       type: String,
       required: true,
     },
+    interests: [
+      {
+        game: {
+          type: String,
+          required: true,
+        },
+        minAge: {
+          type: String,
+          required: true,
+        },
+        maxAge: {
+          type: String,
+          required: true,
+        },
+        slots: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

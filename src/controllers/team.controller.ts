@@ -1,9 +1,52 @@
 import { Request, Response } from "express";
 import { TeamModel } from "../models/team.model";
+import { UserModel } from "../models/user.model";
+import nodemailer from "nodemailer";
+import { MAILTRAP_USERNAME, MAILTRAP_PASSWORD } from "../config/config";
 
 export const handleAddTeam = async (req: Request, res: Response) => {
   try {
     const team = await TeamModel.create(req.body);
+
+    const users = await UserModel.find();
+
+    // Go through all users' interests
+    for (let user of users) {
+      for (let interest of user.interests) {
+        // Check if team matches user's interest
+        if (
+          team.game === interest.game &&
+          team.minAge >= interest.minAge &&
+          team.maxAge <= interest.maxAge &&
+          team.slots >= interest.slots
+        ) {
+          // Team matches the user's interest, send them an email
+          const transporter = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+              user: MAILTRAP_USERNAME,
+              pass: MAILTRAP_PASSWORD,
+            },
+          });
+
+          const mailOptions = {
+            from: "youremail@gmail.com", // Your email
+            to: user.email,
+            subject: "A new team you might be interested in was just created",
+            text: `Team ${team.name} was just created and it matches your interests!`,
+          };
+
+          transporter.sendMail(mailOptions, function (err, info) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+        }
+      }
+    }
 
     res.status(201).send(team);
   } catch (error) {

@@ -1,4 +1,5 @@
 import { IGame } from "./game";
+import { IInterests } from "./interests";
 
 export interface IUser {
   _id: string;
@@ -11,4 +12,5 @@ export interface IUser {
   description: string;
   createdAt: string;
   updatedAt: string;
+  interests: IInterests[];
 }

@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleUpdateUserProfile = exports.handleGetUserProfileData = exports.handleGetOneUser = void 0;
+exports.handleAddUserInterest = exports.handleUpdateUserProfile = exports.handleGetUserProfileData = exports.handleGetOneUser = void 0;
 const _ = __importStar(require("lodash"));
 const user_model_1 = require("../models/user.model");
 const handleGetOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -77,3 +77,20 @@ const handleUpdateUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.handleUpdateUserProfile = handleUpdateUserProfile;
+const handleAddUserInterest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.params.id;
+        const interest = req.body;
+        const user = yield user_model_1.UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        user.interests.push(interest);
+        yield user.save();
+        res.status(200).json(user);
+    }
+    catch (e) {
+        res.status(404).send(e);
+    }
+});
+exports.handleAddUserInterest = handleAddUserInterest;
