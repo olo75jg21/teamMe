@@ -34,7 +34,22 @@ export const handleAddTeam = async (req: Request, res: Response) => {
             from: "youremail@gmail.com", // Your email
             to: user.email,
             subject: "A new team you might be interested in was just created",
-            text: `Team ${team.name} was just created and it matches your interests!`,
+            html: `
+                      <div style="text-align: center; font-family: Arial, sans-serif; color: #444;">
+                      <div style="background-color: #f5f5f5; padding: 50px; margin: 20px;">
+                        <h1 style="color: #007BFF;">Hello ${user.username},</h1>
+                        <p style="color: #666; font-size: 18px;">We found a team that matches your interests!</p>
+                        <div style="background-color: #007BFF; color: white; padding: 30px; margin: 20px auto; width: 70%;">
+                          <h2 style="margin: 0;">${team.name}</h2>
+                        </div>
+                        <div style="margin: 20px 0;">
+                          <a href="http://localhost:3000/teamDetails/${team._id}" style="background-color: #28a745; color: #FFF; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 18px; margin: 20px 0; display: inline-block;">View Team Details</a>
+                        </div>
+                        <p style="color: #666; font-size: 16px;">If the link above doesn't work, you can also paste this link into your browser:</p>
+                        <p style="color: #007BFF; font-size: 16px;">http://localhost:3000/teamDetails/${team._id}</p>
+                      </div>
+                    </div>
+                `,
           };
 
           transporter.sendMail(mailOptions, function (err, info) {
