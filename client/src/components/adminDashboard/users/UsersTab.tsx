@@ -11,19 +11,32 @@ const Users: React.FC = () => {
 
   const [users, setUsers] = useState<IUser[]>([]);
 
+  // Sorting
   const [sortBy, setSortBy] = useState<string>("");
   const [order, setOrder] = useState<string>("");
+  const sortingOptions = ["Username", "Email", "Gender", "Age", "Role"];
 
   // Pagination
   const [page, setPage] = useState<number>(1);
-  const [limit, setLimit] = useState<number>(20);
+  const [limit, setLimit] = useState<number>(10);
   const [totalUsers, setTotalUsers] = useState<number>(0);
+
+  const handleSortChange = (newSortBy: string, newOrder: string) => {
+    setSortBy(newSortBy);
+    setOrder(newOrder);
+  };
 
   useEffect(() => {
     (async () => {
       try {
         const { data, status } = await axios.get("/admin/users", {
-          params: { role: userData.user.role, page, limit },
+          params: {
+            role: userData.user.role,
+            sortBy,
+            order,
+            page,
+            limit,
+          },
         });
         if (status === 200) {
           setUsers(data.data);
@@ -33,7 +46,7 @@ const Users: React.FC = () => {
         console.log(e);
       }
     })();
-  }, [page, limit]);
+  }, [page, limit, sortBy, order]);
 
   const handleRemoveUser = async (userId: string) => {
     try {
@@ -58,10 +71,8 @@ const Users: React.FC = () => {
       {users && (
         <div className="mb-4">
           <SortSelect
-            onSortChange={function (sortBy: string, order: string): void {
-              throw new Error("Function not implemented.");
-            }}
-            sortingOptions={[]}
+            onSortChange={handleSortChange}
+            sortingOptions={sortingOptions}
           />
           <UsersTable users={users} removeUser={handleRemoveUser} />
           <div className="mt-4 flex justify-end">

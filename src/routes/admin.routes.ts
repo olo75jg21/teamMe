@@ -23,14 +23,14 @@ export const adminRoutes = (app: Express) => {
   );
 
   app.get(
-    "/admin/pendingTeams",
-    [authenticateJwt, checkUserRole("admin")],
-    handleGetPendingTeams
-  );
-
-  app.get(
     "/admin/teams",
     [authenticateJwt, checkUserRole("admin")],
     handleGetAllTeams
+  );
+
+  app.get(
+    "/admin/pendingTeams",
+    [authenticateJwt, checkUserRole("admin")],
+    handleGetPendingTeams
   );
 };

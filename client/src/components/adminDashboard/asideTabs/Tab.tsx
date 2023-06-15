@@ -14,9 +14,9 @@ const Tab: React.FC<TabProps> = ({
 }) => {
   return (
     <button
-      className={`my-2 px-4 py-2 ${
+      className={`mx-2 my-2 rounded-lg px-4 py-2 ${
         currentTab === index
-          ? "bg-violet-800 text-gray-100"
+          ? "border-2 border-violet-400 bg-violet-800 text-gray-100"
           : "bg-gray-300 text-gray-900 hover:bg-violet-300"
       }`}
       onClick={() => setCurrentTab(index)}

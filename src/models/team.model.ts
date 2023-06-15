@@ -14,6 +14,7 @@ interface IChat {
 export interface ITeam extends Document {
   _user: Types.ObjectId;
   isActive: boolean;
+  isVisible: boolean;
   teamType: string;
   title: string;
   game: string;
@@ -36,15 +37,17 @@ const TeamSchema: Schema = new Schema(
     },
     isActive: {
       type: Boolean,
+      default: false,
+    },
+    isVisible: {
+      type: Boolean,
       default: true,
     },
-    // @TODO change to false
     teamType: {
       type: String,
       required: true,
       enum: ["solo", "team"], // Solo means Im solo player and I am looking for a team/ team otherwise
     },
-    // @TODO add flag isVisible, admin of team can change the visibility
     title: {
       type: String,
       required: true,

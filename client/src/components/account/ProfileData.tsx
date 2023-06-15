@@ -9,7 +9,6 @@ import { IUser } from "../../types/user";
 import { IGame } from "../../types/game";
 import AddGameModal from "./AddGameModal";
 import { renderProperGameName } from "../../utils/renderProperGameName";
-import { gamesRanks } from "../team/addTeam/data";
 
 interface IUserProfileData extends IUser {}
 

@@ -11,6 +11,11 @@ export const handleGetAllUsers = async (req: Request, res: Response) => {
     const query = UserModel.find();
     let countQuery = UserModel.countDocuments();
 
+    if (sortBy) {
+      const sortOrder = order === "desc" ? -1 : 1;
+      query.sort({ [sortBy.toString()]: sortOrder });
+    }
+
     // Add pagination
     if (page && limit) {
       query.skip((parseInt(page.toString()) - 1) * parseInt(limit.toString()));
@@ -18,9 +23,9 @@ export const handleGetAllUsers = async (req: Request, res: Response) => {
     }
 
     const users = await query.exec();
-    const totalTeams = await countQuery.exec();
+    const totalUsers = await countQuery.exec();
 
-    res.status(200).json({ data: users, total: totalTeams });
+    res.status(200).json({ data: users, total: totalUsers });
   } catch (e) {
     res.status(404).send(e);
   }
@@ -48,8 +53,28 @@ export const handleDeleteUser = async (req: Request, res: Response) => {
 
 export const handleGetAllTeams = async (req: Request, res: Response) => {
   try {
-    const teams = await TeamModel.find({ isActive: true }).populate("_user");
-    res.status(200).send(teams);
+    const { sortBy, order, page, limit } = req.query;
+
+    const query = TeamModel.find({ isActive: true });
+    let countQuery = TeamModel.countDocuments({ isActive: true });
+
+    if (sortBy) {
+      const sortOrder = order === "desc" ? -1 : 1;
+      query.sort({ [sortBy.toString()]: sortOrder });
+    }
+
+    // Add pagination
+    if (page && limit) {
+      query.skip((parseInt(page.toString()) - 1) * parseInt(limit.toString()));
+      query.limit(parseInt(limit.toString()));
+    }
+
+    query.populate("_user");
+
+    const teams = await query.exec();
+    const totalTeams = await countQuery.exec();
+
+    res.status(200).json({ data: teams, total: totalTeams });
   } catch (e) {
     res.status(404).send(e);
   }
@@ -57,8 +82,28 @@ export const handleGetAllTeams = async (req: Request, res: Response) => {
 
 export const handleGetPendingTeams = async (req: Request, res: Response) => {
   try {
-    const teams = await TeamModel.find({ isActive: false }).populate("_user");
-    res.status(200).send(teams);
+    const { sortBy, order, page, limit } = req.query;
+
+    const query = TeamModel.find({ isActive: false });
+    let countQuery = TeamModel.countDocuments({ isActive: false });
+
+    if (sortBy) {
+      const sortOrder = order === "desc" ? -1 : 1;
+      query.sort({ [sortBy.toString()]: sortOrder });
+    }
+
+    // Add pagination
+    if (page && limit) {
+      query.skip((parseInt(page.toString()) - 1) * parseInt(limit.toString()));
+      query.limit(parseInt(limit.toString()));
+    }
+
+    query.populate("_user");
+
+    const teams = await query.exec();
+    const totalTeams = await countQuery.exec();
+
+    res.status(200).json({ data: teams, total: totalTeams });
   } catch (e) {
     res.status(404).send(e);
   }

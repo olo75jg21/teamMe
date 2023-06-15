@@ -5,8 +5,19 @@ interface Props {
   team: ITeam;
 }
 
-const PendingTeamsRow: React.FC<Props> = ({ team }) => {
-  const { _id, _user, name, game } = team;
+const TeamsTableRow: React.FC<Props> = ({ team }) => {
+  const { _id, _user, name, game, isActive, isVisible } = team;
+
+  const renderRemoveTeamButton = (): JSX.Element => {
+    return (
+      <button
+        className="whitespace-nowrap font-medium text-gray-900 duration-200 hover:scale-110 dark:text-white"
+        onClick={() => console.log("XD")}
+      >
+        Delete
+      </button>
+    );
+  };
 
   const renderGoToDetailsButton = (): JSX.Element => {
     return (
@@ -21,24 +32,24 @@ const PendingTeamsRow: React.FC<Props> = ({ team }) => {
     );
   };
 
-  const renderAcceptTeamButton = (): JSX.Element => {
+  const renderChangeActiveButton = (): JSX.Element => {
     return (
       <button
         className="whitespace-nowrap font-medium text-gray-900 duration-200 hover:scale-110 dark:text-white"
         onClick={() => console.log("XD")}
       >
-        Accept
+        {isActive ? "Deactivate" : "Activate"}
       </button>
     );
   };
 
-  const renderRejectjTeamButton = (): JSX.Element => {
+  const renderChangeVisibilityButton = (): JSX.Element => {
     return (
       <button
         className="whitespace-nowrap font-medium text-gray-900 duration-200 hover:scale-110 dark:text-white"
         onClick={() => console.log("XD")}
       >
-        Reject
+        {isVisible ? "Hide" : "Show"}
       </button>
     );
   };
@@ -53,11 +64,14 @@ const PendingTeamsRow: React.FC<Props> = ({ team }) => {
       </th>
       <td className="px-4 py-3">{name}</td>
       <td className="px-4 py-3">{game}</td>
+      <td className="px-4 py-3">{isActive ? "true" : "false"}</td>
+      <td className="px-4 py-3">{isVisible ? "true" : "false"}</td>
+      <td className="w-16 py-3">{renderRemoveTeamButton()}</td>
       <td className="w-16 py-3">{renderGoToDetailsButton()}</td>
-      <td className="w-16 py-3">{renderAcceptTeamButton()}</td>
-      <td className="w-16 py-3">{renderRejectjTeamButton()}</td>
+      <td className="w-24 py-3">{renderChangeActiveButton()}</td>
+      <td className="w-16 py-3">{renderChangeVisibilityButton()}</td>
     </tr>
   );
 };
 
-export default PendingTeamsRow;
+export default TeamsTableRow;

@@ -24,12 +24,11 @@ const LandingPage = (): JSX.Element => {
 
   const [sortBy, setSortBy] = useState<string>("");
   const [order, setOrder] = useState<string>("");
+  const sortingOptions = ["Name", "Creation Time", "Slots"];
 
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [totalTeams, setTotalTeams] = useState<number>(0);
-
-  const sortingOptions = ["Name", "Creation Time", "Slots"];
 
   const handleSortChange = (newSortBy: string, newOrder: string) => {
     setSortBy(newSortBy);
@@ -83,7 +82,7 @@ const LandingPage = (): JSX.Element => {
             {teams && <TeamsList teams={teams} />}
           </div>
         </div>
-        <div className="ml-8">
+        <div className="mb-4 ml-8 mr-4 flex justify-end">
           <Pagination
             page={page}
             onPageChange={setPage}
@@ -103,7 +102,7 @@ const LandingPage = (): JSX.Element => {
       <div>
         <div
           className={`flex flex-row bg-gray-800 ${
-            teams.length <= 4 ? "h-screen" : "h-full"
+            teams.length <= 2 ? "h-screen" : "h-full"
           }`}
         >
           <div className="basis-1/4">

@@ -20,6 +20,7 @@ export interface ITeam {
   slots: number;
   minAge: number;
   maxAge: number;
-  isActive: true;
+  isActive: boolean;
+  isVisible: boolean;
   createdAt: string;
 }
