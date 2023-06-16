@@ -8,13 +8,13 @@ export interface IGame {
 
 export interface IUser extends Document {
   email: string;
+  password: string;
+  role: string;
   username: string;
   gender: string;
-  games: IGame[];
   age: number;
-  role: string;
   description: string;
-  password: string;
+  games: IGame[];
 }
 
 const UserSchema: Schema = new Schema(
