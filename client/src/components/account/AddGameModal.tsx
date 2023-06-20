@@ -5,7 +5,7 @@ import { renderProperGameName } from "../../utils/renderProperGameName";
 
 const customStyles = {
   content: {
-    top: "50%",
+    top: "40%",
     left: "50%",
     right: "60%",
     bottom: "20%",
