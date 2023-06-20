@@ -108,7 +108,7 @@ const LandingPage = (): JSX.Element => {
         >
           <div className="basis-1/4">
             <AddNewTeamButton />
-            <NotificationModal />
+            {userData.accessToken !== "" && <NotificationModal />}
             <AsidePanel onFilterChange={handleFilterChange} />
           </div>
           {renderTeamsList()}
