@@ -68,6 +68,26 @@ const UserSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    interests: [
+        {
+            game: {
+                type: String,
+                required: true,
+            },
+            minAge: {
+                type: String,
+                required: true,
+            },
+            maxAge: {
+                type: String,
+                required: true,
+            },
+            slots: {
+                type: Number,
+                required: true,
+            },
+        },
+    ],
 }, {
     timestamps: true,
 });

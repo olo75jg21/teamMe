@@ -47,3 +47,23 @@ export const handleUpdateUserProfile = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "Server error" });
   }
 };
+
+export const handleAddUserInterest = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const interest = req.body;
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.interests.push(interest);
+    await user.save();
+
+    res.status(200).json(user);
+  } catch (e) {
+    res.status(404).send(e);
+  }
+};

@@ -65,7 +65,7 @@ const TeamsTabs = (): JSX.Element => {
         key={tab.id}
         className={`w-full px-4 py-2 text-lg font-bold ${
           activeTab === tab.id
-            ? "bg-violet-800 text-gray-100"
+            ? "border-2 border-violet-400 bg-violet-800 text-gray-100"
             : "bg-gray-300 text-gray-900 hover:bg-violet-300"
         } rounded-t-lg duration-200 focus:outline-none`}
         onClick={() => setActiveTab(tab.id)}
