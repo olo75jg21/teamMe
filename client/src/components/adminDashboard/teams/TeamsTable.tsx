@@ -4,9 +4,17 @@ import TeamsTableRow from "./TeamsTableRow";
 
 interface UsersListProps {
   teams: ITeam[];
+  removeTeam: (id: string) => void;
+  handleChangeActiveState: (id: string) => void;
+  changeTeamVisibility: (id: string) => void;
 }
 
-const TeamsTable: React.FC<UsersListProps> = ({ teams }) => {
+const TeamsTable: React.FC<UsersListProps> = ({
+  teams,
+  removeTeam,
+  handleChangeActiveState,
+  changeTeamVisibility,
+}) => {
   const headerItems = [
     "Creator",
     "Name",
@@ -22,7 +30,15 @@ const TeamsTable: React.FC<UsersListProps> = ({ teams }) => {
   const renderTeamsTableBody = (): JSX.Element[] => {
     if (!teams) return [];
     return teams.map((team: ITeam) => {
-      return <TeamsTableRow key={team._id} team={team} />;
+      return (
+        <TeamsTableRow
+          key={team._id}
+          team={team}
+          removeTeam={removeTeam}
+          handleChangeActiveState={handleChangeActiveState}
+          changeTeamVisibility={changeTeamVisibility}
+        />
+      );
     });
   };
 

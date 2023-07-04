@@ -49,6 +49,62 @@ const PendingTeamsTab: React.FC = () => {
     })();
   }, [page, limit, sortBy, order]);
 
+  const acceptTeam = async (id: string) => {
+    try {
+      const teamToToggle = teams.find((team: ITeam) => team._id === id);
+
+      if (!teamToToggle) {
+        throw new Error("Team not found");
+      }
+
+      const { data, status } = await axios.patch(
+        `/admin/pendingTeams/${id}/accept`,
+        {},
+        {
+          params: { role: userData.user.role },
+        }
+      );
+
+      if (status === 200) {
+        const filteredTeams = teams.filter((team: ITeam) => {
+          if (team._id !== id) return team;
+        });
+
+        setTeams(filteredTeams);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const rejectTeam = async (id: string) => {
+    try {
+      const teamToToggle = teams.find((team: ITeam) => team._id === id);
+
+      if (!teamToToggle) {
+        throw new Error("Team not found");
+      }
+
+      const { data, status } = await axios.patch(
+        `/admin/pendingTeams/${id}/reject`,
+        {},
+        {
+          params: { role: userData.user.role },
+        }
+      );
+
+      if (status === 200) {
+        const filteredTeams = teams.filter((team: ITeam) => {
+          if (team._id !== id) return team;
+        });
+
+        setTeams(filteredTeams);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <div className="">
       {teams && (
@@ -57,7 +113,11 @@ const PendingTeamsTab: React.FC = () => {
             onSortChange={handleSortChange}
             sortingOptions={sortingOptions}
           />
-          <PentingTeamsTable teams={teams} />
+          <PentingTeamsTable
+            teams={teams}
+            acceptTeam={acceptTeam}
+            rejectTeam={rejectTeam}
+          />
           <div className="mt-4 flex justify-end">
             <Pagination
               page={page}

@@ -7,6 +7,10 @@ import {
   handleDeleteUser,
   handleGetPendingTeams,
   handleGetAllTeams,
+  handleDeleteTeam,
+  handlePatchTeam,
+  handleAcceptTeam,
+  handleRejectTeam,
 } from "../controllers/admin.controller";
 
 export const adminRoutes = (app: Express) => {
@@ -28,9 +32,33 @@ export const adminRoutes = (app: Express) => {
     handleGetAllTeams
   );
 
+  app.delete(
+    "/admin/teams/:id",
+    [authenticateJwt, checkUserRole("admin")],
+    handleDeleteTeam
+  );
+
+  app.patch(
+    "/admin/teams/:id",
+    [authenticateJwt, checkUserRole("admin")],
+    handlePatchTeam
+  );
+
   app.get(
     "/admin/pendingTeams",
     [authenticateJwt, checkUserRole("admin")],
     handleGetPendingTeams
+  );
+
+  app.patch(
+    "/admin/pendingTeams/:id/accept",
+    [authenticateJwt, checkUserRole("admin")],
+    handleAcceptTeam
+  );
+
+  app.patch(
+    "/admin/pendingTeams/:id/reject",
+    [authenticateJwt, checkUserRole("admin")],
+    handleRejectTeam
   );
 };

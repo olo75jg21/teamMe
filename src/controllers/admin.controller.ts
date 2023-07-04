@@ -80,6 +80,42 @@ export const handleGetAllTeams = async (req: Request, res: Response) => {
   }
 };
 
+export const handleDeleteTeam = async (req: Request, res: Response) => {
+  try {
+    const teamId = req.params.id;
+    const team = await TeamModel.findOneAndDelete({ _id: teamId });
+
+    return res.status(200).json({ team });
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
+
+export const handlePatchTeam = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { isActive, isVisible } = req.body; // receive new isActive and isVisible values from request body
+
+  try {
+    const team = await TeamModel.findById(id);
+    if (!team) {
+      return res.status(404).json({ message: "Team not found" });
+    }
+
+    if (typeof isActive !== "undefined") {
+      team.isActive = isActive; // set isActive from request body if it's included
+    }
+
+    if (typeof isVisible !== "undefined") {
+      team.isVisible = isVisible; // set isVisible from request body if it's included
+    }
+
+    await team.save();
+    res.json(team);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export const handleGetPendingTeams = async (req: Request, res: Response) => {
   try {
     const { sortBy, order, page, limit } = req.query;
@@ -106,5 +142,34 @@ export const handleGetPendingTeams = async (req: Request, res: Response) => {
     res.status(200).json({ data: teams, total: totalTeams });
   } catch (e) {
     res.status(404).send(e);
+  }
+};
+
+export const handleAcceptTeam = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const team = await TeamModel.findById(id);
+    if (!team) {
+      return res.status(404).json({ message: "Team not found" });
+    }
+
+    team.isActive = true;
+
+    await team.save();
+    res.json(team);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const handleRejectTeam = async (req: Request, res: Response) => {
+  try {
+    const teamId = req.params.id;
+    const team = await TeamModel.findOneAndDelete({ _id: teamId });
+
+    return res.status(200).json({ team });
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
   }
 };

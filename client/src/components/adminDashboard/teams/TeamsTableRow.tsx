@@ -3,16 +3,36 @@ import { ITeam } from "../../../types/team";
 
 interface Props {
   team: ITeam;
+  removeTeam: (id: string) => void;
+  handleChangeActiveState: (id: string) => void;
+  changeTeamVisibility: (id: string) => void;
 }
 
-const TeamsTableRow: React.FC<Props> = ({ team }) => {
+const TeamsTableRow: React.FC<Props> = ({
+  team,
+  removeTeam,
+  handleChangeActiveState,
+  changeTeamVisibility,
+}) => {
   const { _id, _user, name, game, isActive, isVisible } = team;
+
+  const handleRemoveTeam = () => {
+    removeTeam(_id);
+  };
+
+  const changeActiveState = () => {
+    handleChangeActiveState(_id);
+  };
+
+  const handleChangeVisibility = () => {
+    changeTeamVisibility(_id);
+  };
 
   const renderRemoveTeamButton = (): JSX.Element => {
     return (
       <button
         className="whitespace-nowrap font-medium text-gray-900 duration-200 hover:scale-110 dark:text-white"
-        onClick={() => console.log("XD")}
+        onClick={handleRemoveTeam}
       >
         Delete
       </button>
@@ -36,7 +56,7 @@ const TeamsTableRow: React.FC<Props> = ({ team }) => {
     return (
       <button
         className="whitespace-nowrap font-medium text-gray-900 duration-200 hover:scale-110 dark:text-white"
-        onClick={() => console.log("XD")}
+        onClick={changeActiveState}
       >
         {isActive ? "Deactivate" : "Activate"}
       </button>
@@ -47,7 +67,7 @@ const TeamsTableRow: React.FC<Props> = ({ team }) => {
     return (
       <button
         className="whitespace-nowrap font-medium text-gray-900 duration-200 hover:scale-110 dark:text-white"
-        onClick={() => console.log("XD")}
+        onClick={handleChangeVisibility}
       >
         {isVisible ? "Hide" : "Show"}
       </button>

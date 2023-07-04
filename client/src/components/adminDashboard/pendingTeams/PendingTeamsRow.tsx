@@ -3,10 +3,20 @@ import { ITeam } from "../../../types/team";
 
 interface Props {
   team: ITeam;
+  acceptTeam: (id: string) => void;
+  rejectTeam: (id: string) => void;
 }
 
-const PendingTeamsRow: React.FC<Props> = ({ team }) => {
+const PendingTeamsRow: React.FC<Props> = ({ team, acceptTeam, rejectTeam }) => {
   const { _id, _user, name, game } = team;
+
+  const handleAcceptTeam = () => {
+    acceptTeam(_id);
+  };
+
+  const handleRejectTeam = () => {
+    rejectTeam(_id);
+  };
 
   const renderGoToDetailsButton = (): JSX.Element => {
     return (
@@ -25,7 +35,7 @@ const PendingTeamsRow: React.FC<Props> = ({ team }) => {
     return (
       <button
         className="whitespace-nowrap font-medium text-gray-900 duration-200 hover:scale-110 dark:text-white"
-        onClick={() => console.log("XD")}
+        onClick={handleAcceptTeam}
       >
         Accept
       </button>
@@ -36,7 +46,7 @@ const PendingTeamsRow: React.FC<Props> = ({ team }) => {
     return (
       <button
         className="whitespace-nowrap font-medium text-gray-900 duration-200 hover:scale-110 dark:text-white"
-        onClick={() => console.log("XD")}
+        onClick={handleRejectTeam}
       >
         Reject
       </button>

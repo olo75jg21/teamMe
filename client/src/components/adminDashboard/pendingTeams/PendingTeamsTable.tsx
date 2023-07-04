@@ -4,15 +4,28 @@ import PendingTeamsRow from "./PendingTeamsRow";
 
 interface UsersListProps {
   teams: ITeam[];
+  acceptTeam: (id: string) => void;
+  rejectTeam: (id: string) => void;
 }
 
-const PendingTeamsTable: React.FC<UsersListProps> = ({ teams }) => {
+const PendingTeamsTable: React.FC<UsersListProps> = ({
+  teams,
+  acceptTeam,
+  rejectTeam,
+}) => {
   const headerItems = ["Creator", "Name", "Game", "", "", ""];
 
   const renderTeamsTableBody = (): JSX.Element[] => {
     if (!teams) return [];
     return teams.map((team: ITeam) => {
-      return <PendingTeamsRow key={team._id} team={team} />;
+      return (
+        <PendingTeamsRow
+          key={team._id}
+          team={team}
+          acceptTeam={acceptTeam}
+          rejectTeam={rejectTeam}
+        />
+      );
     });
   };
 
