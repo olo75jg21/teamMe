@@ -1,4 +1,4 @@
-# Team-Up - Online Application for Gamers Seeking Teammates
+# TeamMe - Online Application for Gamers Seeking Teammates
 
 Team-Up is a web application designed for gamers who are looking for teammates to form teams in online games such as League of Legends, CSGO, and VALORANT. The concept is similar to a classifieds portal, where each logged-in user can create a team offer, specifying the details of the players they are looking for and the game they want to play.
 
